@@ -18,7 +18,8 @@ fit_h = function(x, max_attempts=2, INIT=TRUE, tolerance = 0.01, possible_k = c(
 {
   stopifnot(inherits(x, 'cnaqc'))
 
-  mutations <- CNAqc::Mutations(x)
+  # mutations <- CNAqc::Mutations(x)
+  mutations <- Mutations(x)
 
   if(!nrow(mutations)*ncol(mutations)){
     stop("No mutations have been called on this CNAqc object.")
