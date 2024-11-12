@@ -25,7 +25,8 @@ fit_h = function(x, max_attempts=2, INIT=TRUE, tolerance = 0.01, possible_k = c(
     stop("No mutations have been called on this CNAqc object.")
   }
 
-  cna <- CNAqc::CNA(x)
+  # cna <- CNAqc::CNA(x)
+  cna <- CNA(x)
   # just while developing the package to accelerate the inference
   cna <- cna[1:32,]
 
