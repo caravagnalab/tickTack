@@ -5,8 +5,6 @@
 #' @param purity peaks
 #' @keywords peaks
 #' @export
-#' @examples
-#' get_clonal_peaks()
 
 get_clonal_peaks = function(k, purity) {
   multiplicities <- strsplit(k, ":") %>% unlist() %>% as.numeric()
@@ -25,8 +23,6 @@ get_clonal_peaks = function(k, purity) {
 #' @param k karyotype string
 #' @keywords karyotype
 #' @export
-#' @examples
-#' karyo_to_int()
 
 karyo_to_int <- function(k) {
   if (k == "2:1") return(1)
@@ -46,9 +42,7 @@ karyo_to_int <- function(k) {
 #' @return A tibble with the data.
 #' @export
 #'
-#' @examples
-#' data("example_PCAWG", package = 'CNAqc')
-#' Mutations(example_PCAWG)
+
 Mutations = function(x, cna = c("clonal", "subclonal"), type = c("SNV", "indel"))
 {
   # stopifnot(inherits(x, 'cnaqc'))
@@ -81,9 +75,7 @@ Mutations = function(x, cna = c("clonal", "subclonal"), type = c("SNV", "indel")
 #' @return A tibble with the data.
 #' @export
 #'
-#' @examples
-#' data("example_PCAWG", package = 'CNAqc')
-#' CNA(example_PCAWG)
+
 CNA = function(x, type = c("clonal", "subclonal"))
 {
   # stopifnot(inherits(x, 'cnaqc'))
@@ -97,7 +89,7 @@ CNA = function(x, type = c("clonal", "subclonal"))
   #   subclonal = x$cna_subclonal
   
   cna = dplyr::bind_rows(clonal, subclonal) %>%
-    dplyr::select(.data$chr, .data$from, .data$to, starts_with('Major'), starts_with('minor'), .data$CCF, dplyr::everything())
+    dplyr::select(.data$chr, .data$from, .data$to, dplyr::starts_with('Major'), dplyr::starts_with('minor'), .data$CCF, dplyr::everything())
   
   if((cna %>% nrow())== 0) cli::cli_alert_danger("No CNAs with these parameters: {.field {cna}}.")
   

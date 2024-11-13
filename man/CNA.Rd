@@ -17,7 +17,3 @@ A tibble with the data.
 \description{
 Getter to obtain copy number calls from an object.
 }
-\examples{
-data("example_PCAWG", package = 'CNAqc')
-CNA(example_PCAWG)
-}

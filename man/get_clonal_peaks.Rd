@@ -14,7 +14,4 @@ get_clonal_peaks(k, purity)
 \description{
 Obtain the theoretical peaks that would be observed in a VAF spectrum.
 }
-\examples{
-get_clonal_peaks()
-}
 \keyword{peaks}

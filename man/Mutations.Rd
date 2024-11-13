@@ -19,7 +19,3 @@ A tibble with the data.
 \description{
 Getter to obtain mutation calls from an object.
 }
-\examples{
-data("example_PCAWG", package = 'CNAqc')
-Mutations(example_PCAWG)
-}

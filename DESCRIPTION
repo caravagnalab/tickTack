@@ -12,7 +12,6 @@ RoxygenNote: 7.3.2
 Imports: 
     cli,
     cmdstanr,
-    CNAqc,
     dplyr,
     ggplot2,
     magrittr,

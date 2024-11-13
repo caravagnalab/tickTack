@@ -12,9 +12,13 @@ model_selection_h(
 )
 }
 \arguments{
-\item{data}{list of k_max of lists: $input_data:list: List of 7: $S: int, $N: int, $karyotype: num (0 or 1), $seg_assignment: num, $peaks:List of N of num \link{1:2}, $NV: num, $DP: num}
+\item{data}{list of k_max of lists: $input_data:list: List of 7: $S: int, $N: int, $karyotype: num (0 or 1), $seg_assignment: num, $peaks:List of N of num (1:2), $NV: num, $DP: num}
 
-\item{results}{list of lenght k_max of results form the variational method with the summary statistics of the draws from the approximate posterior}
+\item{draws_and_summary}{list of lenght k_max of draws form the variational method with the summary statistics of the draws from the approximate posterior}
+
+\item{log_lik_matrix_list}{list of lenght k_max}
+
+\item{elbo_iterations}{list of lenght k_max}
 }
 \value{
 result_model_selection: list $best_fit, $best_K, $model_selection_tibble, $entropy_list)

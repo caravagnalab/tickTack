@@ -38,7 +38,4 @@ best_fit
 \description{
 This function performs the inference using the ADVI algorithm. Repeat inference if it fails and repeat to avoid local minima, taking the best run.
 }
-\examples{
-fit_variational()
-}
 \keyword{variational}

@@ -12,7 +12,4 @@ karyo_to_int(k)
 \description{
 This function allows you to change the string representation of the CN events into numeric values 0 - 1.
 }
-\examples{
-karyo_to_int()
-}
 \keyword{karyotype}
