@@ -16,11 +16,11 @@ fit_variational_h(
 )
 }
 \arguments{
-\item{input_data}{list: List of 7: $S: int, $N: int, $karyotype: num (0 or 1), $seg_assignment: num, $peaks:List of N of num \link{1:2}, $NV: num, $DP: num}
+\item{input_data}{list: List of 7: $S: int, $N: int, $karyotype: num (0 or 1), $seg_assignment: num, $peaks:List of N of num (1:2), $NV: num, $DP: num}
 
 \item{max_attempts}{num: max number of repeated inference for ADVI}
 
-\item{initialization}{list: List of 4: $w: num \link{1:S, 1:3}, $tau: num \link{1:K}, $phi: num \link{1:K}, $kappa: num}
+\item{initialization}{list: List of 4: $w: num (1:S, 1:3), $tau: num (1:K), $phi: num (1:K), $kappa: num}
 
 \item{INIT}{logical: boolean variable to set the initialization phase to TRUE or FALSE}
 

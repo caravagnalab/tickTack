@@ -4,14 +4,14 @@
 #' @param mutations  list: output from CNAqc Mutations(x), where x is a CNAqc object
 #' @param cna list: output from CNAqc CNA(x), where x is a CNAqc object
 #' @param purity num: (type = double) sample purity between 0 and 1
-#' 
+#'
 #' @param possible_k chr: "2:1" "2:2" "2:0"
 #' @param alpha num: (type double) confidence interval level to choose the data that fall in the expected binomial intervals
 #' @param min_mutations_number num: (type double) minimum number of accepted mutations for a segment to be included in the inference
-#' 
+#'
 #' @return accepted_data: list $input_data:list: List of 7: $S: int, $N: int, $karyotype: num (0 or 1), $seg_assignment: num, $peaks:List of N of num [1:2], $NV: num, $DP: num
-#'                             $accepted_cna: tibble [S × 5] (S3: tbl_df/tbl/data.frame): $segment_original_indx: int, $segment_name: chr, $segment_id: num, $karyotype: chr, $chr: chr 
-#'                              
+#'                             $accepted_cna: tibble [S × 5] (S3: tbl_df/tbl/data.frame): $segment_original_indx: int, $segment_name: chr, $segment_id: num, $karyotype: chr, $chr: chr
+#'
 #' @keywords input
 #' @export
 #' @examples
@@ -30,7 +30,7 @@ prepare_input_data = function(mutations, segments, purity, possible_k = c("2:1",
   
   accapted_mutations_all <- dplyr::tibble()
   
-
+  
   
   accepted_segment_idx <- 0
   
@@ -40,7 +40,7 @@ prepare_input_data = function(mutations, segments, purity, possible_k = c("2:1",
     
     # Segments
     segment <- segments[segment_idx, ]
-    chr <- segment$chr                                               #getter ?$ 
+    chr <- segment$chr                                               #getter ?$
     
     segment_id <- paste(chr, segment$from, segment$to, sep = "_")
     
@@ -55,8 +55,8 @@ prepare_input_data = function(mutations, segments, purity, possible_k = c("2:1",
     if (k %in% possible_k) {
       # Get info for mutations
       segment_mutations <- mutations %>%
-        filter(chr == segment$chr,from > segment$from, to < segment$to) %>%
-        drop_na(DP)
+        dplyr::filter(chr == segment$chr,.data$from > segment$from, .data$to < segment$to) %>%
+        tidyr::drop_na(DP)
       
       accepted_mutations <- data.frame()
       if (nrow(segment_mutations) > 0) {
@@ -69,7 +69,7 @@ prepare_input_data = function(mutations, segments, purity, possible_k = c("2:1",
         accepted_idx <- lapply(1:length(DP), function(i) {
           #fisso i picchi per il segmento e vedo se tutte le mutazioni ricadono in almeno uno dei due intervalli intorno ai picchiche sono diversi a seconda del valore di DP per la specifica mutazione
           for (p in peaks) {
-            quantiles <- qbinom(probs, DP[i], p)
+            quantiles <- stats::qbinom(probs, DP[i], p)
             if ((NV[i] >= quantiles[1]) && (NV[i] <= quantiles[2])) {
               return(i)
             }
@@ -78,7 +78,7 @@ prepare_input_data = function(mutations, segments, purity, possible_k = c("2:1",
         
         # Get only good mutations
         accepted_mutations <- data.frame(DP = DP[accepted_idx], NV = NV[accepted_idx])
-      
+        
       }
       
       if (nrow(accepted_mutations) >= min_mutations_number) {
@@ -99,27 +99,27 @@ prepare_input_data = function(mutations, segments, purity, possible_k = c("2:1",
     }
   }
   
-        # check that there is at least one segment 
-        if(!nrow(accepted_segments_info)*ncol(accepted_segments_info)){
-          stop("No segments respected the constraint to perform the clock inference in this CNAqc object.")
-        }
-        
-        # then obtain the data "all together" and get the input for the variational model inference 
-        
-        accepted_cna <- accepted_segments_info[sort(accepted_segments_info$segment_id), ]
-        
-        
-        
-        input_data <- list(
-          S = nrow(accepted_cna),
-          N = nrow(accapted_mutations_all),
-          karyotype = lapply(accepted_cna$karyotype, karyo_to_int) %>% unlist(),
-          seg_assignment = accapted_mutations_all$segment_id, 
-          peaks = lapply(accepted_cna$karyotype, get_clonal_peaks, purity=purity ), # get_clonal_peaks(accepted_cna$karyotype, purity),
-          NV = accapted_mutations_all$NV,
-          DP = accapted_mutations_all$DP
-        )
-
-    accepted_data = list(input_data = input_data, accepted_cna = accepted_cna)
+  # check that there is at least one segment
+  if(!nrow(accepted_segments_info)*ncol(accepted_segments_info)){
+    stop("No segments respected the constraint to perform the clock inference in this CNAqc object.")
+  }
+  
+  # then obtain the data "all together" and get the input for the variational model inference
+  
+  accepted_cna <- accepted_segments_info[sort(accepted_segments_info$segment_id), ]
+  
+  
+  
+  input_data <- list(
+    S = nrow(accepted_cna),
+    N = nrow(accapted_mutations_all),
+    karyotype = lapply(accepted_cna$karyotype, karyo_to_int) %>% unlist(),
+    seg_assignment = accapted_mutations_all$segment_id,
+    peaks = lapply(accepted_cna$karyotype, get_clonal_peaks, purity=purity ), # get_clonal_peaks(accepted_cna$karyotype, purity),
+    NV = accapted_mutations_all$NV,
+    DP = accapted_mutations_all$DP
+  )
+  
+  accepted_data = list(input_data = input_data, accepted_cna = accepted_cna)
   return(accepted_data)
 }
