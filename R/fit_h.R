@@ -17,36 +17,36 @@
 fit_h = function(x, max_attempts=2, INIT=TRUE, tolerance = 0.01, possible_k = c("2:1", "2:2", "2:0"), alpha = .05, min_mutations_number = 2)
 {
   stopifnot(inherits(x, 'cnaqc'))
-
+  
   # mutations <- CNAqc::Mutations(x)
   mutations <- Mutations(x)
-
+  
   if(!nrow(mutations)*ncol(mutations)){
     stop("No mutations have been called on this CNAqc object.")
   }
-
+  
   # cna <- CNAqc::CNA(x)
   cna <- CNA(x)
   # just while developing the package to accelerate the inference
   cna <- cna[1:32,]
-
+  
   if(!nrow(cna)*ncol(cna)){
     stop("No CNA events have been called on this CNAqc object.")
   }
-
+  
   # extract from the CNAqc object: data = A tibble [N × 9] (S3: tbl_df/tbl/data.frame): (key + attribute type) $mutation: chr, $allele: chr, $type: chr "private", $karyotype:chr "2:2" "2:2" "2:2" "2:2",$segment_id: int, $DP: int, $NV: int, $tau: num (0 for real case analysis or num for validation analysis), $segment_name:chr, $segment_name_real:chr = segment_idx to keep track of the accepted/non accepted segments. The table is ordered with respect to the segment_id attribute (is it necessary?)
   mutations = mutations
   segments = cna
-
-
+  
+  
   # temporarly set the purity here or give it in input before implementing a getter for the purity
   purity = 0.9
   accepted_data <- prepare_input_data(mutations, segments, purity, possible_k = possible_k, alpha = alpha, min_mutations_number = min_mutations_number)
-
+  
   input_data = accepted_data$input_data
   accepted_cna = accepted_data$accepted_cna
-
-
+  
+  
   if (input_data$S <= 2){
     k_max = (input_data$S)
   } else if (input_data$S <= 7){
@@ -56,29 +56,29 @@ fit_h = function(x, max_attempts=2, INIT=TRUE, tolerance = 0.01, possible_k = c(
   } else{
     k_max = ceiling(sqrt(input_data$S))
   }
-
+  
   draws_and_summary = c()
   elbo_iterations = list()
   log_lik_matrix_list = list()
-
-
+  
+  
   # set k_max
   # before inference add K to the list obtained as input_data
   for (K in 1:k_max){
     input_data$K = K
-
+    
     if (INIT==TRUE){
       inits_chain <- get_initialization(input_data, purity = purity)
       res <- fit_variational_h(input_data,
-                             initialization = inits_chain,
-                             max_attempts = max_attempts,
-                             INIT = INIT,
-                             initial_iter = 1000,
-                             grad_samples = 10,
-                             elbo_samples = 100,
-                             tolerance = tolerance)
+                               initialization = inits_chain,
+                               max_attempts = max_attempts,
+                               INIT = INIT,
+                               initial_iter = 1000,
+                               grad_samples = 10,
+                               elbo_samples = 100,
+                               tolerance = tolerance)
     }
-
+    
     S = input_data$S
     # extract only what's needed from the fit
     names_tau <- paste("tau[", 1:K, "]", sep = "")
@@ -86,18 +86,19 @@ fit_h = function(x, max_attempts=2, INIT=TRUE, tolerance = 0.01, possible_k = c(
                            FUN = function(i, j) paste0("w[", i, ",", j, "]"))
     names_weights <- as.vector(names_weights)
     vars <- append (names_tau, names_weights)
-
+    
     tau_and_w_draws <- res$draws(variables = vars)
     tau_and_w_summary <- res$summary(variables = vars)
-
+    
     # implement it differenctly without stanfit?
     stanfit <- rstan::read_stan_csv(res$output_files())
     # Check log likelihood values  POSSO ESTRARRE LA LOG LIK DIRETTAMENTE DAL MODELLO E NON DALLE GENERATED QUANTITIES?
+    
     log_lik_matrix <- rstan::extract_log_lik(stanfit, parameter_name = "log_lik", merge_chains = TRUE) # merge chains potrebbe non servire  #getter?
     log_lik_matrix_list[[K]] <- log_lik_matrix
     result_single <- list(draws = tau_and_w_draws, summary = tau_and_w_summary)
     draws_and_summary[[K]] = result_single
-
+    
     output_files <- res$latent_dynamics_files()
     print(paste0("output_files ", output_files,"\n"))
     elbo_data <- utils::read.csv(output_files, header = FALSE, comment.char = "#")
@@ -105,17 +106,17 @@ fit_h = function(x, max_attempts=2, INIT=TRUE, tolerance = 0.01, possible_k = c(
     iterations <- elbo_data$iter  # iteration column
     elbo_values <- elbo_data$ELBO  # ELBO column
     elbo_df <- data.frame(iteration = iterations, elbo = elbo_values)
-
+    
     elbo_iterations[[K]] = elbo_df
-
+    
     # get summarized results from the draws (estimate of the paramenters and the relative confidence associated to them)
     # implement a function to get the fit like "get_posterior"
-
-
-
-
+    
+    
+    
+    
   }
-
+  
   results_and_data = list(data = input_data, draws_and_summary = draws_and_summary, log_lik_matrix_list = log_lik_matrix_list, elbo_iterations = elbo_iterations)
   x$results_timing = results_and_data
   return(x)
