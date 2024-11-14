@@ -90,13 +90,10 @@ fit_h = function(x, max_attempts=2, INIT=TRUE, tolerance = 0.01, possible_k = c(
     tau_and_w_draws <- res$draws(variables = vars)
     tau_and_w_summary <- res$summary(variables = vars)
     
-    # implement it differenctly without stanfit?
-    # stanfit <- rstan::read_stan_csv(res$output_files())
     # Check log likelihood values  POSSO ESTRARRE LA LOG LIK DIRETTAMENTE DAL MODELLO E NON DALLE GENERATED QUANTITIES?
     
-    # log_lik_matrix <- rstan::extract_log_lik(stanfit, parameter_name = "log_lik", merge_chains = TRUE) # merge chains potrebbe non servire  #getter?
-    log_lik <- res$draws(variables = "log_lik")
-    log_lik_matrix <- res$draws(variables = "log_lik_matrix")
+    # log_lik_contributions <- res$draws(variables = "log_lik_matrix")
+    log_lik_matrix <- res$draws(variables = "log_lik")
     log_lik_matrix_list[[K]] <- log_lik_matrix
     result_single <- list(draws = tau_and_w_draws, summary = tau_and_w_summary)
     draws_and_summary[[K]] = result_single
