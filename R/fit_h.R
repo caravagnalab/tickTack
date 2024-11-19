@@ -91,7 +91,7 @@ fit_h = function(x, max_attempts=2, INIT=TRUE, tolerance = 0.01, possible_k = c(
     tau_and_w_draws <- res$draws(variables = vars)
     tau_and_w_summary <- res$summary(variables = vars)
     
-    clock_assignment <- compute_clock_assignment(accepted_cna, tau_and_w_draws, data_simulation = NULL, best_K)
+    clock_assignment <- compute_clock_assignment(accepted_cna, tau_and_w_draws, tau_and_w_summary, best_K, data_simulation=NULL)
     
     summarized_results <- accepted_cna %>%
       mutate(clock_mean = clock_assignment$tau_inferred_median) %>%
