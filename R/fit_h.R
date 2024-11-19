@@ -91,12 +91,21 @@ fit_h = function(x, max_attempts=2, INIT=TRUE, tolerance = 0.01, possible_k = c(
     tau_and_w_draws <- res$draws(variables = vars)
     tau_and_w_summary <- res$summary(variables = vars)
     
+    clock_assignment <- compute_clock_assignment(accepted_cna, tau_and_w_draws, data_simulation = NULL, best_K)
+    
+    summarized_results <- accepted_cna %>%
+      mutate(clock_mean = clock_assignment$tau_inferred_median) %>%
+      mutate(clock_low = clock_assignment$tau_inferred_low) %>%
+      mutate(clock_high = clock_assignment$tau_inferred_high)
+
+
+    
     # Check log likelihood values  POSSO ESTRARRE LA LOG LIK DIRETTAMENTE DAL MODELLO E NON DALLE GENERATED QUANTITIES?
     
     # log_lik_contributions <- res$draws(variables = "log_lik_matrix")
     log_lik_matrix <- res$draws(variables = "log_lik")
     log_lik_matrix_list[[K]] <- log_lik_matrix
-    result_single <- list(draws = tau_and_w_draws, summary = tau_and_w_summary)
+    result_single <- list(draws = tau_and_w_draws, summary = tau_and_w_summary, summarized_results = summarized_results)
     draws_and_summary[[K]] = result_single
     
     output_files <- res$latent_dynamics_files()
