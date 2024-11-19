@@ -64,7 +64,7 @@ model_selection_h = function(data, draws_and_summary, log_lik_matrix_list, elbo_
     w_ICL <- tau_and_w_draws[, colnames(tau_and_w_draws) %in% names_weights]
     
     dim(w_ICL) = c(draws,S*K)
-    w_ICL <- apply(w_ICL, 2, .data$median) # median check over draws
+    w_ICL <- apply(w_ICL, 2, stats::median) # median check over draws
     dim(w_ICL) = c(S,K) # check by row
     w_ICL = t(w_ICL)
     

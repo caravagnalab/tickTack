@@ -28,7 +28,7 @@ fit_h = function(x, max_attempts=2, INIT=TRUE, tolerance = 0.01, possible_k = c(
   # cna <- CNAqc::CNA(x)
   cna <- CNA(x)
   # just while developing the package to accelerate the inference
-  cna <- cna[1:13,]
+  # cna <- cna[1:13,]
   
   if(!nrow(cna)*ncol(cna)){
     stop("No CNA events have been called on this CNAqc object.")
@@ -40,7 +40,8 @@ fit_h = function(x, max_attempts=2, INIT=TRUE, tolerance = 0.01, possible_k = c(
   
   
   # temporarly set the purity here or give it in input before implementing a getter for the purity
-  purity = 0.9
+  purity = x$metadata$purity
+  
   accepted_data <- prepare_input_data(mutations, segments, purity, possible_k = possible_k, alpha = alpha, min_mutations_number = min_mutations_number)
   
   input_data = accepted_data$input_data
@@ -116,7 +117,7 @@ fit_h = function(x, max_attempts=2, INIT=TRUE, tolerance = 0.01, possible_k = c(
     
   }
   
-  results_and_data = list(data = input_data, draws_and_summary = draws_and_summary, log_lik_matrix_list = log_lik_matrix_list, elbo_iterations = elbo_iterations)
+  results_and_data = list(data = accepted_data, draws_and_summary = draws_and_summary, log_lik_matrix_list = log_lik_matrix_list, elbo_iterations = elbo_iterations)
   x$results_timing = results_and_data
   return(x)
 }
