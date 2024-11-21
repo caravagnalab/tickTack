@@ -26,18 +26,16 @@ fit_h = function(x, max_attempts=2, INIT=TRUE, tolerance = 0.01, possible_k = c(
   }
   
   # cna <- CNAqc::CNA(x)
-  cna <- CNA(x)
+  segments <- CNA(x)
   # just while developing the package to accelerate the inference
   # cna <- cna[1:13,]
   
-  if(!nrow(cna)*ncol(cna)){
+  if(!nrow(segments)*ncol(segments)){
     stop("No CNA events have been called on this CNAqc object.")
   }
   
   # extract from the CNAqc object: data = A tibble [N × 9] (S3: tbl_df/tbl/data.frame): (key + attribute type) $mutation: chr, $allele: chr, $type: chr "private", $karyotype:chr "2:2" "2:2" "2:2" "2:2",$segment_id: int, $DP: int, $NV: int, $tau: num (0 for real case analysis or num for validation analysis), $segment_name:chr, $segment_name_real:chr = segment_idx to keep track of the accepted/non accepted segments. The table is ordered with respect to the segment_id attribute (is it necessary?)
   mutations = mutations
-  segments = cna
-  
   
   # temporarly set the purity here or give it in input before implementing a getter for the purity
   purity = x$metadata$purity
@@ -91,12 +89,12 @@ fit_h = function(x, max_attempts=2, INIT=TRUE, tolerance = 0.01, possible_k = c(
     tau_and_w_draws <- res$draws(variables = vars)
     tau_and_w_summary <- res$summary(variables = vars)
     
-    clock_assignment <- compute_clock_assignment(accepted_cna, tau_and_w_draws, tau_and_w_summary, best_K, data_simulation=NULL)
+    clock_assignment <- compute_clock_assignment(accepted_cna, tau_and_w_draws, tau_and_w_summary, K, data_simulation=NULL)
     
     summarized_results <- accepted_cna %>%
-      mutate(clock_mean = clock_assignment$tau_inferred_median) %>%
-      mutate(clock_low = clock_assignment$tau_inferred_low) %>%
-      mutate(clock_high = clock_assignment$tau_inferred_high)
+      dplyr::mutate(clock_mean = clock_assignment$tau_inferred_median) %>%
+      dplyr::mutate(clock_low = clock_assignment$tau_inferred_low) %>%
+      dplyr::mutate(clock_high = clock_assignment$tau_inferred_high)
 
 
     

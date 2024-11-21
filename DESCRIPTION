@@ -20,6 +20,7 @@ Imports:
     rlang,
     stats,
     TailRank,
+    tibble,
     tidyr,
     utils
 Depends: 
