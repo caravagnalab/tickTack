@@ -1,9 +1,8 @@
 pandoc: 3.1.11
 pkgdown: 2.1.1
 pkgdown_sha: ~
-articles:
-  Overview_tickTack: Overview_tickTack.html
-last_built: 2024-11-22T14:22Z
+articles: {}
+last_built: 2024-11-22T14:27Z
 urls:
   reference: https://caravagnalab.github.io/tickTack/reference
   article: https://caravagnalab.github.io/tickTack/articles
