@@ -82,7 +82,7 @@ CNA = function(x, type = c("clonal", "subclonal"))
   
   clonal = NULL
   # if("clonal" %in% type)
-  clonal = x$segments
+  clonal = x$cna
   
   subclonal = NULL
   # if(("subclonal" %in% type) & x$has_subclonal_CNA)
