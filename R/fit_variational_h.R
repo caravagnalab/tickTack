@@ -19,7 +19,8 @@
 
 fit_variational_h <- function(input_data, max_attempts = 2, initialization = NULL, INIT = TRUE, initial_iter = 1000, grad_samples = 10, elbo_samples = 100, tolerance = 0.01) {
   # Load the Stan model
-  model <- cmdstanr::cmdstan_model("../models/timing_mixed_simple.stan")
+  model <- model <- get_model("hierarchical") 
+  # cmdstanr::cmdstan_model("../models/timing_mixed_simple.stan")
   best_elbo <- -Inf  # Start with the worst possible ELBO
   best_fit <- NULL  # To store the best model fit
   total_attempts <- 0
