@@ -3,8 +3,7 @@ plot_inference_h = function(results, x_segments, input_data, colour_by = "karyot
   segments <- x_segments[ x_segments$chr %in% results$data$accepted_cna$chr, ]
   
   # reference_genome <- CNAqc::chr_coordinates_GRCh38
-  load("../tickTack/data/chr_coordinates_GRCh38.rda")
-  reference_genome <- chr_coordinates_GRCh38
+  reference_genome <- tickTack::chr_coordinates_GRCh38
   
   vfrom = reference_genome$from
   names(vfrom) = reference_genome$chr
@@ -29,7 +28,7 @@ plot_inference_h = function(results, x_segments, input_data, colour_by = "karyot
       legend.position = "bottom",
       axis.text.x = ggplot2::element_text(angle = 90)) +
     ggplot2::lims(y = c(0,1)) +
-    ggplot2::labs(x = "chromosome", y = bquote(tau))
+    ggplot2::labs(x = "chromosome", y = "clock estimate") #bquote(tau)
   # scale_fill_manual(values = c("forestgreen", "indianred3", "steelblue"), name = "")
   
   return(p)
