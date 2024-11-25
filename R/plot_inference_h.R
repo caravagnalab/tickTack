@@ -1,3 +1,17 @@
+#' prepare_input_data Function
+#'
+#' This function obtains the list of input data to be used in the stan model.
+#' @param results   list(data = input_data_list, results = results, output_files_list = output_files_list)
+#' @param x_segments  tibble((S3: tbl_df/tbl/data.frame) chr, from, to, Major, minor, total_cn data$cna) 
+#' @param input_data List of 7: $S: int, $N: int, $karyotype: num (0 or 1), $seg_assignment: num, $peaks:List of N of num (1:2), $NV: num, $DP: num
+#' @param colour_by chr: default =  "karyotype"
+#' @param K mun: number of clocks
+#' 
+#' @return p : plot of inference results with credibility intervals in the chromosome absolute positions
+#' 
+#' @keywords plot
+#' @export
+
 plot_inference_h = function(results, x_segments, input_data, colour_by = "karyotype", K) {
   
   segments <- x_segments[ x_segments$chr %in% results$data$accepted_cna$chr, ]
