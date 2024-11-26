@@ -122,33 +122,33 @@ library(tickTack)
 
 
 
-```{r data}
+```{r real data}
 # Load template data
 data <- tickTack::pcawg_example
 
 library(tibble)
 library(dplyr)
 
-data_reduced <- list(mutations = tibble( data$mutations %>% filter(chr %in% paste0("chr",c(1:4)))), 
-                     cna = tibble( data$cna %>% filter(chr %in% paste0("chr",c(1:4)))),
+data_reduced <- list(mutations = tibble( data$mutations %>% filter(chr %in% paste0("chr",c(1:10)))), 
+                     cna = tibble( data$cna %>% filter(chr %in% paste0("chr",c(1:10)))),
                      metadata = tibble(purity = data$metadata$purity))
 data_reduced <- tickTack::fit_h(data_reduced, max_attempts=2, INIT=TRUE, tolerance = 0.1)
 results <- data_reduced$results_timing
 
-# 
-# input_data <- results$data$input_data
-# draws_and_summary <- results$draws_and_summary
-# log_lik_matrix_list <- results$log_lik_matrix_list
-# elbo_iterations <- results$elbo_iterations
-# 
-# results_model_selection <- model_selection_h(input_data, draws_and_summary, log_lik_matrix_list, elbo_iterations)
-# 
-# best_K <- results_model_selection$best_K
-# model_selection_tibble <- results_model_selection$model_selection_tibble
-# entropy <- results_model_selection$entropy_list
+
+input_data <- results$data$input_data
+draws_and_summary <- results$draws_and_summary
+log_lik_matrix_list <- results$log_lik_matrix_list
+elbo_iterations <- results$elbo_iterations
+
+results_model_selection <- model_selection_h(input_data, draws_and_summary, log_lik_matrix_list, elbo_iterations)
+
+best_K <- results_model_selection$best_K
+model_selection_tibble <- results_model_selection$model_selection_tibble
+entropy <- results_model_selection$entropy_list
 
 
-p <- plot_inference_h(results, data_reduced$cna, input_data, colour_by = "karyotype", 3)
+p <- plot_inference_h(results, best_K)
 p
 
 
@@ -156,26 +156,3 @@ p
 
 
 
-
-
-
-
-
-
-```{r plot, fig.show='hold'}
-# plot(1:10)
-# plot(10:1)
-```
-
-
-```{r table, echo=FALSE, results='asis'}
-# knitr::kable(head(mtcars, 10))
-```
-
-Also a quote using `>`:
-
-> "He who gives up [code] safety for [code] speed deserves neither."
-([via](https://twitter.com/hadleywickham/status/504368538874703872))
- 
- 
- 

@@ -1,4 +1,4 @@
-#' prepare_input_data Function
+#' plot_inference_h Function
 #'
 #' This function obtains the list of input data to be used in the stan model.
 #' @param results   list(data = input_data_list, results = results, output_files_list = output_files_list)
@@ -12,11 +12,14 @@
 #' @keywords plot
 #' @export
 
-plot_inference_h = function(results, x_segments, input_data, colour_by = "karyotype", K) {
+plot_inference_h = function(results, K, colour_by = "karyotype", split_contiguous_segments = TRUE) {
   
-  segments <- x_segments[ x_segments$chr %in% results$data$accepted_cna$chr, ]
+  #segments <- x_segments[ x_segments$chr %in% results$data$accepted_cna$chr, ]
   
-  # reference_genome <- CNAqc::chr_coordinates_GRCh38
+  segments <- results$data$accepted_cna
+  segments$from = lapply(segments$segment_name, function(s) {unlist(strsplit(s, "_"))[2]}) %>% unlist() %>% as.numeric()
+  segments$to = lapply(segments$segment_name, function(s) {unlist(strsplit(s, "_"))[3]}) %>% unlist() %>% as.numeric()
+  
   reference_genome <- tickTack::chr_coordinates_GRCh38
   
   vfrom = reference_genome$from
@@ -24,7 +27,7 @@ plot_inference_h = function(results, x_segments, input_data, colour_by = "karyot
   
   absoulte_segments <- segments %>%
     dplyr::mutate(from = .data$from + vfrom[.data$chr],
-           to = .data$to + vfrom[.data$chr])
+                  to = .data$to + vfrom[.data$chr])
   
   summarized_results <- results$draws_and_summary[[K]]$summarized_results %>%
     dplyr::mutate(from = absoulte_segments[.data$segment_id,]$from) %>%
@@ -42,8 +45,23 @@ plot_inference_h = function(results, x_segments, input_data, colour_by = "karyot
       legend.position = "bottom",
       axis.text.x = ggplot2::element_text(angle = 90)) +
     ggplot2::lims(y = c(0,1)) +
-    ggplot2::labs(x = "chromosome", y = "clock estimate") #bquote(tau)
+    ggplot2::labs(x = "Chromosome", y = bquote("Pseudotime"~tau), fill=colour_by)
   # scale_fill_manual(values = c("forestgreen", "indianred3", "steelblue"), name = "")
+  
+  if (split_contiguous_segments) {
+    p <- p +
+      ggplot2::geom_segment(data = summarized_results, ggplot2::aes(y = .data$tau_low, yend = .data$tau_high, x = .data$from, xend = .data$from), linetype = "dashed", color = "darkslategray") +
+      ggplot2::geom_segment(data = summarized_results, ggplot2::aes(y = .data$tau_low, yend = .data$tau_high, x = .data$to, xend = .data$to), linetype = "dashed", color = "darkslategray")
+  }
   
   return(p)
 }
+
+
+
+
+
+
+
+
+
