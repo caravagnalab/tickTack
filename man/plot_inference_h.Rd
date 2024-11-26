@@ -2,20 +2,25 @@
 % Please edit documentation in R/plot_inference_h.R
 \name{plot_inference_h}
 \alias{plot_inference_h}
-\title{prepare_input_data Function}
+\title{plot_inference_h Function}
 \usage{
-plot_inference_h(results, x_segments, input_data, colour_by = "karyotype", K)
+plot_inference_h(
+  results,
+  K,
+  colour_by = "karyotype",
+  split_contiguous_segments = TRUE
+)
 }
 \arguments{
 \item{results}{list(data = input_data_list, results = results, output_files_list = output_files_list)}
 
-\item{x_segments}{tibble((S3: tbl_df/tbl/data.frame) chr, from, to, Major, minor, total_cn data$cna)}
-
-\item{input_data}{List of 7: $S: int, $N: int, $karyotype: num (0 or 1), $seg_assignment: num, $peaks:List of N of num (1:2), $NV: num, $DP: num}
+\item{K}{mun: number of clocks}
 
 \item{colour_by}{chr: default =  "karyotype"}
 
-\item{K}{mun: number of clocks}
+\item{x_segments}{tibble((S3: tbl_df/tbl/data.frame) chr, from, to, Major, minor, total_cn data$cna)}
+
+\item{input_data}{List of 7: $S: int, $N: int, $karyotype: num (0 or 1), $seg_assignment: num, $peaks:List of N of num (1:2), $NV: num, $DP: num}
 }
 \value{
 p : plot of inference results with credibility intervals in the chromosome absolute positions
