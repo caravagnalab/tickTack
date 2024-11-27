@@ -18,9 +18,7 @@ plot_inference_h(
 
 \item{colour_by}{chr: default =  "karyotype"}
 
-\item{x_segments}{tibble((S3: tbl_df/tbl/data.frame) chr, from, to, Major, minor, total_cn data$cna)}
-
-\item{input_data}{List of 7: $S: int, $N: int, $karyotype: num (0 or 1), $seg_assignment: num, $peaks:List of N of num (1:2), $NV: num, $DP: num}
+\item{split_contiguous_segments}{option to plot segments' setalarion lines}
 }
 \value{
 p : plot of inference results with credibility intervals in the chromosome absolute positions

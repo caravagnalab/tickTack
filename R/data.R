@@ -51,3 +51,17 @@
 
 
 
+#' pcawg_example_2
+#'
+#' Pcawg example to test timing inference
+#'
+#' @format ## `pcawg_example_2`
+#' A list:
+#' \describe{
+#'   \item{mutations}{A tibble with observed mutations}
+#'   \item{cna}{A tibble with observed copy number alterations}
+#'   \item{metadata}{A tibble containing sample metadata}
+#' }
+#' @source .
+"pcawg_example_2"
+
