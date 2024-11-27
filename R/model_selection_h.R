@@ -126,14 +126,15 @@ model_selection_h = function(data, draws_and_summary, log_lik_matrix_list, elbo_
   }
   
   entropy_list <- list(entropy_per_segment_matrix = entropy_per_segment_matrix, entropy_per_segment_matrix_norm = entropy_per_segment_matrix_norm)
-  
-  # model_selection_tibble_temp <- model_selection_tibble[1:2, bycol= TRUE]
-  # best_K_temp <- model_selection_tibble_temp %>% dplyr::filter(BIC == min(BIC)) %>% dplyr::pull(K)
-  # 
-  # if (best_K_temp!=1){
-  #   if (k_max==2){
-  #     best_K <- 2
-  #   }else{
+
+  model_selection_tibble_temp <- model_selection_tibble[1:2, bycol= TRUE]
+  best_K_temp <- model_selection_tibble_temp %>% dplyr::filter(BIC == min(BIC)) %>% dplyr::pull(K)
+
+  if (best_K_temp!=1){
+    if (k_max==2){
+      best_K <- 2
+    }else{
+      
   #     while(mean(entropy_per_segment_matrix_norm[best_K_temp+1,]) - mean(entropy_per_segment_matrix_norm[best_K_temp,]) < 0 & best_K_temp < k_max ){
   #       best_K_temp = best_K_temp + 1
   #       if ( best_K_temp == k_max ){
@@ -143,9 +144,12 @@ model_selection_h = function(data, draws_and_summary, log_lik_matrix_list, elbo_
   #   best_K <- 1
   # }
   # best_K <- best_K_temp
-  
-  best_K <- model_selection_tibble %>% dplyr::filter(ICL == min(ICL)) %>% dplyr::pull(K)
-  
+      model_selection_tibble_temp <- model_selection_tibble[2:k_max, bycol= TRUE]
+      best_K <- model_selection_tibble_temp %>% dplyr::filter(ICL == min(ICL)) %>% dplyr::pull(K)
+    }
+  }else {
+    best_K <- 1}
+       
   if(best_K==k_max){
     cli::cli_alert_info("The algorithm should be run with more Components ")
   }
