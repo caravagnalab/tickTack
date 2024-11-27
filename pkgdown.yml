@@ -3,7 +3,7 @@ pkgdown: 2.1.1
 pkgdown_sha: ~
 articles:
   tickTack: tickTack.html
-last_built: 2024-11-27T09:29Z
+last_built: 2024-11-27T11:41Z
 urls:
   reference: https://caravagnalab.github.io/tickTack/reference
   article: https://caravagnalab.github.io/tickTack/articles
