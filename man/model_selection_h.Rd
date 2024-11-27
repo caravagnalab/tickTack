@@ -8,7 +8,8 @@ model_selection_h(
   data,
   draws_and_summary,
   log_lik_matrix_list,
-  elbo_iterations
+  elbo_iterations,
+  n_components = 0
 )
 }
 \arguments{
@@ -19,6 +20,8 @@ model_selection_h(
 \item{log_lik_matrix_list}{list of lenght k_max}
 
 \item{elbo_iterations}{list of lenght k_max}
+
+\item{n_components}{number of components specified from user}
 }
 \value{
 result_model_selection: list $best_fit, $best_K, $model_selection_tibble, $entropy_list)
