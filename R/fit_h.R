@@ -10,11 +10,11 @@
 #' @param possible_k chr: "2:1" "2:2" "2:0"
 #' @param alpha num: (type double) confidence interval level to choose the data that fall in the expected binomial intervals
 #' @param min_mutations_number num: (type double) minimum number of accepted mutations for a segment to be included in the inference
-#'
+#' @param n_components  number of components specified from user 
 #'
 #' @return   results_and_data = list(data = input_data_list, results = results, output_files_list = output_files_list)
 #' @export
-fit_h = function(x, max_attempts=2, INIT=TRUE, tolerance = 0.01, possible_k = c("2:1", "2:2", "2:0"), alpha = .05, min_mutations_number = 2)
+fit_h = function(x, max_attempts=2, INIT=TRUE, tolerance = 0.01, possible_k = c("2:1", "2:2", "2:0"), alpha = .05, min_mutations_number = 2, n_components = 0)
 {
   # stopifnot(inherits(x, 'cnaqc'))
   
@@ -45,8 +45,9 @@ fit_h = function(x, max_attempts=2, INIT=TRUE, tolerance = 0.01, possible_k = c(
   input_data = accepted_data$input_data
   accepted_cna = accepted_data$accepted_cna
   
-  
-  if (input_data$S <= 2){
+  if (n_components != 0){
+    k_max = n_components
+  } else if (input_data$S <= 2){
     k_max = (input_data$S)
   } else if (input_data$S <= 7){
     k_max = (input_data$S-1)

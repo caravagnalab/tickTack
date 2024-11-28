@@ -11,7 +11,8 @@ fit_h(
   tolerance = 0.01,
   possible_k = c("2:1", "2:2", "2:0"),
   alpha = 0.05,
-  min_mutations_number = 2
+  min_mutations_number = 2,
+  n_components = 0
 )
 }
 \arguments{
@@ -28,6 +29,8 @@ fit_h(
 \item{alpha}{num: (type double) confidence interval level to choose the data that fall in the expected binomial intervals}
 
 \item{min_mutations_number}{num: (type double) minimum number of accepted mutations for a segment to be included in the inference}
+
+\item{n_components}{number of components specified from user}
 }
 \value{
 results_and_data = list(data = input_data_list, results = results, output_files_list = output_files_list)
