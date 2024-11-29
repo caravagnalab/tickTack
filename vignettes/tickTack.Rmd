@@ -27,7 +27,6 @@ The tool uses chromosome coordinates to map mutations to segments. The conversio
 
 tickTack can be used to time the genomic segmnents affected by a Copy Number event, identifying the main clocks at which the event can be associated.
 
-## The model
 
 
 The following concepts are used to infer copy number timing.
@@ -36,7 +35,7 @@ The following concepts are used to infer copy number timing.
 
 The point mutations that are present on the duplicated region are duplicated in copy with the segment. Therefore we can use the proportion of mutations happede before and after the Copy Number event distinguishing between mutations in single copy and double copies.
 
-<img src="timing_problem.png" alt="Overview timing problem" width="650"/><br>
+<img src="timing_problem.png" alt="Overview timing problem" width="650" style="display: block; margin: 0 auto" /><br>
 
 
 Therefore, for a single segment the value of the clock associated with the Copy Number event is obtained as a transformation from the proportions of mutations in single and double copy.
@@ -50,7 +49,7 @@ The following quantities need to be considered:
 \end{itemize}
 
 
-<img src="Mutations_single_double_copy_draw_process.png" alt="Overview timing problem" width="650"/><br>
+<img src="Mutations_single_double_copy_draw_process.png" alt="Overview timing problem" width="650" style="display: block; margin: 0 auto"/><br>
 
 
 \subsubsection{2:1}
@@ -60,7 +59,7 @@ In the case of a trisomy without LOH, we can consider the fact that, before $\ta
 \begin{align}
     \begin{cases}
         N_2 = \rho \tau  
-        N_1 = \rho \tau + 3\rho(1 - \tau) \nonumber % Use \nonumber to prevent numbering for a specific line
+        N_1 = \rho \tau + 3\rho(1 - \tau) \nonumber 
     \end{cases}
 \end{align}
 
@@ -115,44 +114,175 @@ v_m(c) = \dfrac{m \pi c}{
 
 
 
+## The model
+
+<img src="pgm.png" alt="Overview timing problem" width="650" style="display: block; margin: 0 auto"/><br>
+
+
+
+Here we show an example of the model application on real data from the Pan-Cancer Analysis of
+ Whole Genomes (PCAWG) cohort, specifically from a Renal Cell Carcinoma (Kidney-RCC) tumor type sample. 
+
+
 ```{r setup, warning=FALSE}
 library(tickTack)
-
+# library(gridExtra)
+# library(ggplot2)
+# library(bayesplot)
 ```
 
 
-
-```{r real data}
+```{r real data Kidney, echo = T, results = 'hide', warning=FALSE}
 # Load template data
-data <- tickTack::pcawg_example
+tickTack::pcawg_example_2
+data <- pcawg_example_2
 
-library(tibble)
-library(dplyr)
+# library(tibble)
+# library(dplyr)
 
-data_reduced <- list(mutations = tibble( data$mutations %>% filter(chr %in% paste0("chr",c(1:10)))), 
-                     cna = tibble( data$cna %>% filter(chr %in% paste0("chr",c(1:10)))),
-                     metadata = tibble(purity = data$metadata$purity))
-data_reduced <- tickTack::fit_h(data_reduced, max_attempts=2, INIT=TRUE, tolerance = 0.1)
-results <- data_reduced$results_timing
+tolerance <- 0.1
 
+
+data <- tickTack::fit_h(data, max_attempts=2, INIT=TRUE, tolerance = tolerance, n_components = 0)
+results <- data$results_timing
+
+
+clock_assignment <- results$draws_and_summary[[3]]$summarized_results
 
 input_data <- results$data$input_data
 draws_and_summary <- results$draws_and_summary
 log_lik_matrix_list <- results$log_lik_matrix_list
 elbo_iterations <- results$elbo_iterations
 
-results_model_selection <- model_selection_h(input_data, draws_and_summary, log_lik_matrix_list, elbo_iterations)
+
+results_model_selection <- model_selection_h(input_data, draws_and_summary, log_lik_matrix_list, elbo_iterations, n_components = 0)
+
 
 best_K <- results_model_selection$best_K
 model_selection_tibble <- results_model_selection$model_selection_tibble
 entropy <- results_model_selection$entropy_list
 
 
-p <- plot_inference_h(results, best_K)
+p <- tickTack::plot_inference_h(results, best_K)
 p
-
 
 ```
 
+
+
+
+
+
+
+
+<!-- ```{r source plot, include=TRUE} -->
+<!-- source("./plotting_function.R", local = knitr::knit_global()) -->
+<!-- ``` -->
+
+
+
+
+
+
+<!-- ```{r visualize, echo = T, warning=FALSE, fig.align='center'} -->
+<!-- # Visualize distributions of draws from the approximate posterior -->
+<!-- library(bayesplot) -->
+<!-- library(ggplot2) -->
+<!-- library(stringr) -->
+<!-- library(patchwork) -->
+
+<!-- K = nrow(results_model_selection$model_selection_tibble) -->
+<!-- S = nrow(results$data$accepted_cna) -->
+
+
+<!-- ``` -->
+
+
+
+
+
+
+
+<!-- ```{r tau, echo = T, fig.align='center'} -->
+<!-- # from bayesplot -->
+<!-- draws <- results$draws_and_summary[[best_K]]$draws -->
+
+<!-- names <- paste("tau[", 1:best_K, "]", sep = "") -->
+
+<!-- areas_tau <- mcmc_areas( -->
+<!-- draws, -->
+<!-- pars = names, -->
+<!-- prob = 0.8, # 80% intervals -->
+<!-- prob_outer = 0.95, # 99% -->
+<!-- point_est = "median" -->
+<!-- )+ -->
+<!-- labs( -->
+<!-- title = "Approximate Posterior distributions", -->
+<!-- subtitle = "With median and 80% and 95% intervals" -->
+<!-- )+ -->
+<!-- xlim(0, 1) # + scale_x_continuous(breaks = c(1:5), labels = c("A", "B", "C", "D", "E")) -->
+<!-- areas_tau -->
+
+
+<!-- ``` -->
+
+
+<!-- ```{r weights, echo = T, fig.height = 6, fig.width = 12, fig.align = "center"} -->
+<!-- # from bayesplot -->
+<!-- intervals_weigths_per_tau <- list() -->
+<!-- for (k in 1:best_K){ -->
+<!--   names_weights <- paste("w[",1:S,",", k, "]", sep = "") -->
+<!--   p <- mcmc_intervals(draws, pars = names_weights, point_est = "median", prob = 0.8, prob_outer = 0.95)+ -->
+<!--     labs( -->
+<!--     title =  str_wrap( paste0("Posterior distributions of the weigths for tau ",k), width = 30 + K + sqrt(S)), -->
+<!--     subtitle = "With median and 80% and 95% intervals" -->
+<!--     ) -->
+<!--    intervals_weigths_per_tau[[k]] <- ggplotGrob(p) -->
+<!-- } -->
+<!-- p <- gridExtra::grid.arrange(grobs = intervals_weigths_per_tau, ncol= best_K) #add global title -->
+<!-- p -->
+
+
+
+<!-- ``` -->
+
+
+<!-- ```{r elbo, echo = T, fig.height = 20, fig.width = 12, fig.align = "center"} -->
+
+<!-- # visualize elbo -->
+<!-- p_elbo <- list() -->
+<!-- for (i in 1:K){ -->
+<!--   p_elbo[[i]] <- plot_elbo(elbo_iterations, i) + ggtitle(paste0("K = ", i)) -->
+<!--   saveRDS(p_elbo, paste0("./plots/elbo_vs_iterations_",i,".rds")) -->
+<!-- } -->
+<!-- p_elbo <- gridExtra::grid.arrange(grobs = p_elbo, nrow=K)  #add global title -->
+<!-- p_elbo -->
+
+<!-- ``` -->
+
+
+
+<!-- ```{r model, echo = T, fig.height = 8, fig.width = 12, fig.align = "center"} -->
+
+<!-- # visualize model selection scores -->
+
+<!-- p_model_selection <- plotting_model_selection(model_selection_tibble, best_K, entropy) -->
+<!-- p_model_selection -->
+
+<!-- cat("Best K =",best_K) -->
+
+<!-- ``` -->
+
+
+<!-- ```{r plots, echo = T, fig.height = 18, fig.width = 12, fig.align = "center"} -->
+
+<!-- plot_model_selection_inference <- list() -->
+<!-- for (i in 1:K){ -->
+<!--   plot_model_selection_inference[[i]] <- tickTack::plot_inference_h(results, i) + ggtitle(paste0("K = ", i)) -->
+<!-- } -->
+<!-- plot_model_selection_inference <- gridExtra::grid.arrange(grobs = plot_model_selection_inference, nrow=K) #add global title -->
+<!-- plot_model_selection_inference -->
+
+<!-- ``` -->
 
 
