@@ -6,6 +6,8 @@
 \alias{tickTack-package}
 \title{tickTack: Timing Inference for Copy number alterations: Tracking Alterations in Cancer Karyotypes}
 \description{
+\if{html}{\figure{logo.png}{options: style='float: right' alt='logo' width='120'}}
+
 What the package does (one paragraph).
 }
 \seealso{
