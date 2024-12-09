@@ -31,6 +31,14 @@
       <ul class="navbar-nav me-auto">
 <li class="active nav-item"><a class="nav-link" href="../articles/tickTack.html">Get started</a></li>
 <li class="nav-item"><a class="nav-link" href="../reference/index.html">Reference</a></li>
+<li class="nav-item dropdown">
+  <button class="nav-link dropdown-toggle" type="button" id="dropdown-articles" data-bs-toggle="dropdown" aria-expanded="false" aria-haspopup="true">Articles</button>
+  <ul class="dropdown-menu" aria-labelledby="dropdown-articles">
+<li><a class="dropdown-item" href="../articles/a1_introduction.html">1. Introduction</a></li>
+    <li><a class="dropdown-item" href="../articles/a2_Single_segment_timing.html">2. Timing Clonal Peaks</a></li>
+    <li><a class="dropdown-item" href="../articles/a3_Understanding_single_segment_timing.html">3. Understanding Timing Clonal Peaks</a></li>
+  </ul>
+</li>
       </ul>
 <ul class="navbar-nav">
 <li class="nav-item"><form class="form-inline" role="search">
@@ -61,19 +69,28 @@
 <div class="section level2">
 <h2 id="overview">Overview<a class="anchor" aria-label="anchor" href="#overview"></a>
 </h2>
-<p>tickTack requires in input a CNAqc object with attributes cna,
-mutations and metadata. The main input for the tool are: * the read
-counts from somatic mutations such as single-nucleotide variants (SNVs)
-in the mutation attribute; * allele-specific copy number segments (CNAs)
-for clonal segments must be encoded in the cna attribute; * a tumor
-purity estimate in the metadata.</p>
+<p><code>tickTack</code> requires as input a <code>CNAqc</code> object
+with attributes <code>cna</code>, <code>mutations</code> and
+<code>metadata</code>. The main input for the tool are:</p>
+<ul>
+<li>the read counts from somatic mutations such as single-nucleotide
+variants (SNVs) in the mutation attribute;</li>
+<li>allele-specific copy number segments (CNAs) for clonal segments must
+be encoded in the cna attribute;</li>
+<li>a tumor purity estimate in the metadata.</li>
+</ul>
 <p>The tool uses chromosome coordinates to map mutations to segments.
 The conversion of relative to absolute genome coordinates requires to
 fix a reference genome build; supported reference is GRCh38/hg17 that is
 also supported in CNAqc.</p>
-<p>tickTack can be used to time the genomic segmnents affected by a Copy
-Number event, identifying the main clocks at which the event can be
-associated.</p>
+<p><code>tickTack</code> can be used to:</p>
+<ul>
+<li>time the genomic segments affected by a Copy Number event, obtaining
+one clock per segment</li>
+<li>time multiple CNAs in a hierarchical fashion, identifying
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mi>K</mi><annotation encoding="application/x-tex">K</annotation></semantics></math>
+clocks that cluster some segemnts together.</li>
+</ul>
 <p>The following concepts are used to infer copy number timing.</p>
 <div class="section level3">
 <h3 id="vaf-peaks">VAF peaks<a class="anchor" aria-label="anchor" href="#vaf-peaks"></a>
@@ -82,12 +99,12 @@ associated.</p>
 duplicated in copy with the segment. Therefore we can use the proportion
 of mutations happede before and after the Copy Number event
 distinguishing between mutations in single copy and double copies.</p>
-<p><img src="timing_problem.png" alt="Overview timing problem" width="650" style="display: block; margin: 0 auto"><br></p>
+<p><img src="img%2Ftiming_problem.png" alt="Overview timing problem" width="650" style="display: block; margin: 0 auto"><br></p>
 <p>Therefore, for a single segment the value of the clock associated
 with the Copy Number event is obtained as a transformation from the
 proportions of mutations in single and double copy. The following
 quantities need to be considered:</p>
-<p><img src="Mutations_single_double_copy_draw_process.png" alt="Overview timing problem" width="650" style="display: block; margin: 0 auto"><br></p>
+<p><img src="img%2FMutations_single_double_copy_draw_process.png" alt="Overview timing problem" width="650" style="display: block; margin: 0 auto"><br></p>
 <p>In the case of a trisomy without LOH, we can consider the fact that,
 before
 <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mi>τ</mi><annotation encoding="application/x-tex">\tau</annotation></semantics></math>,
@@ -165,96 +182,49 @@ and from the normal is
 <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mn>2</mn><mrow><mo stretchy="true" form="prefix">(</mo><mn>1</mn><mo>−</mo><mi>π</mi><mo stretchy="true" form="postfix">)</mo></mrow></mrow><annotation encoding="application/x-tex">2(1-\pi)</annotation></semantics></math>.
 Then, muations present in
 <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mi>m</mi><annotation encoding="application/x-tex">m</annotation></semantics></math>
-copies of the tumour genome should peak at VAF value
-<math display="block" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><msub><mi>v</mi><mi>m</mi></msub><mrow><mo stretchy="true" form="prefix">(</mo><mi>c</mi><mo stretchy="true" form="postfix">)</mo></mrow><mo>=</mo><mfrac displaystyle="true"><mrow><mi>m</mi><mi>π</mi><mi>c</mi></mrow><mrow><mn>2</mn><mrow><mo stretchy="true" form="prefix">(</mo><mn>1</mn><mo>−</mo><mi>π</mi><mo stretchy="true" form="postfix">)</mo></mrow><mo>+</mo><mi>π</mi><mrow><mo stretchy="true" form="prefix">(</mo><msub><mi>n</mi><mi>A</mi></msub><mo>+</mo><msub><mi>n</mi><mi>B</mi></msub><mo stretchy="true" form="postfix">)</mo></mrow></mrow></mfrac><mspace width="0.167em"></mspace><mi>.</mi></mrow><annotation encoding="application/x-tex">
+copies of the tumour genome should peak at VAF value</p>
+<p><math display="block" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><msub><mi>v</mi><mi>m</mi></msub><mrow><mo stretchy="true" form="prefix">(</mo><mi>c</mi><mo stretchy="true" form="postfix">)</mo></mrow><mo>=</mo><mfrac displaystyle="true"><mrow><mi>m</mi><mi>π</mi><mi>c</mi></mrow><mrow><mn>2</mn><mrow><mo stretchy="true" form="prefix">(</mo><mn>1</mn><mo>−</mo><mi>π</mi><mo stretchy="true" form="postfix">)</mo></mrow><mo>+</mo><mi>π</mi><mrow><mo stretchy="true" form="prefix">(</mo><msub><mi>n</mi><mi>A</mi></msub><mo>+</mo><msub><mi>n</mi><mi>B</mi></msub><mo stretchy="true" form="postfix">)</mo></mrow></mrow></mfrac><mspace width="0.167em"></mspace><mi>.</mi></mrow><annotation encoding="application/x-tex">
 v_m(c) = \dfrac{m \pi c}{
 2 (1 - \pi) + \pi (n_A+n_B)
 } \, .
 </annotation></semantics></math></p>
-</div>
-</div>
-<div class="section level2">
-<h2 id="the-model">The model<a class="anchor" aria-label="anchor" href="#the-model"></a>
-</h2>
-<p><img src="pgm.png" alt="Overview timing problem" width="650" style="display: block; margin: 0 auto"><br></p>
-<p>Here we show an example of the model application on real data from
-the Pan-Cancer Analysis of Whole Genomes (PCAWG) cohort, specifically
-from a Renal Cell Carcinoma (Kidney-RCC) tumor type sample.</p>
-<div class="sourceCode" id="cb1"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span><span class="kw"><a href="https://rdrr.io/r/base/library.html" class="external-link">library</a></span><span class="op">(</span><span class="va"><a href="https://caravagnalab.github.io/tickTack/">tickTack</a></span><span class="op">)</span></span>
-<span><span class="co"># library(gridExtra)</span></span>
-<span><span class="co"># library(ggplot2)</span></span>
-<span><span class="co"># library(bayesplot)</span></span></code></pre></div>
-<div class="sourceCode" id="cb2"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span><span class="co"># Load template data</span></span>
-<span><span class="fu">tickTack</span><span class="fu">::</span><span class="va"><a href="../reference/pcawg_example_2.html">pcawg_example_2</a></span></span>
-<span><span class="va">data</span> <span class="op">&lt;-</span> <span class="va">pcawg_example_2</span></span>
-<span></span>
-<span><span class="co"># library(tibble)</span></span>
-<span><span class="co"># library(dplyr)</span></span>
-<span></span>
-<span><span class="va">tolerance</span> <span class="op">&lt;-</span> <span class="fl">0.1</span></span>
-<span></span>
-<span></span>
-<span><span class="va">data</span> <span class="op">&lt;-</span> <span class="fu">tickTack</span><span class="fu">::</span><span class="fu"><a href="../reference/fit_h.html">fit_h</a></span><span class="op">(</span><span class="va">data</span>, max_attempts<span class="op">=</span><span class="fl">2</span>, INIT<span class="op">=</span><span class="cn">TRUE</span>, tolerance <span class="op">=</span> <span class="va">tolerance</span>, n_components <span class="op">=</span> <span class="fl">0</span><span class="op">)</span></span>
-<span><span class="co">#&gt; <span style="color: #00BBBB;">ℹ</span> Adding segment with index <span style="color: #0000BB;">38</span> to segments included in the inference.</span></span>
-<span><span class="co">#&gt; <span style="color: #00BBBB;">ℹ</span> Adding segment with index <span style="color: #0000BB;">40</span> to segments included in the inference.</span></span>
-<span><span class="co">#&gt; <span style="color: #00BBBB;">ℹ</span> Adding segment with index <span style="color: #0000BB;">42</span> to segments included in the inference.</span></span>
-<span><span class="co">#&gt; <span style="color: #00BBBB;">ℹ</span> Adding segment with index <span style="color: #0000BB;">44</span> to segments included in the inference.</span></span>
-<span><span class="co">#&gt; <span style="color: #00BBBB;">ℹ</span> Adding segment with index <span style="color: #0000BB;">46</span> to segments included in the inference.</span></span>
-<span><span class="co">#&gt; <span style="color: #00BBBB;">ℹ</span> Adding segment with index <span style="color: #0000BB;">48</span> to segments included in the inference.</span></span>
-<span><span class="co">#&gt; <span style="color: #00BBBB;">ℹ</span> Adding segment with index <span style="color: #0000BB;">50</span> to segments included in the inference.</span></span>
-<span><span class="co">#&gt; <span style="color: #00BBBB;">ℹ</span> Adding segment with index <span style="color: #0000BB;">54</span> to segments included in the inference.</span></span>
-<span><span class="co">#&gt; <span style="color: #00BBBB;">ℹ</span> Adding segment with index <span style="color: #0000BB;">56</span> to segments included in the inference.</span></span>
-<span><span class="co">#&gt; <span style="color: #00BBBB;">ℹ</span> Adding segment with index <span style="color: #0000BB;">57</span> to segments included in the inference.</span></span>
-<span><span class="co">#&gt; <span style="color: #00BBBB;">ℹ</span> Adding segment with index <span style="color: #0000BB;">58</span> to segments included in the inference.</span></span>
-<span><span class="co">#&gt; Attempt 1 of 2</span></span>
-<span><span class="co">#&gt; ELBO for this run: -15339.5</span></span>
-<span><span class="co">#&gt; Attempt 2 of 2</span></span>
-<span><span class="co">#&gt; ELBO for this run: -15328.5</span></span>
-<span><span class="co">#&gt; Attempt 1 of 2</span></span>
-<span><span class="co">#&gt; ELBO for this run: -14986.6</span></span>
-<span><span class="co">#&gt; Attempt 2 of 2</span></span>
-<span><span class="co">#&gt; ELBO for this run: -15003.9</span></span>
-<span><span class="co">#&gt; Attempt 1 of 2</span></span>
-<span><span class="co">#&gt; ELBO for this run: -15007</span></span>
-<span><span class="co">#&gt; Attempt 2 of 2</span></span>
-<span><span class="co">#&gt; ELBO for this run: -15247.2</span></span>
-<span><span class="co">#&gt; Attempt 1 of 2</span></span>
-<span><span class="co">#&gt; ELBO for this run: -15021.6</span></span>
-<span><span class="co">#&gt; Attempt 2 of 2</span></span>
-<span><span class="co">#&gt; ELBO for this run: -15189</span></span>
-<span><span class="va">results</span> <span class="op">&lt;-</span> <span class="va">data</span><span class="op">$</span><span class="va">results_timing</span></span>
-<span></span>
-<span></span>
-<span><span class="va">clock_assignment</span> <span class="op">&lt;-</span> <span class="va">results</span><span class="op">$</span><span class="va">draws_and_summary</span><span class="op">[[</span><span class="fl">3</span><span class="op">]</span><span class="op">]</span><span class="op">$</span><span class="va">summarized_results</span></span>
-<span></span>
-<span><span class="va">input_data</span> <span class="op">&lt;-</span> <span class="va">results</span><span class="op">$</span><span class="va">data</span><span class="op">$</span><span class="va">input_data</span></span>
-<span><span class="va">draws_and_summary</span> <span class="op">&lt;-</span> <span class="va">results</span><span class="op">$</span><span class="va">draws_and_summary</span></span>
-<span><span class="va">log_lik_matrix_list</span> <span class="op">&lt;-</span> <span class="va">results</span><span class="op">$</span><span class="va">log_lik_matrix_list</span></span>
-<span><span class="va">elbo_iterations</span> <span class="op">&lt;-</span> <span class="va">results</span><span class="op">$</span><span class="va">elbo_iterations</span></span>
-<span></span>
-<span></span>
-<span><span class="va">results_model_selection</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/model_selection_h.html">model_selection_h</a></span><span class="op">(</span><span class="va">input_data</span>, <span class="va">draws_and_summary</span>, <span class="va">log_lik_matrix_list</span>, <span class="va">elbo_iterations</span>, n_components <span class="op">=</span> <span class="fl">0</span><span class="op">)</span></span>
-<span></span>
-<span></span>
-<span><span class="va">best_K</span> <span class="op">&lt;-</span> <span class="va">results_model_selection</span><span class="op">$</span><span class="va">best_K</span></span>
-<span><span class="va">model_selection_tibble</span> <span class="op">&lt;-</span> <span class="va">results_model_selection</span><span class="op">$</span><span class="va">model_selection_tibble</span></span>
-<span><span class="va">entropy</span> <span class="op">&lt;-</span> <span class="va">results_model_selection</span><span class="op">$</span><span class="va">entropy_list</span></span>
-<span></span>
-<span></span>
-<span><span class="va">p</span> <span class="op">&lt;-</span> <span class="fu">tickTack</span><span class="fu">::</span><span class="fu"><a href="../reference/plot_inference_h.html">plot_inference_h</a></span><span class="op">(</span><span class="va">results</span>, <span class="va">best_K</span><span class="op">)</span></span>
-<span><span class="va">p</span></span></code></pre></div>
-<p><img src="tickTack_files/figure-html/real%20data%20Kidney-1.png" width="700"></p>
-<!-- ```{r source plot, include=TRUE} -->
-<!-- source("./plotting_function.R", local = knitr::knit_global()) -->
+<!-- ## The model -->
+<!-- <img src="/home/runner/work/tickTack/tickTack/vignettes/img/pgm.png" alt="Overview timing problem" width="650" style="display: block; margin: 0 auto"/><br> -->
+<!-- Here we show an example of the model application on real data from the Pan-Cancer Analysis of -->
+<!--  Whole Genomes (PCAWG) cohort, specifically from a Renal Cell Carcinoma (Kidney-RCC) tumor type sample.  -->
+<!-- ```{r setup, warning=FALSE} -->
+<!-- library(tickTack) -->
+<!-- library(gridExtra) # add in plotting function -->
+<!-- library(ggplot2) # add in plotting function -->
+<!-- library(bayesplot) # add in plotting function -->
+<!-- library(tibble)  # check if needed -->
+<!-- library(dplyr) # check if needed -->
+<!-- library(bayesplot) #for plotting -->
+<!-- library(ggplot2) #for plotting -->
+<!-- library(stringr) #for plotting -->
+<!-- library(patchwork) #for plotting -->
+<!-- ``` -->
+<!-- ```{r real data Kidney, echo = T, results = 'hide', warning=FALSE} -->
+<!-- # Load template data -->
+<!-- tickTack::pcawg_example_2 -->
+<!-- data <- pcawg_example_2 -->
+<!-- tolerance <- 0.1 -->
+<!-- data <- tickTack::fit_h(data, max_attempts=2, INIT=TRUE, tolerance = tolerance, n_components = 0) -->
+<!-- results <- data$results_timing -->
+<!-- clock_assignment <- results$draws_and_summary[[3]]$summarized_results -->
+<!-- input_data <- results$data$input_data -->
+<!-- draws_and_summary <- results$draws_and_summary -->
+<!-- log_lik_matrix_list <- results$log_lik_matrix_list -->
+<!-- elbo_iterations <- results$elbo_iterations -->
+<!-- results_model_selection <- model_selection_h(input_data, draws_and_summary, log_lik_matrix_list, elbo_iterations, n_components = 0) -->
+<!-- best_K <- results_model_selection$best_K -->
+<!-- model_selection_tibble <- results_model_selection$model_selection_tibble -->
+<!-- entropy <- results_model_selection$entropy_list -->
+<!-- p <- tickTack::plot_inference_h(results, best_K) -->
+<!-- p -->
 <!-- ``` -->
 <!-- ```{r visualize, echo = T, warning=FALSE, fig.align='center'} -->
 <!-- # Visualize distributions of draws from the approximate posterior -->
-<!-- library(bayesplot) -->
-<!-- library(ggplot2) -->
-<!-- library(stringr) -->
-<!-- library(patchwork) -->
 <!-- K = nrow(results_model_selection$model_selection_tibble) -->
 <!-- S = nrow(results$data$accepted_cna) -->
 <!-- ``` -->
@@ -289,32 +259,45 @@ from a Renal Cell Carcinoma (Kidney-RCC) tumor type sample.</p>
 <!--    intervals_weigths_per_tau[[k]] <- ggplotGrob(p) -->
 <!-- } -->
 <!-- p <- gridExtra::grid.arrange(grobs = intervals_weigths_per_tau, ncol= best_K) #add global title -->
-<!-- p -->
 <!-- ``` -->
-<!-- ```{r elbo, echo = T, fig.height = 20, fig.width = 12, fig.align = "center"} -->
-<!-- # visualize elbo -->
-<!-- p_elbo <- list() -->
-<!-- for (i in 1:K){ -->
-<!--   p_elbo[[i]] <- plot_elbo(elbo_iterations, i) + ggtitle(paste0("K = ", i)) -->
-<!--   saveRDS(p_elbo, paste0("./plots/elbo_vs_iterations_",i,".rds")) -->
-<!-- } -->
-<!-- p_elbo <- gridExtra::grid.arrange(grobs = p_elbo, nrow=K)  #add global title -->
-<!-- p_elbo -->
-<!-- ``` -->
-<!-- ```{r model, echo = T, fig.height = 8, fig.width = 12, fig.align = "center"} -->
-<!-- # visualize model selection scores -->
-<!-- p_model_selection <- plotting_model_selection(model_selection_tibble, best_K, entropy) -->
-<!-- p_model_selection -->
-<!-- cat("Best K =",best_K) -->
-<!-- ``` -->
-<!-- ```{r plots, echo = T, fig.height = 18, fig.width = 12, fig.align = "center"} -->
-<!-- plot_model_selection_inference <- list() -->
-<!-- for (i in 1:K){ -->
-<!--   plot_model_selection_inference[[i]] <- tickTack::plot_inference_h(results, i) + ggtitle(paste0("K = ", i)) -->
-<!-- } -->
-<!-- plot_model_selection_inference <- gridExtra::grid.arrange(grobs = plot_model_selection_inference, nrow=K) #add global title -->
-<!-- plot_model_selection_inference -->
-<!-- ``` -->
+<!-- <!-- ```{r source plot, include=TRUE} -->
+<p>–&gt;
+<!-- <!-- source("./plotting_function.R", local = knitr::knit_global()) -->
+–&gt; <!-- <!-- ``` --> –&gt;</p>
+<!-- <!-- ```{r elbo, echo = T, fig.height = 20, fig.width = 12, fig.align = "center"} -->
+<p>–&gt;</p>
+<!-- <!-- # visualize elbo -->
+<p>–&gt; <!-- <!-- p_elbo <- list() --> –&gt;
+<!-- <!-- for (i in 1:K){ --> –&gt;
+<!-- <!--   p_elbo[[i]] <- plot_elbo(elbo_iterations, i) + ggtitle(paste0("K = ", i)) -->
+–&gt;
+<!-- <!--   saveRDS(p_elbo, paste0("./plots/elbo_vs_iterations_",i,".rds")) -->
+–&gt; <!-- <!-- } --> –&gt;
+<!-- <!-- p_elbo <- gridExtra::grid.arrange(grobs = p_elbo, nrow=K)  #add global title -->
+–&gt; <!-- <!-- p_elbo --> –&gt;</p>
+<!-- <!-- ``` -->
+<p>–&gt;</p>
+<!-- <!-- ```{r model, echo = T, fig.height = 8, fig.width = 12, fig.align = "center"} -->
+<p>–&gt;</p>
+<!-- <!-- # visualize model selection scores -->
+<p>–&gt;</p>
+<!-- <!-- p_model_selection <- plotting_model_selection(model_selection_tibble, best_K, entropy) -->
+<p>–&gt; <!-- <!-- p_model_selection --> –&gt;</p>
+<!-- <!-- cat("Best K =",best_K) -->
+<p>–&gt;</p>
+<!-- <!-- ``` -->
+<p>–&gt;</p>
+<!-- <!-- ```{r plots, echo = T, fig.height = 18, fig.width = 12, fig.align = "center"} -->
+<p>–&gt;</p>
+<!-- <!-- plot_model_selection_inference <- list() -->
+<p>–&gt; <!-- <!-- for (i in 1:K){ --> –&gt;
+<!-- <!--   plot_model_selection_inference[[i]] <- tickTack::plot_inference_h(results, i) + ggtitle(paste0("K = ", i)) -->
+–&gt; <!-- <!-- } --> –&gt;
+<!-- <!-- plot_model_selection_inference <- gridExtra::grid.arrange(grobs = plot_model_selection_inference, nrow=K) #add global title -->
+–&gt; <!-- <!-- plot_model_selection_inference --> –&gt;</p>
+<!-- <!-- ``` -->
+<p>–&gt;</p>
+</div>
 </div>
   </main><aside class="col-md-3"><nav id="toc" aria-label="Table of contents"><h2>On this page</h2>
     </nav></aside>
