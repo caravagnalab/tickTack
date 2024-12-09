@@ -126,9 +126,16 @@ Here we show an example of the model application on real data from the Pan-Cance
 
 ```{r setup, warning=FALSE}
 library(tickTack)
-# library(gridExtra)
-# library(ggplot2)
-# library(bayesplot)
+library(gridExtra) # add in plotting function
+library(ggplot2) # add in plotting function
+library(bayesplot) # add in plotting function
+library(tibble)  # check if needed
+library(dplyr) # check if needed
+
+library(bayesplot) #for plotting
+library(ggplot2) #for plotting
+library(stringr) #for plotting
+library(patchwork) #for plotting
 ```
 
 
@@ -137,8 +144,7 @@ library(tickTack)
 tickTack::pcawg_example_2
 data <- pcawg_example_2
 
-# library(tibble)
-# library(dplyr)
+
 
 tolerance <- 0.1
 
@@ -169,6 +175,61 @@ p
 ```
 
 
+```{r visualize, echo = T, warning=FALSE, fig.align='center'}
+# Visualize distributions of draws from the approximate posterior
+
+K = nrow(results_model_selection$model_selection_tibble)
+S = nrow(results$data$accepted_cna)
+
+
+```
+
+
+
+
+```{r tau, echo = T, fig.align='center'}
+# from bayesplot
+draws <- results$draws_and_summary[[best_K]]$draws
+
+names <- paste("tau[", 1:best_K, "]", sep = "")
+
+areas_tau <- mcmc_areas(
+draws,
+pars = names,
+prob = 0.8, # 80% intervals
+prob_outer = 0.95, # 99%
+point_est = "median"
+)+
+labs(
+title = "Approximate Posterior distributions",
+subtitle = "With median and 80% and 95% intervals"
+)+
+xlim(0, 1) # + scale_x_continuous(breaks = c(1:5), labels = c("A", "B", "C", "D", "E"))
+areas_tau
+
+
+```
+
+
+```{r weights, echo = T, fig.height = 6, fig.width = 12, fig.align = "center"}
+# from bayesplot
+intervals_weigths_per_tau <- list()
+for (k in 1:best_K){
+  names_weights <- paste("w[",1:S,",", k, "]", sep = "")
+  p <- mcmc_intervals(draws, pars = names_weights, point_est = "median", prob = 0.8, prob_outer = 0.95)+
+    labs(
+    title =  str_wrap( paste0("Posterior distributions of the weigths for tau ",k), width = 30 + K + sqrt(S)),
+    subtitle = "With median and 80% and 95% intervals"
+    )
+   intervals_weigths_per_tau[[k]] <- ggplotGrob(p)
+}
+p <- gridExtra::grid.arrange(grobs = intervals_weigths_per_tau, ncol= best_K) #add global title
+
+
+
+
+```
+
 
 
 
@@ -180,71 +241,6 @@ p
 <!-- ``` -->
 
 
-
-
-
-
-<!-- ```{r visualize, echo = T, warning=FALSE, fig.align='center'} -->
-<!-- # Visualize distributions of draws from the approximate posterior -->
-<!-- library(bayesplot) -->
-<!-- library(ggplot2) -->
-<!-- library(stringr) -->
-<!-- library(patchwork) -->
-
-<!-- K = nrow(results_model_selection$model_selection_tibble) -->
-<!-- S = nrow(results$data$accepted_cna) -->
-
-
-<!-- ``` -->
-
-
-
-
-
-
-
-<!-- ```{r tau, echo = T, fig.align='center'} -->
-<!-- # from bayesplot -->
-<!-- draws <- results$draws_and_summary[[best_K]]$draws -->
-
-<!-- names <- paste("tau[", 1:best_K, "]", sep = "") -->
-
-<!-- areas_tau <- mcmc_areas( -->
-<!-- draws, -->
-<!-- pars = names, -->
-<!-- prob = 0.8, # 80% intervals -->
-<!-- prob_outer = 0.95, # 99% -->
-<!-- point_est = "median" -->
-<!-- )+ -->
-<!-- labs( -->
-<!-- title = "Approximate Posterior distributions", -->
-<!-- subtitle = "With median and 80% and 95% intervals" -->
-<!-- )+ -->
-<!-- xlim(0, 1) # + scale_x_continuous(breaks = c(1:5), labels = c("A", "B", "C", "D", "E")) -->
-<!-- areas_tau -->
-
-
-<!-- ``` -->
-
-
-<!-- ```{r weights, echo = T, fig.height = 6, fig.width = 12, fig.align = "center"} -->
-<!-- # from bayesplot -->
-<!-- intervals_weigths_per_tau <- list() -->
-<!-- for (k in 1:best_K){ -->
-<!--   names_weights <- paste("w[",1:S,",", k, "]", sep = "") -->
-<!--   p <- mcmc_intervals(draws, pars = names_weights, point_est = "median", prob = 0.8, prob_outer = 0.95)+ -->
-<!--     labs( -->
-<!--     title =  str_wrap( paste0("Posterior distributions of the weigths for tau ",k), width = 30 + K + sqrt(S)), -->
-<!--     subtitle = "With median and 80% and 95% intervals" -->
-<!--     ) -->
-<!--    intervals_weigths_per_tau[[k]] <- ggplotGrob(p) -->
-<!-- } -->
-<!-- p <- gridExtra::grid.arrange(grobs = intervals_weigths_per_tau, ncol= best_K) #add global title -->
-<!-- p -->
-
-
-
-<!-- ``` -->
 
 
 <!-- ```{r elbo, echo = T, fig.height = 20, fig.width = 12, fig.align = "center"} -->
