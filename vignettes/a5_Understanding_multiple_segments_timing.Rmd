@@ -1,8 +1,8 @@
 ---
-title: "5. Understanding Timing Multiple Clonal Peaks"
+title: "5. Understanding Timing of Multiple Clonal Peaks"
 output: rmarkdown::html_vignette
 vignette: >
-  %\VignetteIndexEntry{Understanding Timing Multiple Results}
+  %\VignetteIndexEntry{5. Understanding Timing of Multiple Clonal Peaks}
   %\VignetteEngine{knitr::rmarkdown}
   %\VignetteEncoding{UTF-8}
 ---

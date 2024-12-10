@@ -2,7 +2,7 @@
 title: "2. Timing Clonal Peaks"
 output: rmarkdown::html_vignette
 vignette: >
-  %\VignetteIndexEntry{Timing Clonal Peaks}
+  %\VignetteIndexEntry{2. Timing Clonal Peaks}
   %\VignetteEngine{knitr::rmarkdown}
   %\VignetteEncoding{UTF-8}
 ---

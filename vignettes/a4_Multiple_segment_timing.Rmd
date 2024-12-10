@@ -2,7 +2,7 @@
 title: "4. Timing Clonal Peaks in a hierarchical fashioin"
 output: rmarkdown::html_vignette
 vignette: >
-  %\VignetteIndexEntry{Timing Clonal Peaks in a hierarchical fashioin}
+  %\VignetteIndexEntry{4. Timing Clonal Peaks in a hierarchical fashioin}
   %\VignetteEngine{knitr::rmarkdown}
   %\VignetteEncoding{UTF-8}
 ---
