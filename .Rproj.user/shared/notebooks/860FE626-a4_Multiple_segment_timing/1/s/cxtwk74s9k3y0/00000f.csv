@@ -1,0 +1,8 @@
+"0","library(tickTack)"
+"0",""
+"0","# View example dataset components"
+"0","mutations <- tickTack::pcawg_example_2$mutations"
+"0","cna <- tickTack::pcawg_example_2$cna"
+"0","metadata <- tickTack::pcawg_example_2$metadata"
+"0",""
+"0","head(mutations)"
