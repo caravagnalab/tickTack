@@ -30,7 +30,7 @@ plot_model_selection_h <- function(model_selection_tibble, best_K) {
   log_lik_plot <- create_plot(model_selection_tibble, "K", "Log_lik", best_K, "Log-Likelihood", "Log-Likelihood vs K")
   icl_plot <- create_plot(model_selection_tibble, "K", "ICL", best_K, "ICL", "ICL vs K")
   
-  model_selection_plot <- (bic_plot) / icl_plot / (log_lik_plot)  +
+  model_selection_plot <- (bic_plot) / (icl_plot) / (log_lik_plot)  +
     patchwork::plot_annotation(
       title = "Model Selection Graphs: Scores vs Number of Clusters",
       caption = "Source: Your Data",
