@@ -1,10 +1,7 @@
 #' model_selection Function
 #'
 #' Perform model selection among the models fit with varying number of mixture components (number of clocks).
-#' @param data list of k_max of lists: $input_data:list: List of 7: $S: int, $N: int, $karyotype: num (0 or 1), $seg_assignment: num, $peaks:List of N of num (1:2), $NV: num, $DP: num
-#' @param draws_and_summary  list of lenght k_max of draws form the variational method with the summary statistics of the draws from the approximate posterior
-#' @param log_lik_matrix_list list of lenght k_max
-#' @param elbo_iterations list of lenght k_max
+#' @param results list of 4: $data, $draws_and_summary, $log_lik_matrix_list and $elbo_iterations    
 #' @param n_components number of components specified from user 
 #' 
 #' @keywords fit
@@ -12,7 +9,14 @@
 #' @return result_model_selection: list $best_fit, $best_K, $model_selection_tibble, $entropy_list)
 #'
 #' @export
-model_selection_h = function(data, draws_and_summary, log_lik_matrix_list, elbo_iterations, n_components = 0) {
+model_selection_h = function(results, n_components = 0) {
+  
+  data <- results$data$input_data 
+  draws_and_summary <- results$draws_and_summary 
+  log_lik_matrix_list <- results$log_lik_matrix_list 
+  elbo_iterations <- results$elbo_iterations 
+  
+  
   karyo <- data$karyotype
   
   if (n_components != 0){
