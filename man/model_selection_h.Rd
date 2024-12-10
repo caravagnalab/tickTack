@@ -4,22 +4,10 @@
 \alias{model_selection_h}
 \title{model_selection Function}
 \usage{
-model_selection_h(
-  data,
-  draws_and_summary,
-  log_lik_matrix_list,
-  elbo_iterations,
-  n_components = 0
-)
+model_selection_h(results, n_components = 0)
 }
 \arguments{
-\item{data}{list of k_max of lists: $input_data:list: List of 7: $S: int, $N: int, $karyotype: num (0 or 1), $seg_assignment: num, $peaks:List of N of num (1:2), $NV: num, $DP: num}
-
-\item{draws_and_summary}{list of lenght k_max of draws form the variational method with the summary statistics of the draws from the approximate posterior}
-
-\item{log_lik_matrix_list}{list of lenght k_max}
-
-\item{elbo_iterations}{list of lenght k_max}
+\item{results}{list of 4: $data, $draws_and_summary, $log_lik_matrix_list and $elbo_iterations}
 
 \item{n_components}{number of components specified from user}
 }

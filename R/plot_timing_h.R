@@ -1,4 +1,4 @@
-#' plot_inference_h Function
+#' plot_timing_h Function
 #'
 #' This function obtains the list of input data to be used in the stan model.
 #' @param results   list(data = input_data_list, results = results, output_files_list = output_files_list)
