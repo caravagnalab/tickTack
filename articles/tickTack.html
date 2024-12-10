@@ -225,7 +225,7 @@ v_m(c) = \dfrac{m \pi c}{
 <!-- best_K <- results_model_selection$best_K -->
 <!-- model_selection_tibble <- results_model_selection$model_selection_tibble -->
 <!-- entropy <- results_model_selection$entropy_list -->
-<!-- p <- tickTack::plot_inference_h(results, best_K) -->
+<!-- p <- tickTack::plot_timing_h(results, best_K) -->
 <!-- p -->
 <!-- ``` -->
 <!-- ```{r visualize, echo = T, warning=FALSE, fig.align='center'} -->
@@ -265,43 +265,33 @@ v_m(c) = \dfrac{m \pi c}{
 <!-- } -->
 <!-- p <- gridExtra::grid.arrange(grobs = intervals_weigths_per_tau, ncol= best_K) #add global title -->
 <!-- ``` -->
-<!-- <!-- ```{r source plot, include=TRUE} -->
-<p>–&gt;
-<!-- <!-- source("./plotting_function.R", local = knitr::knit_global()) -->
-–&gt; <!-- <!-- ``` --> –&gt;</p>
-<!-- <!-- ```{r elbo, echo = T, fig.height = 20, fig.width = 12, fig.align = "center"} -->
-<p>–&gt;</p>
-<!-- <!-- # visualize elbo -->
-<p>–&gt; <!-- <!-- p_elbo <- list() --> –&gt;
-<!-- <!-- for (i in 1:K){ --> –&gt;
-<!-- <!--   p_elbo[[i]] <- plot_elbo(elbo_iterations, i) + ggtitle(paste0("K = ", i)) -->
-–&gt;
-<!-- <!--   saveRDS(p_elbo, paste0("./plots/elbo_vs_iterations_",i,".rds")) -->
-–&gt; <!-- <!-- } --> –&gt;
-<!-- <!-- p_elbo <- gridExtra::grid.arrange(grobs = p_elbo, nrow=K)  #add global title -->
-–&gt; <!-- <!-- p_elbo --> –&gt;</p>
-<!-- <!-- ``` -->
-<p>–&gt;</p>
-<!-- <!-- ```{r model, echo = T, fig.height = 8, fig.width = 12, fig.align = "center"} -->
-<p>–&gt;</p>
-<!-- <!-- # visualize model selection scores -->
-<p>–&gt;</p>
-<!-- <!-- p_model_selection <- plotting_model_selection(model_selection_tibble, best_K, entropy) -->
-<p>–&gt; <!-- <!-- p_model_selection --> –&gt;</p>
-<!-- <!-- cat("Best K =",best_K) -->
-<p>–&gt;</p>
-<!-- <!-- ``` -->
-<p>–&gt;</p>
-<!-- <!-- ```{r plots, echo = T, fig.height = 18, fig.width = 12, fig.align = "center"} -->
-<p>–&gt;</p>
-<!-- <!-- plot_model_selection_inference <- list() -->
-<p>–&gt; <!-- <!-- for (i in 1:K){ --> –&gt;
-<!-- <!--   plot_model_selection_inference[[i]] <- tickTack::plot_inference_h(results, i) + ggtitle(paste0("K = ", i)) -->
-–&gt; <!-- <!-- } --> –&gt;
-<!-- <!-- plot_model_selection_inference <- gridExtra::grid.arrange(grobs = plot_model_selection_inference, nrow=K) #add global title -->
-–&gt; <!-- <!-- plot_model_selection_inference --> –&gt;</p>
-<!-- <!-- ``` -->
-<p>–&gt;</p>
+<!-- ```{r source plot, include=TRUE} -->
+<!-- source("./plotting_function.R", local = knitr::knit_global()) -->
+<!-- ``` -->
+<!-- ```{r elbo, echo = T, fig.height = 20, fig.width = 12, fig.align = "center"} -->
+<!-- # visualize elbo -->
+<!-- p_elbo <- list() -->
+<!-- for (i in 1:K){ -->
+<!--   p_elbo[[i]] <- plot_elbo(elbo_iterations, i) + ggtitle(paste0("K = ", i)) -->
+<!--   saveRDS(p_elbo, paste0("./plots/elbo_vs_iterations_",i,".rds")) -->
+<!-- } -->
+<!-- p_elbo <- gridExtra::grid.arrange(grobs = p_elbo, nrow=K)  #add global title -->
+<!-- p_elbo -->
+<!-- ``` -->
+<!-- ```{r model, echo = T, fig.height = 8, fig.width = 12, fig.align = "center"} -->
+<!-- # visualize model selection scores -->
+<!-- p_model_selection <- plotting_model_selection(model_selection_tibble, best_K, entropy) -->
+<!-- p_model_selection -->
+<!-- cat("Best K =",best_K) -->
+<!-- ``` -->
+<!-- ```{r plots, echo = T, fig.height = 18, fig.width = 12, fig.align = "center"} -->
+<!-- plot_model_selection_inference <- list() -->
+<!-- for (i in 1:K){ -->
+<!--   plot_model_selection_inference[[i]] <- tickTack::plot_inference_h(results, i) + ggtitle(paste0("K = ", i)) -->
+<!-- } -->
+<!-- plot_model_selection_inference <- gridExtra::grid.arrange(grobs = plot_model_selection_inference, nrow=K) #add global title -->
+<!-- plot_model_selection_inference -->
+<!-- ``` -->
 </div>
 </div>
   </main><aside class="col-md-3"><nav id="toc" aria-label="Table of contents"><h2>On this page</h2>
