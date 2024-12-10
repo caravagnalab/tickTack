@@ -1,0 +1,108 @@
+---
+title: "2. Timing Clonal Peaks"
+output: rmarkdown::html_vignette
+vignette: >
+  %\VignetteIndexEntry{Timing Clonal Peaks}
+  %\VignetteEngine{knitr::rmarkdown}
+  %\VignetteEncoding{UTF-8}
+---
+
+The `fit` function in the `tickTack` package estimates the timing of clonal peaks in cancer genome sequencing data. This vignette describes the functionality of the `fit` function, including input requirements, output, and an example analysis using the `tickTack::pcawg_example` dataset.
+
+## Overview of the `fit` Function
+
+The `fit` function uses either a beta-binomial or binomial model to fit clonal peaks in sequencing data. It identifies segments of the genome with specific karyotypes and mutations that meet the input criteria, then estimates the timing of clonal expansions. 
+
+### Key Parameters
+
+- **`segments`**: A data frame with segment information, including `chr`, `from`, `to`, `Major`, and `minor`.
+- **`mutations`**: A data frame with mutation data, including `chr`, `from`, `to`, `DP`, and `NV`.
+- **`purity`**: Tumor purity as a numeric value.
+- **`possible_k`**: A character vector of possible karyotypes, defaulting to `c("2:1", "2:2", "2:0")`.
+- **`alpha`**: Significance level, defaulting to `0.05`.
+- **`min_mutations_number`**: Minimum number of mutations required for analysis, defaulting to `2`.
+- **`beta_binomial`**: Logical flag to use the beta-binomial model, default is `FALSE`.
+- **`beta_binomial_disp`**: Dispersion parameter for the beta-binomial model, default is `0.01`.
+
+### Output
+
+The function returns a list containing:
+
+1. **`inference_results`**: Detailed timing estimates for each segment.
+2. **`summarized_results`**: Summary statistics for the estimated timing of clonal peaks.
+
+If no segments meet the criteria, the function returns `NULL`.
+
+## Analyzing `tickTack::pcawg_example`
+
+We will use the `tickTack::pcawg_example` dataset to demonstrate how to use the `fit` function.
+
+### Input Data
+
+The `tickTack::pcawg_example` dataset contains three components:
+
+- **`mutations`**: Mutation data.
+- **`cna`**: Copy number alterations (CNA).
+- **`metadata`**: Sample metadata, including tumor purity.
+
+Preview the data:
+
+```{r echo=TRUE}
+library(tickTack)
+
+# View example dataset components
+mutations <- tickTack::pcawg_example$mutations
+cna <- tickTack::pcawg_example$cna
+metadata <- tickTack::pcawg_example$metadata
+
+head(mutations)
+head(cna)
+metadata
+```
+
+### Running the `fit` function
+
+We can run the `fit` function on the `tickTack::pcawg_example` data to infer the timing of clonal peaks
+
+```{r echo=FALSE}
+# Extract input data
+segments <- tickTack::pcawg_example$cna
+mutations <- tickTack::pcawg_example$mutations
+purity <- tickTack::pcawg_example$metadata$purity
+
+# Run the fit function
+results <- fit(
+  segments = segments,
+  mutations = mutations,
+  purity = purity,
+  possible_k = c("2:1", "2:2", "2:0"),
+  beta_binomial = TRUE
+)
+```
+
+### Results
+
+The `results` object contains two components: `inference_results` and `summarized_results`. 
+We can inspect these to understand the timing of clonal peaks:
+
+```{r echo=TRUE}
+# View summarized results
+results$summarized_results
+
+# View detailed inference results
+results$inference_results
+```
+
+
+### Interpreting the output
+
+- **`inference_results`**: Contains posterior distributions of timing estimates (`tau`) for each segment.
+- **`summarized_results`**: Provides the mean, lower bound, and upper bound of the timing estimates for each segment.
+
+## Visulizing the output
+
+The results can be viewed is genome-wise perspective using the `tickTack::plot_timing` function
+
+```{r}
+tickTack::plot_timing(results, segments, colour_by = "karyotype")
+```

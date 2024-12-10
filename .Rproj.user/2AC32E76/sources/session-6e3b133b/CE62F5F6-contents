@@ -1,0 +1,60 @@
+setwd("~/Desktop/")
+rm(list = ls())
+require(magrittr)
+require(tidyverse)
+require(rRACES)
+
+m = matrix(c(8,2,9,2,9,0,3,1,6), nrow = 3, ncol = 3)
+
+
+
+m = t(m[,ncol(m):1])
+
+
+to_print = ""
+for (i in 1:nrow(m)) {
+  to_print = paste0(to_print, m[i,], collapse = " ")
+  print(paste0(m[i,], collapse = " "))
+  to_print = paste0(to_print, "\n", collapse = "")
+}
+
+
+
+ciphertext <- "Eqfkpi vguvu ctg hwp!"
+knownWord <- "tests"
+
+
+for (shift in c(-26:26)) {
+  letters <- unlist(strsplit(ciphertext, ""))
+
+  new_string = lapply(letters, function(letter) {
+    if (nchar(letter) != 1 || !grepl("[a-zA-Z]", letter)) {
+      return(letter)
+    }
+
+    # Determine if the letter is uppercase or lowercase
+    is_upper <- grepl("[A-Z]", letter)
+
+    ascii_code <- as.integer(charToRaw(letter))
+
+    base <- if (is_upper) as.integer(charToRaw("A")) else as.integer(charToRaw("a"))
+
+    shifted_code <- ((ascii_code - base + shift) %% 26) + base
+
+    # Convert back to a character
+    rawToChar(as.raw(shifted_code))
+  })
+  new_string = paste0(unlist(new_string), collapse = "")
+
+  if (grepl(knownWord, new_string)) {
+    return(new_string)
+  }
+
+}
+
+return("Invalid")
+
+shift = 1
+
+
+
