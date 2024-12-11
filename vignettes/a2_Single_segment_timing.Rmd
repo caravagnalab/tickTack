@@ -64,7 +64,7 @@ metadata
 
 We can run the `fit` function on the `tickTack::pcawg_example` data to infer the timing of clonal peaks
 
-```{r echo=FALSE}
+```{r echo=TRUE, message=FALSE, results='hide'}
 # Extract input data
 segments <- tickTack::pcawg_example$cna
 mutations <- tickTack::pcawg_example$mutations
@@ -103,6 +103,6 @@ results$inference_results
 
 The results can be viewed is genome-wise perspective using the `tickTack::plot_timing` function
 
-```{r}
+```{r, fig.align='center', fig.height=5, fig.width=8}
 tickTack::plot_timing(results, segments, colour_by = "karyotype")
 ```
