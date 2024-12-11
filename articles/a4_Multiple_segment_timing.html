@@ -14,8 +14,8 @@
 <link rel="apple-touch-icon" type="image/png" sizes="60x60" href="../apple-touch-icon-60x60.png">
 <script src="../deps/jquery-3.6.0/jquery-3.6.0.min.js"></script><meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
 <link href="../deps/bootstrap-5.3.1/bootstrap.min.css" rel="stylesheet">
-<script src="../deps/bootstrap-5.3.1/bootstrap.bundle.min.js"></script><link href="../deps/font-awesome-6.4.2/css/all.min.css" rel="stylesheet">
-<link href="../deps/font-awesome-6.4.2/css/v4-shims.min.css" rel="stylesheet">
+<script src="../deps/bootstrap-5.3.1/bootstrap.bundle.min.js"></script><link href="../deps/font-awesome-6.5.2/css/all.min.css" rel="stylesheet">
+<link href="../deps/font-awesome-6.5.2/css/v4-shims.min.css" rel="stylesheet">
 <script src="../deps/headroom-0.11.0/headroom.min.js"></script><script src="../deps/headroom-0.11.0/jQuery.headroom.min.js"></script><script src="../deps/bootstrap-toc-1.0.1/bootstrap-toc.min.js"></script><script src="../deps/clipboard.js-2.0.11/clipboard.min.js"></script><script src="../deps/search-1.0.0/autocomplete.jquery.min.js"></script><script src="../deps/search-1.0.0/fuse.min.js"></script><script src="../deps/search-1.0.0/mark.min.js"></script><!-- pkgdown --><script src="../pkgdown.js"></script><meta property="og:title" content="4. Timing Clonal Peaks in a hierarchical fashioin">
 </head>
 <body>
@@ -37,7 +37,7 @@
       <ul class="navbar-nav me-auto">
 <li class="nav-item"><a class="nav-link" href="../articles/tickTack.html">Get started</a></li>
 <li class="nav-item"><a class="nav-link" href="../reference/index.html">Reference</a></li>
-<li class="nav-item dropdown">
+<li class="active nav-item dropdown">
   <button class="nav-link dropdown-toggle" type="button" id="dropdown-articles" data-bs-toggle="dropdown" aria-expanded="false" aria-haspopup="true">Articles</button>
   <ul class="dropdown-menu" aria-labelledby="dropdown-articles">
 <li><a class="dropdown-item" href="../articles/a1_introduction.html">1. Introduction</a></li>
@@ -360,18 +360,18 @@ inference</p>
 <code class="sourceCode R"><span><span class="co"># View summary for a specific K, here K = 2</span></span>
 <span><span class="va">results</span><span class="op">$</span><span class="va">draws_and_summary</span><span class="op">[[</span><span class="fl">2</span><span class="op">]</span><span class="op">]</span><span class="op">$</span><span class="va">summary</span></span></code></pre></div>
 <pre><code><span><span class="co">## <span style="color: #949494;"># A tibble: 24 × 7</span></span></span>
-<span><span class="co">##    variable     mean   median       sd      mad         q5     q95</span></span>
-<span><span class="co">##    <span style="color: #949494; font-style: italic;">&lt;chr&gt;</span>       <span style="color: #949494; font-style: italic;">&lt;dbl&gt;</span>    <span style="color: #949494; font-style: italic;">&lt;dbl&gt;</span>    <span style="color: #949494; font-style: italic;">&lt;dbl&gt;</span>    <span style="color: #949494; font-style: italic;">&lt;dbl&gt;</span>      <span style="color: #949494; font-style: italic;">&lt;dbl&gt;</span>   <span style="color: #949494; font-style: italic;">&lt;dbl&gt;</span></span></span>
-<span><span class="co">## <span style="color: #BCBCBC;"> 1</span> tau[1]   0.110    0.105    0.035<span style="text-decoration: underline;">7</span>   0.034<span style="text-decoration: underline;">6</span>   0.061<span style="text-decoration: underline;">0</span>     0.177  </span></span>
-<span><span class="co">## <span style="color: #BCBCBC;"> 2</span> tau[2]   0.947    0.949    0.018<span style="text-decoration: underline;">9</span>   0.018<span style="text-decoration: underline;">1</span>   0.912      0.971  </span></span>
-<span><span class="co">## <span style="color: #BCBCBC;"> 3</span> w[1,1]   0.863    0.934    0.176    0.080<span style="text-decoration: underline;">7</span>   0.446      0.996  </span></span>
-<span><span class="co">## <span style="color: #BCBCBC;"> 4</span> w[2,1]   0.959    0.969    0.038<span style="text-decoration: underline;">0</span>   0.023<span style="text-decoration: underline;">6</span>   0.890      0.992  </span></span>
-<span><span class="co">## <span style="color: #BCBCBC;"> 5</span> w[3,1]   0.988    0.990    0.007<span style="text-decoration: underline;">98</span>  0.005<span style="text-decoration: underline;">90</span>  0.973      0.997  </span></span>
-<span><span class="co">## <span style="color: #BCBCBC;"> 6</span> w[4,1]   0.996    0.997    0.001<span style="text-decoration: underline;">97</span>  0.001<span style="text-decoration: underline;">49</span>  0.992      0.998  </span></span>
-<span><span class="co">## <span style="color: #BCBCBC;"> 7</span> w[5,1]   0.007<span style="text-decoration: underline;">26</span>  0.000<span style="text-decoration: underline;">496</span> 0.036<span style="text-decoration: underline;">3</span>   0.000<span style="text-decoration: underline;">701</span> 0.000<span style="text-decoration: underline;">009</span>07 0.026<span style="text-decoration: underline;">9</span> </span></span>
-<span><span class="co">## <span style="color: #BCBCBC;"> 8</span> w[6,1]   0.000<span style="text-decoration: underline;">628</span> 0.000<span style="text-decoration: underline;">477</span> 0.000<span style="text-decoration: underline;">563</span> 0.000<span style="text-decoration: underline;">356</span> 0.000<span style="text-decoration: underline;">126</span>   0.001<span style="text-decoration: underline;">61</span></span></span>
-<span><span class="co">## <span style="color: #BCBCBC;"> 9</span> w[7,1]   0.001<span style="text-decoration: underline;">77</span>  0.001<span style="text-decoration: underline;">26</span>  0.001<span style="text-decoration: underline;">73</span>  0.000<span style="text-decoration: underline;">985</span> 0.000<span style="text-decoration: underline;">295</span>   0.004<span style="text-decoration: underline;">95</span></span></span>
-<span><span class="co">## <span style="color: #BCBCBC;">10</span> w[8,1]   0.975    0.978    0.014<span style="text-decoration: underline;">1</span>   0.011<span style="text-decoration: underline;">1</span>   0.948      0.991  </span></span>
+<span><span class="co">##    variable    mean   median      sd      mad        q5     q95</span></span>
+<span><span class="co">##    <span style="color: #949494; font-style: italic;">&lt;chr&gt;</span>      <span style="color: #949494; font-style: italic;">&lt;dbl&gt;</span>    <span style="color: #949494; font-style: italic;">&lt;dbl&gt;</span>   <span style="color: #949494; font-style: italic;">&lt;dbl&gt;</span>    <span style="color: #949494; font-style: italic;">&lt;dbl&gt;</span>     <span style="color: #949494; font-style: italic;">&lt;dbl&gt;</span>   <span style="color: #949494; font-style: italic;">&lt;dbl&gt;</span></span></span>
+<span><span class="co">## <span style="color: #BCBCBC;"> 1</span> tau[1]   0.098<span style="text-decoration: underline;">7</span>  0.093<span style="text-decoration: underline;">3</span>   0.031<span style="text-decoration: underline;">4</span>  0.029<span style="text-decoration: underline;">0</span>   0.055<span style="text-decoration: underline;">2</span>    0.159  </span></span>
+<span><span class="co">## <span style="color: #BCBCBC;"> 2</span> tau[2]   0.947   0.950    0.019<span style="text-decoration: underline;">7</span>  0.016<span style="text-decoration: underline;">9</span>   0.910     0.973  </span></span>
+<span><span class="co">## <span style="color: #BCBCBC;"> 3</span> w[1,1]   0.859   0.944    0.193   0.069<span style="text-decoration: underline;">1</span>   0.378     0.996  </span></span>
+<span><span class="co">## <span style="color: #BCBCBC;"> 4</span> w[2,1]   0.901   0.974    0.168   0.036<span style="text-decoration: underline;">8</span>   0.521     0.999  </span></span>
+<span><span class="co">## <span style="color: #BCBCBC;"> 5</span> w[3,1]   0.988   0.993    0.017<span style="text-decoration: underline;">6</span>  0.006<span style="text-decoration: underline;">70</span>  0.963     0.999  </span></span>
+<span><span class="co">## <span style="color: #BCBCBC;"> 6</span> w[4,1]   0.994   0.996    0.005<span style="text-decoration: underline;">76</span> 0.003<span style="text-decoration: underline;">05</span>  0.984     0.999  </span></span>
+<span><span class="co">## <span style="color: #BCBCBC;"> 7</span> w[5,1]   0.007<span style="text-decoration: underline;">35</span> 0.000<span style="text-decoration: underline;">522</span> 0.037<span style="text-decoration: underline;">5</span>  0.000<span style="text-decoration: underline;">722</span> 0.000<span style="text-decoration: underline;">012</span>6 0.027<span style="text-decoration: underline;">8</span> </span></span>
+<span><span class="co">## <span style="color: #BCBCBC;"> 8</span> w[6,1]   0.006<span style="text-decoration: underline;">67</span> 0.000<span style="text-decoration: underline;">570</span> 0.025<span style="text-decoration: underline;">4</span>  0.000<span style="text-decoration: underline;">792</span> 0.000<span style="text-decoration: underline;">013</span>3 0.031<span style="text-decoration: underline;">6</span> </span></span>
+<span><span class="co">## <span style="color: #BCBCBC;"> 9</span> w[7,1]   0.001<span style="text-decoration: underline;">89</span> 0.001<span style="text-decoration: underline;">20</span>  0.002<span style="text-decoration: underline;">71</span> 0.001<span style="text-decoration: underline;">04</span>  0.000<span style="text-decoration: underline;">230</span>  0.006<span style="text-decoration: underline;">03</span></span></span>
+<span><span class="co">## <span style="color: #BCBCBC;">10</span> w[8,1]   0.974   0.979    0.017<span style="text-decoration: underline;">8</span>  0.012<span style="text-decoration: underline;">0</span>   0.943     0.992  </span></span>
 <span><span class="co">## <span style="color: #949494;"># ℹ 14 more rows</span></span></span></code></pre>
 <div class="sourceCode" id="cb11"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="co"># View detailed summarized results for a specific K, here K = 2</span></span>
@@ -379,17 +379,17 @@ inference</p>
 <pre><code><span><span class="co">## <span style="color: #949494;"># A tibble: 11 × 8</span></span></span>
 <span><span class="co">##    segment_original_indx segment_name      segment_id karyotype chr   clock_mean</span></span>
 <span><span class="co">##                    <span style="color: #949494; font-style: italic;">&lt;int&gt;</span> <span style="color: #949494; font-style: italic;">&lt;chr&gt;</span>                  <span style="color: #949494; font-style: italic;">&lt;dbl&gt;</span> <span style="color: #949494; font-style: italic;">&lt;chr&gt;</span>     <span style="color: #949494; font-style: italic;">&lt;chr&gt;</span>      <span style="color: #949494; font-style: italic;">&lt;dbl&gt;</span></span></span>
-<span><span class="co">## <span style="color: #BCBCBC;"> 1</span>                    38 chr5_75225353_75…          1 2:1       chr5       0.105</span></span>
-<span><span class="co">## <span style="color: #BCBCBC;"> 2</span>                    40 chr5_76857368_76…          2 2:1       chr5       0.105</span></span>
-<span><span class="co">## <span style="color: #BCBCBC;"> 3</span>                    42 chr5_77822720_82…          3 2:1       chr5       0.105</span></span>
-<span><span class="co">## <span style="color: #BCBCBC;"> 4</span>                    44 chr5_83468190_18…          4 2:1       chr5       0.105</span></span>
-<span><span class="co">## <span style="color: #BCBCBC;"> 5</span>                    46 chr6_242501_4335…          5 2:0       chr6       0.949</span></span>
-<span><span class="co">## <span style="color: #BCBCBC;"> 6</span>                    48 chr6_4347801_290…          6 2:0       chr6       0.949</span></span>
-<span><span class="co">## <span style="color: #BCBCBC;"> 7</span>                    50 chr6_29161839_38…          7 2:0       chr6       0.949</span></span>
-<span><span class="co">## <span style="color: #BCBCBC;"> 8</span>                    54 chr7_65454_99371…          8 2:1       chr7       0.105</span></span>
-<span><span class="co">## <span style="color: #BCBCBC;"> 9</span>                    56 chr7_9946564_579…          9 2:1       chr7       0.105</span></span>
-<span><span class="co">## <span style="color: #BCBCBC;">10</span>                    57 chr7_5.8e+07_616…         10 2:1       chr7       0.105</span></span>
-<span><span class="co">## <span style="color: #BCBCBC;">11</span>                    58 chr7_61700000_15…         11 2:1       chr7       0.105</span></span>
+<span><span class="co">## <span style="color: #BCBCBC;"> 1</span>                    38 chr5_75225353_75…          1 2:1       chr5      0.093<span style="text-decoration: underline;">3</span></span></span>
+<span><span class="co">## <span style="color: #BCBCBC;"> 2</span>                    40 chr5_76857368_76…          2 2:1       chr5      0.093<span style="text-decoration: underline;">3</span></span></span>
+<span><span class="co">## <span style="color: #BCBCBC;"> 3</span>                    42 chr5_77822720_82…          3 2:1       chr5      0.093<span style="text-decoration: underline;">3</span></span></span>
+<span><span class="co">## <span style="color: #BCBCBC;"> 4</span>                    44 chr5_83468190_18…          4 2:1       chr5      0.093<span style="text-decoration: underline;">3</span></span></span>
+<span><span class="co">## <span style="color: #BCBCBC;"> 5</span>                    46 chr6_242501_4335…          5 2:0       chr6      0.950 </span></span>
+<span><span class="co">## <span style="color: #BCBCBC;"> 6</span>                    48 chr6_4347801_290…          6 2:0       chr6      0.950 </span></span>
+<span><span class="co">## <span style="color: #BCBCBC;"> 7</span>                    50 chr6_29161839_38…          7 2:0       chr6      0.950 </span></span>
+<span><span class="co">## <span style="color: #BCBCBC;"> 8</span>                    54 chr7_65454_99371…          8 2:1       chr7      0.093<span style="text-decoration: underline;">3</span></span></span>
+<span><span class="co">## <span style="color: #BCBCBC;"> 9</span>                    56 chr7_9946564_579…          9 2:1       chr7      0.093<span style="text-decoration: underline;">3</span></span></span>
+<span><span class="co">## <span style="color: #BCBCBC;">10</span>                    57 chr7_5.8e+07_616…         10 2:1       chr7      0.093<span style="text-decoration: underline;">3</span></span></span>
+<span><span class="co">## <span style="color: #BCBCBC;">11</span>                    58 chr7_61700000_15…         11 2:1       chr7      0.093<span style="text-decoration: underline;">3</span></span></span>
 <span><span class="co">## <span style="color: #949494;"># ℹ 2 more variables: clock_low &lt;dbl&gt;, clock_high &lt;dbl&gt;</span></span></span></code></pre>
 </div>
 <div class="section level3">

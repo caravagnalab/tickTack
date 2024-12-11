@@ -14,8 +14,8 @@
 <link rel="apple-touch-icon" type="image/png" sizes="60x60" href="../apple-touch-icon-60x60.png">
 <script src="../deps/jquery-3.6.0/jquery-3.6.0.min.js"></script><meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
 <link href="../deps/bootstrap-5.3.1/bootstrap.min.css" rel="stylesheet">
-<script src="../deps/bootstrap-5.3.1/bootstrap.bundle.min.js"></script><link href="../deps/font-awesome-6.4.2/css/all.min.css" rel="stylesheet">
-<link href="../deps/font-awesome-6.4.2/css/v4-shims.min.css" rel="stylesheet">
+<script src="../deps/bootstrap-5.3.1/bootstrap.bundle.min.js"></script><link href="../deps/font-awesome-6.5.2/css/all.min.css" rel="stylesheet">
+<link href="../deps/font-awesome-6.5.2/css/v4-shims.min.css" rel="stylesheet">
 <script src="../deps/headroom-0.11.0/headroom.min.js"></script><script src="../deps/headroom-0.11.0/jQuery.headroom.min.js"></script><script src="../deps/bootstrap-toc-1.0.1/bootstrap-toc.min.js"></script><script src="../deps/clipboard.js-2.0.11/clipboard.min.js"></script><script src="../deps/search-1.0.0/autocomplete.jquery.min.js"></script><script src="../deps/search-1.0.0/fuse.min.js"></script><script src="../deps/search-1.0.0/mark.min.js"></script><!-- pkgdown --><script src="../pkgdown.js"></script><meta property="og:title" content="3. Understanding Timing of Clonal Peaks">
 </head>
 <body>
@@ -37,7 +37,7 @@
       <ul class="navbar-nav me-auto">
 <li class="nav-item"><a class="nav-link" href="../articles/tickTack.html">Get started</a></li>
 <li class="nav-item"><a class="nav-link" href="../reference/index.html">Reference</a></li>
-<li class="nav-item dropdown">
+<li class="active nav-item dropdown">
   <button class="nav-link dropdown-toggle" type="button" id="dropdown-articles" data-bs-toggle="dropdown" aria-expanded="false" aria-haspopup="true">Articles</button>
   <ul class="dropdown-menu" aria-labelledby="dropdown-articles">
 <li><a class="dropdown-item" href="../articles/a1_introduction.html">1. Introduction</a></li>
@@ -103,17 +103,23 @@ computed using the following equation:</p>
 <p><math display="block" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><msub><mtext mathvariant="normal">Peak</mtext><mi>i</mi></msub><mo>=</mo><mfrac><mrow><msub><mi>M</mi><mi>i</mi></msub><mo>⋅</mo><mi>P</mi></mrow><mrow><mrow><mo stretchy="true" form="prefix">(</mo><msub><mi>N</mi><mtext mathvariant="normal">tot</mtext></msub><mo>⋅</mo><mi>P</mi><mo stretchy="true" form="postfix">)</mo></mrow><mo>+</mo><mn>2</mn><mo>⋅</mo><mrow><mo stretchy="true" form="prefix">(</mo><mn>1</mn><mo>−</mo><mi>P</mi><mo stretchy="true" form="postfix">)</mo></mrow></mrow></mfrac></mrow><annotation encoding="application/x-tex">
 \text{Peak}_i = \frac{M_i \cdot P}{(N_{\text{tot}} \cdot P) + 2 \cdot (1 - P)}
 </annotation></semantics></math></p>
-<p>Where: -
+<p>Where:</p>
+<ul>
+<li>
 <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><msub><mi>M</mi><mi>i</mi></msub><annotation encoding="application/x-tex">M_i</annotation></semantics></math>:
 The multiplicity of the allele of interest (e.g., the major allele or a
-single copy for heterozygosity). -
+single copy for heterozygosity).</li>
+<li>
 <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mi>P</mi><annotation encoding="application/x-tex">P</annotation></semantics></math>:
-The tumor purity (a value between 0 and 1). -
+The tumor purity (a value between 0 and 1).</li>
+<li>
 <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><msub><mi>N</mi><mtext mathvariant="normal">tot</mtext></msub><annotation encoding="application/x-tex">N_{\text{tot}}</annotation></semantics></math>:
 The total number of copies in the karyotype (e.g., sum of the major and
-minor alleles). -
+minor alleles).</li>
+<li>
 <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mn>2</mn><annotation encoding="application/x-tex">2</annotation></semantics></math>:
-Accounts for the two copies in normal diploid cells.</p>
+Accounts for the two copies in normal diploid cells.</li>
+</ul>
 <div class="section level4">
 <h4 id="explanation">Explanation<a class="anchor" aria-label="anchor" href="#explanation"></a>
 </h4>
@@ -131,22 +137,23 @@ normal diploid cells in the sample.</li>
 <div class="section level4">
 <h4 id="example-calculation">Example Calculation<a class="anchor" aria-label="anchor" href="#example-calculation"></a>
 </h4>
-<p>For a karyotype <span class="math inline">$k = "2:1"$</span> (major
-allele = 2, minor allele = 1) and tumor purity
+<p>For a karyotype
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>k</mi><mo>=</mo><mtext mathvariant="normal">2:1</mtext></mrow><annotation encoding="application/x-tex">k = \text{2:1}</annotation></semantics></math>
+(major allele = 2, minor allele = 1) and tumor purity
 <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>P</mi><mo>=</mo><mn>0.4</mn></mrow><annotation encoding="application/x-tex">P = 0.4</annotation></semantics></math>:</p>
 <ol style="list-style-type: decimal">
+<li><p><math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><msub><mi>N</mi><mtext mathvariant="normal">tot</mtext></msub><mo>=</mo><mn>2</mn><mo>+</mo><mn>1</mn><mo>=</mo><mn>3</mn></mrow><annotation encoding="application/x-tex">N_{\text{tot}} = 2 + 1 = 3</annotation></semantics></math>.</p></li>
 <li>
-<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><msub><mi>N</mi><mtext mathvariant="normal">tot</mtext></msub><mo>=</mo><mn>2</mn><mo>+</mo><mn>1</mn><mo>=</mo><mn>3</mn></mrow><annotation encoding="application/x-tex">N_{\text{tot}} = 2 + 1 = 3</annotation></semantics></math>.</li>
-<li>Compute peaks for
+<p>Compute peaks for
 <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><msub><mi>M</mi><mi>i</mi></msub><mo>=</mo><mn>1</mn></mrow><annotation encoding="application/x-tex">M_i = 1</annotation></semantics></math>
 (single allele) and
 <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><msub><mi>M</mi><mi>i</mi></msub><mo>=</mo><mn>2</mn></mrow><annotation encoding="application/x-tex">M_i = 2</annotation></semantics></math>
-(major allele):
-<math display="block" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><msub><mtext mathvariant="normal">Peak</mtext><mn>1</mn></msub><mo>=</mo><mfrac><mrow><mn>1</mn><mo>⋅</mo><mn>0.4</mn></mrow><mrow><mrow><mo stretchy="true" form="prefix">(</mo><mn>3</mn><mo>⋅</mo><mn>0.4</mn><mo stretchy="true" form="postfix">)</mo></mrow><mo>+</mo><mn>2</mn><mo>⋅</mo><mrow><mo stretchy="true" form="prefix">(</mo><mn>1</mn><mo>−</mo><mn>0.4</mn><mo stretchy="true" form="postfix">)</mo></mrow></mrow></mfrac><mo>=</mo><mfrac><mn>0.4</mn><mrow><mn>1.2</mn><mo>+</mo><mn>1.2</mn></mrow></mfrac><mo>=</mo><mn>0.1667</mn></mrow><annotation encoding="application/x-tex">
+(major allele)</p>
+<p><math display="block" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><msub><mtext mathvariant="normal">Peak</mtext><mn>1</mn></msub><mo>=</mo><mfrac><mrow><mn>1</mn><mo>⋅</mo><mn>0.4</mn></mrow><mrow><mrow><mo stretchy="true" form="prefix">(</mo><mn>3</mn><mo>⋅</mo><mn>0.4</mn><mo stretchy="true" form="postfix">)</mo></mrow><mo>+</mo><mn>2</mn><mo>⋅</mo><mrow><mo stretchy="true" form="prefix">(</mo><mn>1</mn><mo>−</mo><mn>0.4</mn><mo stretchy="true" form="postfix">)</mo></mrow></mrow></mfrac><mo>=</mo><mfrac><mn>0.4</mn><mrow><mn>1.2</mn><mo>+</mo><mn>1.2</mn></mrow></mfrac><mo>=</mo><mn>0.1667</mn></mrow><annotation encoding="application/x-tex">
 \text{Peak}_1 = \frac{1 \cdot 0.4}{(3 \cdot 0.4) + 2 \cdot (1 - 0.4)} = \frac{0.4}{1.2 + 1.2} = 0.1667
 </annotation></semantics></math><math display="block" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><msub><mtext mathvariant="normal">Peak</mtext><mn>2</mn></msub><mo>=</mo><mfrac><mrow><mn>2</mn><mo>⋅</mo><mn>0.4</mn></mrow><mrow><mrow><mo stretchy="true" form="prefix">(</mo><mn>3</mn><mo>⋅</mo><mn>0.4</mn><mo stretchy="true" form="postfix">)</mo></mrow><mo>+</mo><mn>2</mn><mo>⋅</mo><mrow><mo stretchy="true" form="prefix">(</mo><mn>1</mn><mo>−</mo><mn>0.4</mn><mo stretchy="true" form="postfix">)</mo></mrow></mrow></mfrac><mo>=</mo><mfrac><mn>0.8</mn><mrow><mn>1.2</mn><mo>+</mo><mn>1.2</mn></mrow></mfrac><mo>=</mo><mn>0.3333</mn></mrow><annotation encoding="application/x-tex">
 \text{Peak}_2 = \frac{2 \cdot 0.4}{(3 \cdot 0.4) + 2 \cdot (1 - 0.4)} = \frac{0.8}{1.2 + 1.2} = 0.3333
-</annotation></semantics></math>
+</annotation></semantics></math></p>
 </li>
 </ol>
 </div>

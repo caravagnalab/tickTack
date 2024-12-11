@@ -14,8 +14,8 @@
 <link rel="apple-touch-icon" type="image/png" sizes="60x60" href="../apple-touch-icon-60x60.png">
 <script src="../deps/jquery-3.6.0/jquery-3.6.0.min.js"></script><meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
 <link href="../deps/bootstrap-5.3.1/bootstrap.min.css" rel="stylesheet">
-<script src="../deps/bootstrap-5.3.1/bootstrap.bundle.min.js"></script><link href="../deps/font-awesome-6.4.2/css/all.min.css" rel="stylesheet">
-<link href="../deps/font-awesome-6.4.2/css/v4-shims.min.css" rel="stylesheet">
+<script src="../deps/bootstrap-5.3.1/bootstrap.bundle.min.js"></script><link href="../deps/font-awesome-6.5.2/css/all.min.css" rel="stylesheet">
+<link href="../deps/font-awesome-6.5.2/css/v4-shims.min.css" rel="stylesheet">
 <script src="../deps/headroom-0.11.0/headroom.min.js"></script><script src="../deps/headroom-0.11.0/jQuery.headroom.min.js"></script><script src="../deps/bootstrap-toc-1.0.1/bootstrap-toc.min.js"></script><script src="../deps/clipboard.js-2.0.11/clipboard.min.js"></script><script src="../deps/search-1.0.0/autocomplete.jquery.min.js"></script><script src="../deps/search-1.0.0/fuse.min.js"></script><script src="../deps/search-1.0.0/mark.min.js"></script><!-- pkgdown --><script src="../pkgdown.js"></script><meta property="og:title" content="tickTack">
 </head>
 <body>
@@ -35,7 +35,7 @@
 
     <div id="navbar" class="collapse navbar-collapse ms-3">
       <ul class="navbar-nav me-auto">
-<li class="nav-item"><a class="nav-link" href="../articles/tickTack.html">Get started</a></li>
+<li class="active nav-item"><a class="nav-link" href="../articles/tickTack.html">Get started</a></li>
 <li class="nav-item"><a class="nav-link" href="../reference/index.html">Reference</a></li>
 <li class="nav-item dropdown">
   <button class="nav-link dropdown-toggle" type="button" id="dropdown-articles" data-bs-toggle="dropdown" aria-expanded="false" aria-haspopup="true">Articles</button>
@@ -132,11 +132,11 @@ copy. Therefore one can write the system:</p>
 and inserting into the second one, the solution for
 <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mi>τ</mi><annotation encoding="application/x-tex">\tau</annotation></semantics></math>
 becomes:</p>
-<p><span class="math display">$$\begin{equation}
+<p><span class="math display">$$
     N_1 = N_2 + \frac{3N_2}{\tau}(1-\tau) \hspace{2mm} \rightarrow
 \hspace{2mm} N_1 + 2N_2 = \frac{3N_2}{\tau} \hspace{2mm} \rightarrow
 \hspace{2mm} \tau = \frac{3N_2}{N_1 + 2N_2}
-\end{equation}$$</span></p>
+$$</span></p>
 <p>The case of the CNLOH and of the segment doubling can be treated
 together. In fact, in the first case, before
 <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mi>τ</mi><annotation encoding="application/x-tex">\tau</annotation></semantics></math>
@@ -166,11 +166,11 @@ Hence, the system becomes:</p>
 drop a factor of 2 in the second case). The solution for
 <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mi>τ</mi><annotation encoding="application/x-tex">\tau</annotation></semantics></math>
 easily becomes:</p>
-<p><span class="math display">$$\begin{equation}
-    N_1 = \frac{2N_2(1-\tau)}{\tau} \hspace{2mm} \rightarrow
-\hspace{2mm} \tau(N_1 + 2N_2) = 2N_2 \hspace{2mm} \rightarrow
-\hspace{2mm} \tau = \frac{2N_2}{2N_2 + N_1}
-\end{equation}$$</span></p>
+<p><span class="math display">$$
+  N_1 = \frac{2N_2(1-\tau)}{\tau} \hspace{2mm} \rightarrow \hspace{2mm}
+\tau(N_1 + 2N_2) = 2N_2 \hspace{2mm} \rightarrow \hspace{2mm} \tau =
+\frac{2N_2}{2N_2 + N_1}
+$$</span></p>
 </div>
 <div class="section level3">
 <h3 id="clonal-cnas">Clonal CNAs<a class="anchor" aria-label="anchor" href="#clonal-cnas"></a>
@@ -190,13 +190,13 @@ and from the normal is
 Then, muations present in
 <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mi>m</mi><annotation encoding="application/x-tex">m</annotation></semantics></math>
 copies of the tumour genome should peak at VAF value</p>
-<p><math display="block" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><msub><mi>v</mi><mi>m</mi></msub><mrow><mo stretchy="true" form="prefix">(</mo><mi>c</mi><mo stretchy="true" form="postfix">)</mo></mrow><mo>=</mo><mfrac displaystyle="true"><mrow><mi>m</mi><mi>π</mi><mi>c</mi></mrow><mrow><mn>2</mn><mrow><mo stretchy="true" form="prefix">(</mo><mn>1</mn><mo>−</mo><mi>π</mi><mo stretchy="true" form="postfix">)</mo></mrow><mo>+</mo><mi>π</mi><mrow><mo stretchy="true" form="prefix">(</mo><msub><mi>n</mi><mi>A</mi></msub><mo>+</mo><msub><mi>n</mi><mi>B</mi></msub><mo stretchy="true" form="postfix">)</mo></mrow></mrow></mfrac><mspace width="0.167em"></mspace><mi>.</mi></mrow><annotation encoding="application/x-tex">
+<p><math display="block" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><msub><mi>v</mi><mi>m</mi></msub><mrow><mo stretchy="true" form="prefix">(</mo><mi>c</mi><mo stretchy="true" form="postfix">)</mo></mrow><mo>=</mo><mfrac displaystyle="true"><mrow><mi>m</mi><mi>π</mi><mi>c</mi></mrow><mrow><mn>2</mn><mrow><mo stretchy="true" form="prefix">(</mo><mn>1</mn><mo>−</mo><mi>π</mi><mo stretchy="true" form="postfix">)</mo></mrow><mo>+</mo><mi>π</mi><mrow><mo stretchy="true" form="prefix">(</mo><msub><mi>n</mi><mi>A</mi></msub><mo>+</mo><msub><mi>n</mi><mi>B</mi></msub><mo stretchy="true" form="postfix">)</mo></mrow></mrow></mfrac></mrow><annotation encoding="application/x-tex">
 v_m(c) = \dfrac{m \pi c}{
 2 (1 - \pi) + \pi (n_A+n_B)
-} \, .
+}
 </annotation></semantics></math></p>
 <!-- ## The model -->
-<!-- <img src="/Users/jovoni/GitHub/tickTack/vignettes/img/pgm.png" alt="Overview timing problem" width="650" style="display: block; margin: 0 auto"/><br> -->
+<!-- <img src="/home/runner/work/tickTack/tickTack/vignettes/img/pgm.png" alt="Overview timing problem" width="650" style="display: block; margin: 0 auto"/><br> -->
 <!-- Here we show an example of the model application on real data from the Pan-Cancer Analysis of -->
 <!--  Whole Genomes (PCAWG) cohort, specifically from a Renal Cell Carcinoma (Kidney-RCC) tumor type sample.  -->
 <!-- ```{r setup, warning=FALSE} -->
