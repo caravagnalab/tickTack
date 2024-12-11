@@ -7,7 +7,7 @@
 
 <!-- badges: end -->
 
-# lineaGT <a href="caravagnalab.github.io/lineaGT"><img src="man/figures/tickTack.png" align="right" height="139"/></a>
+# tickTack <a href="caravagnalab.github.io/tickTack"><img src="man/figures/logo.png" align="right" height="120" alt="" /></a>
 
 tickTack is a package to infer kinetic parameters of an evolving
 population whose size is observed at discrete intervals of time. The

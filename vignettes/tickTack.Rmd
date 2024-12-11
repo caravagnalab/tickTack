@@ -54,7 +54,6 @@ The following quantities need to be considered:
 
 <img src="img/Mutations_single_double_copy_draw_process.png" alt="Overview timing problem" width="650" style="display: block; margin: 0 auto"/><br>
 
-
 \subsubsection{2:1}
 
 In the case of a trisomy without LOH, we can consider the fact that, before $\tau$, 1 chromosome will accumulate mutations that will duplicate, while the other will accumulate mutations that will remain in single copy. On the other hand, after $\tau$, both chromosomes will accumulate mutations which will remain in single copy. Therefore one can write the system:
@@ -68,9 +67,9 @@ In the case of a trisomy without LOH, we can consider the fact that, before $\ta
 
 Using the first one to obtain $\rho$ and inserting into the second one, the solution for $\tau$ becomes:
 
-\begin{equation}
+$$
 	N_1 = N_2 + \frac{3N_2}{\tau}(1-\tau) \hspace{2mm} \rightarrow \hspace{2mm} N_1 + 2N_2 = \frac{3N_2}{\tau} \hspace{2mm} \rightarrow \hspace{2mm} \tau = \frac{3N_2}{N_1 + 2N_2}
-\end{equation}
+$$
 
 \subsubsection{2:0 and 2:2}
 
@@ -94,11 +93,9 @@ A very similar things happens in the case of the 2:2, with the only difference t
 
 Therefore, the two system can be solved similarly (you can simply drop a factor of 2 in the second case). The solution for $\tau$ easily becomes:
 
-\begin{equation}
-	N_1 = \frac{2N_2(1-\tau)}{\tau} \hspace{2mm} \rightarrow \hspace{2mm} \tau(N_1 + 2N_2) = 2N_2 \hspace{2mm} \rightarrow \hspace{2mm} \tau = \frac{2N_2}{2N_2 + N_1}
-\end{equation}
-
-
+$$
+  N_1 = \frac{2N_2(1-\tau)}{\tau} \hspace{2mm} \rightarrow \hspace{2mm} \tau(N_1 + 2N_2) = 2N_2 \hspace{2mm} \rightarrow \hspace{2mm} \tau = \frac{2N_2}{2N_2 + N_1}
+$$
 
 ### Clonal CNAs
 
@@ -110,11 +107,11 @@ Consider:
 
 Since the proportion of all reads from the tumour is $\pi(n_A+n_B)$, and from the normal is $2(1-\pi)$. Then, muations present in $m$ copies of the tumour genome should peak at VAF value 
 
-\[
+$$
 v_m(c) = \dfrac{m \pi c}{
 2 (1 - \pi) + \pi (n_A+n_B)
-} \, .
-\]
+}
+$$
 
 
 

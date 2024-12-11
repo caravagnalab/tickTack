@@ -23,11 +23,12 @@ The timing results are obtained in the following steps:
 The clonal peaks are calculated using the `get_clonal_peaks` function. The function computes the theoretical VAF peaks based on the karyotype and tumor purity.
 They are computed using the following equation:
 
-\[
+$$
 \text{Peak}_i = \frac{M_i \cdot P}{(N_{\text{tot}} \cdot P) + 2 \cdot (1 - P)}
-\]
+$$
 
 Where:
+
 - \( M_i \): The multiplicity of the allele of interest (e.g., the major allele or a single copy for heterozygosity).
 - \( P \): The tumor purity (a value between 0 and 1).
 - \( N_{\text{tot}} \): The total number of copies in the karyotype (e.g., sum of the major and minor alleles).
@@ -39,16 +40,17 @@ Where:
 - The **denominator**, \( (N_{\text{tot}} \cdot P) + 2 \cdot (1 - P) \), normalizes the peak to account for contributions from both tumor and normal diploid cells in the sample.
 
 #### Example Calculation
-For a karyotype \( k = "2:1" \) (major allele = 2, minor allele = 1) and tumor purity \( P = 0.4 \):
+For a karyotype $k = \text{2:1}$ (major allele = 2, minor allele = 1) and tumor purity $P = 0.4$:
 
 1. \( N_{\text{tot}} = 2 + 1 = 3 \).
-2. Compute peaks for \( M_i = 1 \) (single allele) and \( M_i = 2 \) (major allele):
-   \[
+2. Compute peaks for \( M_i = 1 \) (single allele) and \( M_i = 2 \) (major allele)
+
+   $$
    \text{Peak}_1 = \frac{1 \cdot 0.4}{(3 \cdot 0.4) + 2 \cdot (1 - 0.4)} = \frac{0.4}{1.2 + 1.2} = 0.1667
-   \]
-   \[
+   $$
+   $$
    \text{Peak}_2 = \frac{2 \cdot 0.4}{(3 \cdot 0.4) + 2 \cdot (1 - 0.4)} = \frac{0.8}{1.2 + 1.2} = 0.3333
-   \]
+   $$
 
 ### Step 2: Filtering Mutations
 
