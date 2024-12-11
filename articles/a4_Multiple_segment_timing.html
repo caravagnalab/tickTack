@@ -14,8 +14,8 @@
 <link rel="apple-touch-icon" type="image/png" sizes="60x60" href="../apple-touch-icon-60x60.png">
 <script src="../deps/jquery-3.6.0/jquery-3.6.0.min.js"></script><meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
 <link href="../deps/bootstrap-5.3.1/bootstrap.min.css" rel="stylesheet">
-<script src="../deps/bootstrap-5.3.1/bootstrap.bundle.min.js"></script><link href="../deps/font-awesome-6.4.2/css/all.min.css" rel="stylesheet">
-<link href="../deps/font-awesome-6.4.2/css/v4-shims.min.css" rel="stylesheet">
+<script src="../deps/bootstrap-5.3.1/bootstrap.bundle.min.js"></script><link href="../deps/font-awesome-6.5.2/css/all.min.css" rel="stylesheet">
+<link href="../deps/font-awesome-6.5.2/css/v4-shims.min.css" rel="stylesheet">
 <script src="../deps/headroom-0.11.0/headroom.min.js"></script><script src="../deps/headroom-0.11.0/jQuery.headroom.min.js"></script><script src="../deps/bootstrap-toc-1.0.1/bootstrap-toc.min.js"></script><script src="../deps/clipboard.js-2.0.11/clipboard.min.js"></script><script src="../deps/search-1.0.0/autocomplete.jquery.min.js"></script><script src="../deps/search-1.0.0/fuse.min.js"></script><script src="../deps/search-1.0.0/mark.min.js"></script><!-- pkgdown --><script src="../pkgdown.js"></script><meta property="og:title" content="4. Timing Clonal Peaks in a hierarchical fashioin">
 </head>
 <body>
@@ -37,7 +37,7 @@
       <ul class="navbar-nav me-auto">
 <li class="nav-item"><a class="nav-link" href="../articles/tickTack.html">Get started</a></li>
 <li class="nav-item"><a class="nav-link" href="../reference/index.html">Reference</a></li>
-<li class="nav-item dropdown">
+<li class="active nav-item dropdown">
   <button class="nav-link dropdown-toggle" type="button" id="dropdown-articles" data-bs-toggle="dropdown" aria-expanded="false" aria-haspopup="true">Articles</button>
   <ul class="dropdown-menu" aria-labelledby="dropdown-articles">
 <li><a class="dropdown-item" href="../articles/a1_introduction.html">1. Introduction</a></li>
@@ -64,7 +64,7 @@
 
 <div class="row">
   <main id="main" class="col-md-9"><div class="page-header">
-      <img src="../logo.png" class="logo" alt=""><h1>4. Timing Clonal Peaks in a hierarchical fashioin</h1>
+      <img src="../logo.svg" class="logo" alt=""><h1>4. Timing Clonal Peaks in a hierarchical fashioin</h1>
             
       
 
@@ -126,17 +126,24 @@ n_components.</li>
 <div class="section level3">
 <h3 id="output">Output<a class="anchor" aria-label="anchor" href="#output"></a>
 </h3>
-<p>The function returns a list containing: 1.
+<p>The function returns a list containing:</p>
+<ol style="list-style-type: decimal">
+<li>
 <strong><code>data</code></strong>: The data used to perform the
 inference after selecting the ones that respect the assumptions to be
-used in the model. 2. <strong><code>draws_and_summary</code></strong>:
-List of 3 for each K the inference is performed with. draws are
-available both for the clocks and for the weights Summary statistics for
-the estimated timing of clonal peaks. 3.
-<strong><code>log_lik_matrix_list</code></strong>: Summary statistics
-for the estimated timing of clonal peaks. 4.
-<strong><code>elbo_iterations</code></strong>: Summary statistics for
-the estimated timing of clonal peaks.</p>
+used in the model.</li>
+<li>
+<strong><code>draws_and_summary</code></strong>: List of 3 for each
+K the inference is performed with. draws are available both for the
+clocks and for the weights Summary statistics for the estimated timing
+of clonal peaks.</li>
+<li>
+<strong><code>log_lik_matrix_list</code></strong>: Summary
+statistics for the estimated timing of clonal peaks.</li>
+<li>
+<strong><code>elbo_iterations</code></strong>: Summary statistics
+for the estimated timing of clonal peaks.</li>
+</ol>
 <p>If no segments meet the criteria, the function returns
 <code>NULL</code>.</p>
 </div>
@@ -312,538 +319,18 @@ tumor purity.</li>
 <p>We can run the <code>fit_h</code> function on the
 <code><a href="../reference/pcawg_example_2.html">tickTack::pcawg_example_2</a></code> data to infer the timing of
 clonal peaks</p>
-<pre><code><span><span class="co">## [1] 1</span></span>
-<span><span class="co">## [1] 2</span></span>
-<span><span class="co">## [1] 3</span></span>
-<span><span class="co">## [1] 4</span></span>
-<span><span class="co">## [1] 5</span></span>
-<span><span class="co">## [1] 6</span></span>
-<span><span class="co">## [1] 7</span></span>
-<span><span class="co">## [1] 8</span></span>
-<span><span class="co">## [1] 9</span></span>
-<span><span class="co">## [1] 10</span></span>
-<span><span class="co">## [1] 11</span></span>
-<span><span class="co">## [1] 12</span></span>
-<span><span class="co">## [1] 13</span></span>
-<span><span class="co">## [1] 14</span></span>
-<span><span class="co">## [1] 15</span></span>
-<span><span class="co">## [1] 16</span></span>
-<span><span class="co">## [1] 17</span></span>
-<span><span class="co">## [1] 18</span></span>
-<span><span class="co">## [1] 19</span></span>
-<span><span class="co">## [1] 20</span></span>
-<span><span class="co">## [1] 21</span></span>
-<span><span class="co">## [1] 22</span></span>
-<span><span class="co">## [1] 23</span></span>
-<span><span class="co">## [1] 24</span></span>
-<span><span class="co">## [1] 25</span></span>
-<span><span class="co">## [1] 26</span></span>
-<span><span class="co">## [1] 27</span></span>
-<span><span class="co">## [1] 28</span></span>
-<span><span class="co">## [1] 29</span></span>
-<span><span class="co">## [1] 30</span></span>
-<span><span class="co">## [1] 31</span></span>
-<span><span class="co">## [1] 32</span></span>
-<span><span class="co">## [1] 33</span></span>
-<span><span class="co">## [1] 34</span></span>
-<span><span class="co">## [1] 35</span></span>
-<span><span class="co">## [1] 36</span></span>
-<span><span class="co">## [1] 37</span></span>
-<span><span class="co">## [1] 38</span></span></code></pre>
-<pre><code><span><span class="co">## <span style="color: #00BBBB;">ℹ</span> Adding segment with index <span style="color: #0000BB;">38</span> to segments included in the inference.</span></span></code></pre>
-<pre><code><span><span class="co">## [1] 39</span></span>
-<span><span class="co">## [1] 40</span></span></code></pre>
-<pre><code><span><span class="co">## <span style="color: #00BBBB;">ℹ</span> Adding segment with index <span style="color: #0000BB;">40</span> to segments included in the inference.</span></span></code></pre>
-<pre><code><span><span class="co">## [1] 41</span></span>
-<span><span class="co">## [1] 42</span></span></code></pre>
-<pre><code><span><span class="co">## <span style="color: #00BBBB;">ℹ</span> Adding segment with index <span style="color: #0000BB;">42</span> to segments included in the inference.</span></span></code></pre>
-<pre><code><span><span class="co">## [1] 43</span></span>
-<span><span class="co">## [1] 44</span></span></code></pre>
-<pre><code><span><span class="co">## <span style="color: #00BBBB;">ℹ</span> Adding segment with index <span style="color: #0000BB;">44</span> to segments included in the inference.</span></span></code></pre>
-<pre><code><span><span class="co">## [1] 45</span></span>
-<span><span class="co">## [1] 46</span></span></code></pre>
-<pre><code><span><span class="co">## <span style="color: #00BBBB;">ℹ</span> Adding segment with index <span style="color: #0000BB;">46</span> to segments included in the inference.</span></span></code></pre>
-<pre><code><span><span class="co">## [1] 47</span></span>
-<span><span class="co">## [1] 48</span></span></code></pre>
-<pre><code><span><span class="co">## <span style="color: #00BBBB;">ℹ</span> Adding segment with index <span style="color: #0000BB;">48</span> to segments included in the inference.</span></span></code></pre>
-<pre><code><span><span class="co">## [1] 49</span></span>
-<span><span class="co">## [1] 50</span></span></code></pre>
-<pre><code><span><span class="co">## <span style="color: #00BBBB;">ℹ</span> Adding segment with index <span style="color: #0000BB;">50</span> to segments included in the inference.</span></span></code></pre>
-<pre><code><span><span class="co">## [1] 51</span></span>
-<span><span class="co">## [1] 52</span></span>
-<span><span class="co">## [1] 53</span></span>
-<span><span class="co">## [1] 54</span></span></code></pre>
-<pre><code><span><span class="co">## <span style="color: #00BBBB;">ℹ</span> Adding segment with index <span style="color: #0000BB;">54</span> to segments included in the inference.</span></span></code></pre>
-<pre><code><span><span class="co">## [1] 55</span></span>
-<span><span class="co">## [1] 56</span></span></code></pre>
-<pre><code><span><span class="co">## <span style="color: #00BBBB;">ℹ</span> Adding segment with index <span style="color: #0000BB;">56</span> to segments included in the inference.</span></span></code></pre>
-<pre><code><span><span class="co">## [1] 57</span></span></code></pre>
-<pre><code><span><span class="co">## <span style="color: #00BBBB;">ℹ</span> Adding segment with index <span style="color: #0000BB;">57</span> to segments included in the inference.</span></span></code></pre>
-<pre><code><span><span class="co">## [1] 58</span></span></code></pre>
-<pre><code><span><span class="co">## <span style="color: #00BBBB;">ℹ</span> Adding segment with index <span style="color: #0000BB;">58</span> to segments included in the inference.</span></span></code></pre>
-<pre><code><span><span class="co">## [1] 59</span></span>
-<span><span class="co">## [1] 60</span></span>
-<span><span class="co">## [1] 61</span></span>
-<span><span class="co">## [1] 62</span></span>
-<span><span class="co">## [1] 63</span></span>
-<span><span class="co">## [1] 64</span></span>
-<span><span class="co">## [1] 65</span></span>
-<span><span class="co">## [1] 66</span></span>
-<span><span class="co">## [1] 67</span></span>
-<span><span class="co">## [1] 68</span></span>
-<span><span class="co">## [1] 69</span></span>
-<span><span class="co">## [1] 70</span></span>
-<span><span class="co">## [1] 71</span></span>
-<span><span class="co">## [1] 72</span></span>
-<span><span class="co">## [1] 73</span></span>
-<span><span class="co">## [1] 74</span></span>
-<span><span class="co">## [1] 75</span></span>
-<span><span class="co">## [1] 76</span></span>
-<span><span class="co">## [1] 77</span></span>
-<span><span class="co">## [1] 78</span></span>
-<span><span class="co">## [1] 79</span></span>
-<span><span class="co">## [1] 80</span></span>
-<span><span class="co">## [1] 81</span></span>
-<span><span class="co">## [1] 82</span></span>
-<span><span class="co">## [1] 83</span></span>
-<span><span class="co">## [1] 84</span></span>
-<span><span class="co">## [1] 85</span></span>
-<span><span class="co">## [1] 86</span></span>
-<span><span class="co">## [1] 87</span></span>
-<span><span class="co">## [1] 88</span></span>
-<span><span class="co">## [1] 89</span></span>
-<span><span class="co">## [1] 90</span></span>
-<span><span class="co">## [1] 91</span></span>
-<span><span class="co">## [1] 92</span></span>
-<span><span class="co">## [1] 93</span></span>
-<span><span class="co">## [1] 94</span></span>
-<span><span class="co">## [1] 95</span></span>
-<span><span class="co">## [1] 96</span></span>
-<span><span class="co">## [1] 97</span></span>
-<span><span class="co">## [1] 98</span></span>
-<span><span class="co">## [1] 99</span></span>
-<span><span class="co">## [1] 100</span></span>
-<span><span class="co">## [1] 101</span></span>
-<span><span class="co">## [1] 102</span></span>
-<span><span class="co">## [1] 103</span></span>
-<span><span class="co">## [1] 104</span></span>
-<span><span class="co">## [1] 105</span></span>
-<span><span class="co">## [1] 106</span></span>
-<span><span class="co">## [1] 107</span></span>
-<span><span class="co">## [1] 108</span></span>
-<span><span class="co">## [1] 109</span></span>
-<span><span class="co">## [1] 110</span></span>
-<span><span class="co">## [1] 111</span></span>
-<span><span class="co">## [1] 112</span></span>
-<span><span class="co">## [1] 113</span></span>
-<span><span class="co">## [1] 114</span></span>
-<span><span class="co">## [1] 115</span></span>
-<span><span class="co">## [1] 116</span></span>
-<span><span class="co">## [1] 117</span></span>
-<span><span class="co">## [1] 118</span></span>
-<span><span class="co">## [1] 119</span></span>
-<span><span class="co">## [1] 120</span></span>
-<span><span class="co">## [1] 121</span></span>
-<span><span class="co">## [1] 122</span></span>
-<span><span class="co">## [1] 123</span></span>
-<span><span class="co">## [1] 124</span></span>
-<span><span class="co">## [1] 125</span></span>
-<span><span class="co">## [1] 126</span></span>
-<span><span class="co">## [1] 127</span></span>
-<span><span class="co">## [1] 128</span></span>
-<span><span class="co">## [1] 129</span></span>
-<span><span class="co">## init_taus from clustering  0.335269297763016</span></span></code></pre>
-<pre><code><span><span class="co">## Attempt 1 of 2</span></span></code></pre>
-<pre><code><span><span class="co">## ------------------------------------------------------------ </span></span>
-<span><span class="co">## EXPERIMENTAL ALGORITHM: </span></span>
-<span><span class="co">##   This procedure has not been thoroughly tested and may be unstable </span></span>
-<span><span class="co">##   or buggy. The interface is subject to change. </span></span>
-<span><span class="co">## ------------------------------------------------------------ </span></span>
-<span><span class="co">## Gradient evaluation took 0.001668 seconds </span></span>
-<span><span class="co">## 1000 transitions using 10 leapfrog steps per transition would take 16.68 seconds. </span></span>
-<span><span class="co">## Adjust your expectations accordingly! </span></span>
-<span><span class="co">## Begin eta adaptation. </span></span>
-<span><span class="co">## Iteration:   1 / 250 [  0%]  (Adaptation) </span></span>
-<span><span class="co">## Iteration:  50 / 250 [ 20%]  (Adaptation) </span></span>
-<span><span class="co">## Iteration: 100 / 250 [ 40%]  (Adaptation) </span></span>
-<span><span class="co">## Iteration: 150 / 250 [ 60%]  (Adaptation) </span></span>
-<span><span class="co">## Iteration: 200 / 250 [ 80%]  (Adaptation) </span></span>
-<span><span class="co">## Success! Found best value [eta = 1] earlier than expected. </span></span>
-<span><span class="co">## Begin stochastic gradient ascent. </span></span>
-<span><span class="co">##   iter             ELBO   delta_ELBO_mean   delta_ELBO_med   notes  </span></span>
-<span><span class="co">##      1       -15403.535             1.000            1.000 </span></span>
-<span><span class="co">##      2       -15346.006             0.502            1.000 </span></span>
-<span><span class="co">##      3       -15332.796             0.335            0.004   MEDIAN ELBO CONVERGED </span></span>
-<span><span class="co">## Drawing a sample of size 1000 from the approximate posterior...  </span></span>
-<span><span class="co">## COMPLETED. </span></span>
-<span><span class="co">## Finished in  5.8 seconds.</span></span>
-<span><span class="co">## [[1]]</span></span>
-<span><span class="co">## [[1]]$w</span></span>
-<span><span class="co">##       [,1]</span></span>
-<span><span class="co">##  [1,]    1</span></span>
-<span><span class="co">##  [2,]    1</span></span>
-<span><span class="co">##  [3,]    1</span></span>
-<span><span class="co">##  [4,]    1</span></span>
-<span><span class="co">##  [5,]    1</span></span>
-<span><span class="co">##  [6,]    1</span></span>
-<span><span class="co">##  [7,]    1</span></span>
-<span><span class="co">##  [8,]    1</span></span>
-<span><span class="co">##  [9,]    1</span></span>
-<span><span class="co">## [10,]    1</span></span>
-<span><span class="co">## [11,]    1</span></span>
-<span><span class="co">## </span></span>
-<span><span class="co">## [[1]]$tau</span></span>
-<span><span class="co">## [1] 0.3352693</span></span>
-<span><span class="co">## </span></span>
-<span><span class="co">## [[1]]$phi</span></span>
-<span><span class="co">## [1] 1</span></span>
-<span><span class="co">## </span></span>
-<span><span class="co">## [[1]]$kappa</span></span>
-<span><span class="co">## [1] 5</span></span></code></pre>
-<pre><code><span><span class="co">## ELBO for this run: -15332.8</span></span></code></pre>
-<pre><code><span><span class="co">## Attempt 2 of 2</span></span></code></pre>
-<pre><code><span><span class="co">## ------------------------------------------------------------ </span></span>
-<span><span class="co">## EXPERIMENTAL ALGORITHM: </span></span>
-<span><span class="co">##   This procedure has not been thoroughly tested and may be unstable </span></span>
-<span><span class="co">##   or buggy. The interface is subject to change. </span></span>
-<span><span class="co">## ------------------------------------------------------------ </span></span>
-<span><span class="co">## Gradient evaluation took 0.001466 seconds </span></span>
-<span><span class="co">## 1000 transitions using 10 leapfrog steps per transition would take 14.66 seconds. </span></span>
-<span><span class="co">## Adjust your expectations accordingly! </span></span>
-<span><span class="co">## Begin eta adaptation. </span></span>
-<span><span class="co">## Iteration:   1 / 250 [  0%]  (Adaptation) </span></span>
-<span><span class="co">## Iteration:  50 / 250 [ 20%]  (Adaptation) </span></span>
-<span><span class="co">## Iteration: 100 / 250 [ 40%]  (Adaptation) </span></span>
-<span><span class="co">## Iteration: 150 / 250 [ 60%]  (Adaptation) </span></span>
-<span><span class="co">## Iteration: 200 / 250 [ 80%]  (Adaptation) </span></span>
-<span><span class="co">## Success! Found best value [eta = 1] earlier than expected. </span></span>
-<span><span class="co">## Begin stochastic gradient ascent. </span></span>
-<span><span class="co">##   iter             ELBO   delta_ELBO_mean   delta_ELBO_med   notes  </span></span>
-<span><span class="co">##      1       -15362.590             1.000            1.000 </span></span>
-<span><span class="co">##      2       -15380.856             0.501            1.000 </span></span>
-<span><span class="co">##      3       -15356.600             0.334            0.002   MEDIAN ELBO CONVERGED </span></span>
-<span><span class="co">## Drawing a sample of size 1000 from the approximate posterior...  </span></span>
-<span><span class="co">## COMPLETED. </span></span>
-<span><span class="co">## Finished in  5.9 seconds.</span></span>
-<span><span class="co">## [[1]]</span></span>
-<span><span class="co">## [[1]]$w</span></span>
-<span><span class="co">##       [,1]</span></span>
-<span><span class="co">##  [1,]    1</span></span>
-<span><span class="co">##  [2,]    1</span></span>
-<span><span class="co">##  [3,]    1</span></span>
-<span><span class="co">##  [4,]    1</span></span>
-<span><span class="co">##  [5,]    1</span></span>
-<span><span class="co">##  [6,]    1</span></span>
-<span><span class="co">##  [7,]    1</span></span>
-<span><span class="co">##  [8,]    1</span></span>
-<span><span class="co">##  [9,]    1</span></span>
-<span><span class="co">## [10,]    1</span></span>
-<span><span class="co">## [11,]    1</span></span>
-<span><span class="co">## </span></span>
-<span><span class="co">## [[1]]$tau</span></span>
-<span><span class="co">## [1] 0.379749</span></span>
-<span><span class="co">## </span></span>
-<span><span class="co">## [[1]]$phi</span></span>
-<span><span class="co">## [1] 1</span></span>
-<span><span class="co">## </span></span>
-<span><span class="co">## [[1]]$kappa</span></span>
-<span><span class="co">## [1] 5</span></span></code></pre>
-<pre><code><span><span class="co">## ELBO for this run: -15356.6</span></span></code></pre>
-<pre><code><span><span class="co">## [1] "output_files /var/folders/62/lqn3cqgn40gcw1l2g3vlvvsc0000gn/T/RtmpZTYOnU/timing_mixed_simple-diagnostic-202412111047-1-054ea9.csv\n"</span></span>
-<span><span class="co">## init_taus from clustering  0.106162080175273 init_taus from clustering  0.944991228011591</span></span></code></pre>
-<pre><code><span><span class="co">## Attempt 1 of 2</span></span></code></pre>
-<pre><code><span><span class="co">## ------------------------------------------------------------ </span></span>
-<span><span class="co">## EXPERIMENTAL ALGORITHM: </span></span>
-<span><span class="co">##   This procedure has not been thoroughly tested and may be unstable </span></span>
-<span><span class="co">##   or buggy. The interface is subject to change. </span></span>
-<span><span class="co">## ------------------------------------------------------------ </span></span>
-<span><span class="co">## Gradient evaluation took 0.002487 seconds </span></span>
-<span><span class="co">## 1000 transitions using 10 leapfrog steps per transition would take 24.87 seconds. </span></span>
-<span><span class="co">## Adjust your expectations accordingly! </span></span>
-<span><span class="co">## Begin eta adaptation. </span></span>
-<span><span class="co">## Iteration:   1 / 250 [  0%]  (Adaptation) </span></span>
-<span><span class="co">## Iteration:  50 / 250 [ 20%]  (Adaptation) </span></span>
-<span><span class="co">## Iteration: 100 / 250 [ 40%]  (Adaptation) </span></span>
-<span><span class="co">## Iteration: 150 / 250 [ 60%]  (Adaptation) </span></span>
-<span><span class="co">## Iteration: 200 / 250 [ 80%]  (Adaptation) </span></span>
-<span><span class="co">## Success! Found best value [eta = 1] earlier than expected. </span></span>
-<span><span class="co">## Begin stochastic gradient ascent. </span></span>
-<span><span class="co">##   iter             ELBO   delta_ELBO_mean   delta_ELBO_med   notes  </span></span>
-<span><span class="co">##      1       -15068.727             1.000            1.000 </span></span>
-<span><span class="co">##      2       -15072.297             0.500            1.000 </span></span>
-<span><span class="co">##      3       -14986.639             0.335            0.006   MEDIAN ELBO CONVERGED </span></span>
-<span><span class="co">## Drawing a sample of size 1000 from the approximate posterior...  </span></span>
-<span><span class="co">## COMPLETED. </span></span>
-<span><span class="co">## Finished in  16.7 seconds.</span></span>
-<span><span class="co">## [[1]]</span></span>
-<span><span class="co">## [[1]]$w</span></span>
-<span><span class="co">##               [,1]        [,2]</span></span>
-<span><span class="co">##  [1,] 0.9747004040 0.025299596</span></span>
-<span><span class="co">##  [2,] 0.9874802379 0.012519762</span></span>
-<span><span class="co">##  [3,] 0.9960845111 0.003915489</span></span>
-<span><span class="co">##  [4,] 0.9975056016 0.002494398</span></span>
-<span><span class="co">##  [5,] 0.0001810111 0.999818989</span></span>
-<span><span class="co">##  [6,] 0.0001634053 0.999836595</span></span>
-<span><span class="co">##  [7,] 0.0004089774 0.999591023</span></span>
-<span><span class="co">##  [8,] 0.9936854331 0.006314567</span></span>
-<span><span class="co">##  [9,] 0.9933283112 0.006671689</span></span>
-<span><span class="co">## [10,] 0.9874802379 0.012519762</span></span>
-<span><span class="co">## [11,] 0.9910302864 0.008969714</span></span>
-<span><span class="co">## </span></span>
-<span><span class="co">## [[1]]$tau</span></span>
-<span><span class="co">## [1] 0.1061621 0.8800000</span></span>
-<span><span class="co">## </span></span>
-<span><span class="co">## [[1]]$phi</span></span>
-<span><span class="co">## [1] 0.5 0.5</span></span>
-<span><span class="co">## </span></span>
-<span><span class="co">## [[1]]$kappa</span></span>
-<span><span class="co">## [1] 5</span></span></code></pre>
-<pre><code><span><span class="co">## ELBO for this run: -14986.6</span></span>
-<span><span class="co">## Attempt 2 of 2</span></span></code></pre>
-<pre><code><span><span class="co">## ------------------------------------------------------------ </span></span>
-<span><span class="co">## EXPERIMENTAL ALGORITHM: </span></span>
-<span><span class="co">##   This procedure has not been thoroughly tested and may be unstable </span></span>
-<span><span class="co">##   or buggy. The interface is subject to change. </span></span>
-<span><span class="co">## ------------------------------------------------------------ </span></span>
-<span><span class="co">## Gradient evaluation took 0.002313 seconds </span></span>
-<span><span class="co">## 1000 transitions using 10 leapfrog steps per transition would take 23.13 seconds. </span></span>
-<span><span class="co">## Adjust your expectations accordingly! </span></span>
-<span><span class="co">## Begin eta adaptation. </span></span>
-<span><span class="co">## Iteration:   1 / 250 [  0%]  (Adaptation) </span></span>
-<span><span class="co">## Iteration:  50 / 250 [ 20%]  (Adaptation) </span></span>
-<span><span class="co">## Iteration: 100 / 250 [ 40%]  (Adaptation) </span></span>
-<span><span class="co">## Iteration: 150 / 250 [ 60%]  (Adaptation) </span></span>
-<span><span class="co">## Iteration: 200 / 250 [ 80%]  (Adaptation) </span></span>
-<span><span class="co">## Success! Found best value [eta = 1] earlier than expected. </span></span>
-<span><span class="co">## Begin stochastic gradient ascent. </span></span>
-<span><span class="co">##   iter             ELBO   delta_ELBO_mean   delta_ELBO_med   notes  </span></span>
-<span><span class="co">##      1       -16150.250             1.000            1.000 </span></span>
-<span><span class="co">##      2       -15883.904             0.508            1.000 </span></span>
-<span><span class="co">##      3       -15615.636             0.345            0.017   MEDIAN ELBO CONVERGED </span></span>
-<span><span class="co">## Drawing a sample of size 1000 from the approximate posterior...  </span></span>
-<span><span class="co">## COMPLETED. </span></span>
-<span><span class="co">## Finished in  16.8 seconds.</span></span>
-<span><span class="co">## [[1]]</span></span>
-<span><span class="co">## [[1]]$w</span></span>
-<span><span class="co">##               [,1]        [,2]</span></span>
-<span><span class="co">##  [1,] 0.9747004040 0.025299596</span></span>
-<span><span class="co">##  [2,] 0.9874802379 0.012519762</span></span>
-<span><span class="co">##  [3,] 0.9960845111 0.003915489</span></span>
-<span><span class="co">##  [4,] 0.9975056016 0.002494398</span></span>
-<span><span class="co">##  [5,] 0.0001810111 0.999818989</span></span>
-<span><span class="co">##  [6,] 0.0001634053 0.999836595</span></span>
-<span><span class="co">##  [7,] 0.0004089774 0.999591023</span></span>
-<span><span class="co">##  [8,] 0.9936854331 0.006314567</span></span>
-<span><span class="co">##  [9,] 0.9933283112 0.006671689</span></span>
-<span><span class="co">## [10,] 0.9874802379 0.012519762</span></span>
-<span><span class="co">## [11,] 0.9910302864 0.008969714</span></span>
-<span><span class="co">## </span></span>
-<span><span class="co">## [[1]]$tau</span></span>
-<span><span class="co">## [1] 0.82414580 0.05249575</span></span>
-<span><span class="co">## </span></span>
-<span><span class="co">## [[1]]$phi</span></span>
-<span><span class="co">## [1] 0.5 0.5</span></span>
-<span><span class="co">## </span></span>
-<span><span class="co">## [[1]]$kappa</span></span>
-<span><span class="co">## [1] 5</span></span></code></pre>
-<pre><code><span><span class="co">## ELBO for this run: -15615.6</span></span></code></pre>
-<pre><code><span><span class="co">## [1] "output_files /var/folders/62/lqn3cqgn40gcw1l2g3vlvvsc0000gn/T/RtmpZTYOnU/timing_mixed_simple-diagnostic-202412111047-1-3222f9.csv\n"</span></span>
-<span><span class="co">## init_taus from clustering  0.945283687526098 init_taus from clustering  0.18363126141826 init_taus from clustering  0.0275029914699493</span></span></code></pre>
-<pre><code><span><span class="co">## Attempt 1 of 2</span></span></code></pre>
-<pre><code><span><span class="co">## ------------------------------------------------------------ </span></span>
-<span><span class="co">## EXPERIMENTAL ALGORITHM: </span></span>
-<span><span class="co">##   This procedure has not been thoroughly tested and may be unstable </span></span>
-<span><span class="co">##   or buggy. The interface is subject to change. </span></span>
-<span><span class="co">## ------------------------------------------------------------ </span></span>
-<span><span class="co">## Gradient evaluation took 0.003473 seconds </span></span>
-<span><span class="co">## 1000 transitions using 10 leapfrog steps per transition would take 34.73 seconds. </span></span>
-<span><span class="co">## Adjust your expectations accordingly! </span></span>
-<span><span class="co">## Begin eta adaptation. </span></span>
-<span><span class="co">## Iteration:   1 / 250 [  0%]  (Adaptation) </span></span>
-<span><span class="co">## Iteration:  50 / 250 [ 20%]  (Adaptation) </span></span>
-<span><span class="co">## Iteration: 100 / 250 [ 40%]  (Adaptation) </span></span>
-<span><span class="co">## Iteration: 150 / 250 [ 60%]  (Adaptation) </span></span>
-<span><span class="co">## Iteration: 200 / 250 [ 80%]  (Adaptation) </span></span>
-<span><span class="co">## Success! Found best value [eta = 1] earlier than expected. </span></span>
-<span><span class="co">## Begin stochastic gradient ascent. </span></span>
-<span><span class="co">##   iter             ELBO   delta_ELBO_mean   delta_ELBO_med   notes  </span></span>
-<span><span class="co">##      1       -15089.113             1.000            1.000 </span></span>
-<span><span class="co">##      2       -14998.822             0.503            1.000 </span></span>
-<span><span class="co">##      3       -14992.704             0.335            0.006   MEDIAN ELBO CONVERGED </span></span>
-<span><span class="co">## Drawing a sample of size 1000 from the approximate posterior...  </span></span>
-<span><span class="co">## COMPLETED. </span></span>
-<span><span class="co">## Finished in  37.0 seconds.</span></span>
-<span><span class="co">## [[1]]</span></span>
-<span><span class="co">## [[1]]$w</span></span>
-<span><span class="co">##               [,1]         [,2]         [,3]</span></span>
-<span><span class="co">##  [1,] 0.0028525436 0.9591605814 0.0379868751</span></span>
-<span><span class="co">##  [2,] 0.0009155745 0.0217507377 0.9773336877</span></span>
-<span><span class="co">##  [3,] 0.0007584517 0.0299667122 0.9692748362</span></span>
-<span><span class="co">##  [4,] 0.0015827074 0.0793536071 0.9190636855</span></span>
-<span><span class="co">##  [5,] 0.9996206872 0.0002063408 0.0001729721</span></span>
-<span><span class="co">##  [6,] 0.9996582974 0.0001840240 0.0001576786</span></span>
-<span><span class="co">##  [7,] 0.9991919114 0.0004591467 0.0003489418</span></span>
-<span><span class="co">##  [8,] 0.0005170916 0.9865384526 0.0129444558</span></span>
-<span><span class="co">##  [9,] 0.0004391545 0.9892963696 0.0102644759</span></span>
-<span><span class="co">## [10,] 0.0009155745 0.0217507377 0.9773336877</span></span>
-<span><span class="co">## [11,] 0.0001418973 0.9986797348 0.0011783678</span></span>
-<span><span class="co">## </span></span>
-<span><span class="co">## [[1]]$tau</span></span>
-<span><span class="co">## [1] 0.88000000 0.18363126 0.02750299</span></span>
-<span><span class="co">## </span></span>
-<span><span class="co">## [[1]]$phi</span></span>
-<span><span class="co">## [1] 0.3333333 0.3333333 0.3333333</span></span>
-<span><span class="co">## </span></span>
-<span><span class="co">## [[1]]$kappa</span></span>
-<span><span class="co">## [1] 5</span></span></code></pre>
-<pre><code><span><span class="co">## ELBO for this run: -14992.7</span></span>
-<span><span class="co">## Attempt 2 of 2</span></span></code></pre>
-<pre><code><span><span class="co">## ------------------------------------------------------------ </span></span>
-<span><span class="co">## EXPERIMENTAL ALGORITHM: </span></span>
-<span><span class="co">##   This procedure has not been thoroughly tested and may be unstable </span></span>
-<span><span class="co">##   or buggy. The interface is subject to change. </span></span>
-<span><span class="co">## ------------------------------------------------------------ </span></span>
-<span><span class="co">## Gradient evaluation took 0.003657 seconds </span></span>
-<span><span class="co">## 1000 transitions using 10 leapfrog steps per transition would take 36.57 seconds. </span></span>
-<span><span class="co">## Adjust your expectations accordingly! </span></span>
-<span><span class="co">## Begin eta adaptation. </span></span>
-<span><span class="co">## Iteration:   1 / 250 [  0%]  (Adaptation) </span></span>
-<span><span class="co">## Iteration:  50 / 250 [ 20%]  (Adaptation) </span></span>
-<span><span class="co">## Iteration: 100 / 250 [ 40%]  (Adaptation) </span></span>
-<span><span class="co">## Iteration: 150 / 250 [ 60%]  (Adaptation) </span></span>
-<span><span class="co">## Iteration: 200 / 250 [ 80%]  (Adaptation) </span></span>
-<span><span class="co">## Success! Found best value [eta = 1] earlier than expected. </span></span>
-<span><span class="co">## Begin stochastic gradient ascent. </span></span>
-<span><span class="co">##   iter             ELBO   delta_ELBO_mean   delta_ELBO_med   notes  </span></span>
-<span><span class="co">##      1       -15069.679             1.000            1.000 </span></span>
-<span><span class="co">##      2       -15035.575             0.501            1.000 </span></span>
-<span><span class="co">##      3       -15009.883             0.335            0.002   MEDIAN ELBO CONVERGED </span></span>
-<span><span class="co">## Drawing a sample of size 1000 from the approximate posterior...  </span></span>
-<span><span class="co">## COMPLETED. </span></span>
-<span><span class="co">## Finished in  24.2 seconds.</span></span>
-<span><span class="co">## [[1]]</span></span>
-<span><span class="co">## [[1]]$w</span></span>
-<span><span class="co">##               [,1]         [,2]         [,3]</span></span>
-<span><span class="co">##  [1,] 0.0028525436 0.9591605814 0.0379868751</span></span>
-<span><span class="co">##  [2,] 0.0009155745 0.0217507377 0.9773336877</span></span>
-<span><span class="co">##  [3,] 0.0007584517 0.0299667122 0.9692748362</span></span>
-<span><span class="co">##  [4,] 0.0015827074 0.0793536071 0.9190636855</span></span>
-<span><span class="co">##  [5,] 0.9996206872 0.0002063408 0.0001729721</span></span>
-<span><span class="co">##  [6,] 0.9996582974 0.0001840240 0.0001576786</span></span>
-<span><span class="co">##  [7,] 0.9991919114 0.0004591467 0.0003489418</span></span>
-<span><span class="co">##  [8,] 0.0005170916 0.9865384526 0.0129444558</span></span>
-<span><span class="co">##  [9,] 0.0004391545 0.9892963696 0.0102644759</span></span>
-<span><span class="co">## [10,] 0.0009155745 0.0217507377 0.9773336877</span></span>
-<span><span class="co">## [11,] 0.0001418973 0.9986797348 0.0011783678</span></span>
-<span><span class="co">## </span></span>
-<span><span class="co">## [[1]]$tau</span></span>
-<span><span class="co">## [1] 0.8800000 0.1933623 0.2063895</span></span>
-<span><span class="co">## </span></span>
-<span><span class="co">## [[1]]$phi</span></span>
-<span><span class="co">## [1] 0.3333333 0.3333333 0.3333333</span></span>
-<span><span class="co">## </span></span>
-<span><span class="co">## [[1]]$kappa</span></span>
-<span><span class="co">## [1] 5</span></span></code></pre>
-<pre><code><span><span class="co">## ELBO for this run: -15009.9</span></span></code></pre>
-<pre><code><span><span class="co">## [1] "output_files /var/folders/62/lqn3cqgn40gcw1l2g3vlvvsc0000gn/T/RtmpZTYOnU/timing_mixed_simple-diagnostic-202412111047-1-3c268b.csv\n"</span></span>
-<span><span class="co">## init_taus from clustering  0.171255672343057 init_taus from clustering  0.945282884917273 init_taus from clustering  0.0263199321070129 init_taus from clustering  0.221853090021004</span></span></code></pre>
-<pre><code><span><span class="co">## Attempt 1 of 2</span></span></code></pre>
-<pre><code><span><span class="co">## ------------------------------------------------------------ </span></span>
-<span><span class="co">## EXPERIMENTAL ALGORITHM: </span></span>
-<span><span class="co">##   This procedure has not been thoroughly tested and may be unstable </span></span>
-<span><span class="co">##   or buggy. The interface is subject to change. </span></span>
-<span><span class="co">## ------------------------------------------------------------ </span></span>
-<span><span class="co">## Gradient evaluation took 0.004499 seconds </span></span>
-<span><span class="co">## 1000 transitions using 10 leapfrog steps per transition would take 44.99 seconds. </span></span>
-<span><span class="co">## Adjust your expectations accordingly! </span></span>
-<span><span class="co">## Begin eta adaptation. </span></span>
-<span><span class="co">## Iteration:   1 / 250 [  0%]  (Adaptation) </span></span>
-<span><span class="co">## Iteration:  50 / 250 [ 20%]  (Adaptation) </span></span>
-<span><span class="co">## Iteration: 100 / 250 [ 40%]  (Adaptation) </span></span>
-<span><span class="co">## Iteration: 150 / 250 [ 60%]  (Adaptation) </span></span>
-<span><span class="co">## Iteration: 200 / 250 [ 80%]  (Adaptation) </span></span>
-<span><span class="co">## Success! Found best value [eta = 1] earlier than expected. </span></span>
-<span><span class="co">## Begin stochastic gradient ascent. </span></span>
-<span><span class="co">##   iter             ELBO   delta_ELBO_mean   delta_ELBO_med   notes  </span></span>
-<span><span class="co">##      1       -15035.008             1.000            1.000 </span></span>
-<span><span class="co">##      2       -15111.599             0.503            1.000 </span></span>
-<span><span class="co">##      3       -15033.130             0.337            0.005   MEDIAN ELBO CONVERGED </span></span>
-<span><span class="co">## Drawing a sample of size 1000 from the approximate posterior...  </span></span>
-<span><span class="co">## COMPLETED. </span></span>
-<span><span class="co">## Finished in  30.6 seconds.</span></span>
-<span><span class="co">## [[1]]</span></span>
-<span><span class="co">## [[1]]$w</span></span>
-<span><span class="co">##               [,1]         [,2]         [,3]         [,4]</span></span>
-<span><span class="co">##  [1,] 0.0001984795 0.0001004524 0.0001066551 0.9995944130</span></span>
-<span><span class="co">##  [2,] 0.0225549510 0.0008355710 0.9631361648 0.0134733131</span></span>
-<span><span class="co">##  [3,] 0.0390202665 0.0008055863 0.9407753723 0.0193987750</span></span>
-<span><span class="co">##  [4,] 0.0978588310 0.0015730486 0.8550523910 0.0455157295</span></span>
-<span><span class="co">##  [5,] 0.0002028792 0.9994064321 0.0001727420 0.0002179467</span></span>
-<span><span class="co">##  [6,] 0.0001812895 0.9994680344 0.0001574947 0.0001931815</span></span>
-<span><span class="co">##  [7,] 0.0004478231 0.9987068223 0.0003482078 0.0004971469</span></span>
-<span><span class="co">##  [8,] 0.9946045929 0.0001214568 0.0007508748 0.0045230755</span></span>
-<span><span class="co">##  [9,] 0.9980643731 0.0001065504 0.0002942018 0.0015348747</span></span>
-<span><span class="co">## [10,] 0.0225549510 0.0008355710 0.9631361648 0.0134733131</span></span>
-<span><span class="co">## [11,] 0.9688181414 0.0001904189 0.0023906215 0.0286008181</span></span>
-<span><span class="co">## </span></span>
-<span><span class="co">## [[1]]$tau</span></span>
-<span><span class="co">## [1] 0.17125567 0.88000000 0.02631993 0.22185309</span></span>
-<span><span class="co">## </span></span>
-<span><span class="co">## [[1]]$phi</span></span>
-<span><span class="co">## [1] 0.25 0.25 0.25 0.25</span></span>
-<span><span class="co">## </span></span>
-<span><span class="co">## [[1]]$kappa</span></span>
-<span><span class="co">## [1] 5</span></span></code></pre>
-<pre><code><span><span class="co">## ELBO for this run: -15033.1</span></span>
-<span><span class="co">## Attempt 2 of 2</span></span></code></pre>
-<pre><code><span><span class="co">## ------------------------------------------------------------ </span></span>
-<span><span class="co">## EXPERIMENTAL ALGORITHM: </span></span>
-<span><span class="co">##   This procedure has not been thoroughly tested and may be unstable </span></span>
-<span><span class="co">##   or buggy. The interface is subject to change. </span></span>
-<span><span class="co">## ------------------------------------------------------------ </span></span>
-<span><span class="co">## Gradient evaluation took 0.004542 seconds </span></span>
-<span><span class="co">## 1000 transitions using 10 leapfrog steps per transition would take 45.42 seconds. </span></span>
-<span><span class="co">## Adjust your expectations accordingly! </span></span>
-<span><span class="co">## Begin eta adaptation. </span></span>
-<span><span class="co">## Iteration:   1 / 250 [  0%]  (Adaptation) </span></span>
-<span><span class="co">## Iteration:  50 / 250 [ 20%]  (Adaptation) </span></span>
-<span><span class="co">## Iteration: 100 / 250 [ 40%]  (Adaptation) </span></span>
-<span><span class="co">## Iteration: 150 / 250 [ 60%]  (Adaptation) </span></span>
-<span><span class="co">## Iteration: 200 / 250 [ 80%]  (Adaptation) </span></span>
-<span><span class="co">## Success! Found best value [eta = 1] earlier than expected. </span></span>
-<span><span class="co">## Begin stochastic gradient ascent. </span></span>
-<span><span class="co">##   iter             ELBO   delta_ELBO_mean   delta_ELBO_med   notes  </span></span>
-<span><span class="co">##      1       -15598.482             1.000            1.000 </span></span>
-<span><span class="co">##      2       -15284.865             0.510            1.000 </span></span>
-<span><span class="co">##      3       -15218.806             0.342            0.021   MEDIAN ELBO CONVERGED </span></span>
-<span><span class="co">## Drawing a sample of size 1000 from the approximate posterior...  </span></span>
-<span><span class="co">## COMPLETED. </span></span>
-<span><span class="co">## Finished in  31.0 seconds.</span></span>
-<span><span class="co">## [[1]]</span></span>
-<span><span class="co">## [[1]]$w</span></span>
-<span><span class="co">##               [,1]         [,2]         [,3]         [,4]</span></span>
-<span><span class="co">##  [1,] 0.0001984795 0.0001004524 0.0001066551 0.9995944130</span></span>
-<span><span class="co">##  [2,] 0.0225549510 0.0008355710 0.9631361648 0.0134733131</span></span>
-<span><span class="co">##  [3,] 0.0390202665 0.0008055863 0.9407753723 0.0193987750</span></span>
-<span><span class="co">##  [4,] 0.0978588310 0.0015730486 0.8550523910 0.0455157295</span></span>
-<span><span class="co">##  [5,] 0.0002028792 0.9994064321 0.0001727420 0.0002179467</span></span>
-<span><span class="co">##  [6,] 0.0001812895 0.9994680344 0.0001574947 0.0001931815</span></span>
-<span><span class="co">##  [7,] 0.0004478231 0.9987068223 0.0003482078 0.0004971469</span></span>
-<span><span class="co">##  [8,] 0.9946045929 0.0001214568 0.0007508748 0.0045230755</span></span>
-<span><span class="co">##  [9,] 0.9980643731 0.0001065504 0.0002942018 0.0015348747</span></span>
-<span><span class="co">## [10,] 0.0225549510 0.0008355710 0.9631361648 0.0134733131</span></span>
-<span><span class="co">## [11,] 0.9688181414 0.0001904189 0.0023906215 0.0286008181</span></span>
-<span><span class="co">## </span></span>
-<span><span class="co">## [[1]]$tau</span></span>
-<span><span class="co">## [1] 0.81951706 0.17233095 0.18622361 0.07852098</span></span>
-<span><span class="co">## </span></span>
-<span><span class="co">## [[1]]$phi</span></span>
-<span><span class="co">## [1] 0.25 0.25 0.25 0.25</span></span>
-<span><span class="co">## </span></span>
-<span><span class="co">## [[1]]$kappa</span></span>
-<span><span class="co">## [1] 5</span></span></code></pre>
-<pre><code><span><span class="co">## ELBO for this run: -15218.8</span></span></code></pre>
-<pre><code><span><span class="co">## [1] "output_files /var/folders/62/lqn3cqgn40gcw1l2g3vlvvsc0000gn/T/RtmpZTYOnU/timing_mixed_simple-diagnostic-202412111048-1-5ce7cf.csv\n"</span></span></code></pre>
+<div class="sourceCode" id="cb7"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span><span class="co"># Extract input data</span></span>
+<span><span class="va">data</span> <span class="op">&lt;-</span> <span class="fu">tickTack</span><span class="fu">::</span><span class="va"><a href="../reference/pcawg_example_2.html">pcawg_example_2</a></span></span>
+<span><span class="va">tolerance</span> <span class="op">=</span> <span class="fl">0.1</span></span>
+<span></span>
+<span><span class="co"># Run the fit function</span></span>
+<span><span class="va">data</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/fit_h.html">fit_h</a></span><span class="op">(</span></span>
+<span>  x <span class="op">=</span> <span class="va">data</span>,</span>
+<span>  max_attempts <span class="op">=</span> <span class="fl">2</span>,</span>
+<span>  INIT <span class="op">=</span> <span class="cn">TRUE</span>,</span>
+<span>  tolerance <span class="op">=</span> <span class="va">tolerance</span></span>
+<span><span class="op">)</span></span></code></pre></div>
 </div>
 <div class="section level3">
 <h3 id="results">Results<a class="anchor" aria-label="anchor" href="#results"></a>
@@ -852,7 +339,7 @@ clonal peaks</p>
 CNAqc input object contains four components: <code>data</code>,
 <code>draws_and_summary</code>, <code>log_lik_matrix_list</code> and
 <code>elbo_iterations</code>.</p>
-<div class="sourceCode" id="cb55"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb8"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="co"># View summary for a specific K, here K = 2</span></span>
 <span><span class="va">results</span> <span class="op">&lt;-</span> <span class="va">data</span><span class="op">$</span><span class="va">results</span></span></code></pre></div>
 </div>
@@ -869,40 +356,40 @@ of the approximate posterior distributions; -
 assignment, a tibble with the estimate of taus for each segment with a
 copy number event that has been included in the hierarchical
 inference</p>
-<div class="sourceCode" id="cb56"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb9"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="co"># View summary for a specific K, here K = 2</span></span>
 <span><span class="va">results</span><span class="op">$</span><span class="va">draws_and_summary</span><span class="op">[[</span><span class="fl">2</span><span class="op">]</span><span class="op">]</span><span class="op">$</span><span class="va">summary</span></span></code></pre></div>
 <pre><code><span><span class="co">## <span style="color: #949494;"># A tibble: 24 × 7</span></span></span>
-<span><span class="co">##    variable     mean   median       sd      mad         q5     q95</span></span>
-<span><span class="co">##    <span style="color: #949494; font-style: italic;">&lt;chr&gt;</span>       <span style="color: #949494; font-style: italic;">&lt;dbl&gt;</span>    <span style="color: #949494; font-style: italic;">&lt;dbl&gt;</span>    <span style="color: #949494; font-style: italic;">&lt;dbl&gt;</span>    <span style="color: #949494; font-style: italic;">&lt;dbl&gt;</span>      <span style="color: #949494; font-style: italic;">&lt;dbl&gt;</span>   <span style="color: #949494; font-style: italic;">&lt;dbl&gt;</span></span></span>
-<span><span class="co">## <span style="color: #BCBCBC;"> 1</span> tau[1]   0.110    0.105    0.035<span style="text-decoration: underline;">7</span>   0.034<span style="text-decoration: underline;">6</span>   0.061<span style="text-decoration: underline;">0</span>     0.177  </span></span>
-<span><span class="co">## <span style="color: #BCBCBC;"> 2</span> tau[2]   0.947    0.949    0.018<span style="text-decoration: underline;">9</span>   0.018<span style="text-decoration: underline;">1</span>   0.912      0.971  </span></span>
-<span><span class="co">## <span style="color: #BCBCBC;"> 3</span> w[1,1]   0.863    0.934    0.176    0.080<span style="text-decoration: underline;">7</span>   0.446      0.996  </span></span>
-<span><span class="co">## <span style="color: #BCBCBC;"> 4</span> w[2,1]   0.959    0.969    0.038<span style="text-decoration: underline;">0</span>   0.023<span style="text-decoration: underline;">6</span>   0.890      0.992  </span></span>
-<span><span class="co">## <span style="color: #BCBCBC;"> 5</span> w[3,1]   0.988    0.990    0.007<span style="text-decoration: underline;">98</span>  0.005<span style="text-decoration: underline;">90</span>  0.973      0.997  </span></span>
-<span><span class="co">## <span style="color: #BCBCBC;"> 6</span> w[4,1]   0.996    0.997    0.001<span style="text-decoration: underline;">97</span>  0.001<span style="text-decoration: underline;">49</span>  0.992      0.998  </span></span>
-<span><span class="co">## <span style="color: #BCBCBC;"> 7</span> w[5,1]   0.007<span style="text-decoration: underline;">26</span>  0.000<span style="text-decoration: underline;">496</span> 0.036<span style="text-decoration: underline;">3</span>   0.000<span style="text-decoration: underline;">701</span> 0.000<span style="text-decoration: underline;">009</span>07 0.026<span style="text-decoration: underline;">9</span> </span></span>
-<span><span class="co">## <span style="color: #BCBCBC;"> 8</span> w[6,1]   0.000<span style="text-decoration: underline;">628</span> 0.000<span style="text-decoration: underline;">477</span> 0.000<span style="text-decoration: underline;">563</span> 0.000<span style="text-decoration: underline;">356</span> 0.000<span style="text-decoration: underline;">126</span>   0.001<span style="text-decoration: underline;">61</span></span></span>
-<span><span class="co">## <span style="color: #BCBCBC;"> 9</span> w[7,1]   0.001<span style="text-decoration: underline;">77</span>  0.001<span style="text-decoration: underline;">26</span>  0.001<span style="text-decoration: underline;">73</span>  0.000<span style="text-decoration: underline;">985</span> 0.000<span style="text-decoration: underline;">295</span>   0.004<span style="text-decoration: underline;">95</span></span></span>
-<span><span class="co">## <span style="color: #BCBCBC;">10</span> w[8,1]   0.975    0.978    0.014<span style="text-decoration: underline;">1</span>   0.011<span style="text-decoration: underline;">1</span>   0.948      0.991  </span></span>
+<span><span class="co">##    variable    mean   median      sd      mad        q5     q95</span></span>
+<span><span class="co">##    <span style="color: #949494; font-style: italic;">&lt;chr&gt;</span>      <span style="color: #949494; font-style: italic;">&lt;dbl&gt;</span>    <span style="color: #949494; font-style: italic;">&lt;dbl&gt;</span>   <span style="color: #949494; font-style: italic;">&lt;dbl&gt;</span>    <span style="color: #949494; font-style: italic;">&lt;dbl&gt;</span>     <span style="color: #949494; font-style: italic;">&lt;dbl&gt;</span>   <span style="color: #949494; font-style: italic;">&lt;dbl&gt;</span></span></span>
+<span><span class="co">## <span style="color: #BCBCBC;"> 1</span> tau[1]   0.098<span style="text-decoration: underline;">7</span>  0.093<span style="text-decoration: underline;">3</span>   0.031<span style="text-decoration: underline;">4</span>  0.029<span style="text-decoration: underline;">0</span>   0.055<span style="text-decoration: underline;">2</span>    0.159  </span></span>
+<span><span class="co">## <span style="color: #BCBCBC;"> 2</span> tau[2]   0.947   0.950    0.019<span style="text-decoration: underline;">7</span>  0.016<span style="text-decoration: underline;">9</span>   0.910     0.973  </span></span>
+<span><span class="co">## <span style="color: #BCBCBC;"> 3</span> w[1,1]   0.859   0.944    0.193   0.069<span style="text-decoration: underline;">1</span>   0.378     0.996  </span></span>
+<span><span class="co">## <span style="color: #BCBCBC;"> 4</span> w[2,1]   0.901   0.974    0.168   0.036<span style="text-decoration: underline;">8</span>   0.521     0.999  </span></span>
+<span><span class="co">## <span style="color: #BCBCBC;"> 5</span> w[3,1]   0.988   0.993    0.017<span style="text-decoration: underline;">6</span>  0.006<span style="text-decoration: underline;">70</span>  0.963     0.999  </span></span>
+<span><span class="co">## <span style="color: #BCBCBC;"> 6</span> w[4,1]   0.994   0.996    0.005<span style="text-decoration: underline;">76</span> 0.003<span style="text-decoration: underline;">05</span>  0.984     0.999  </span></span>
+<span><span class="co">## <span style="color: #BCBCBC;"> 7</span> w[5,1]   0.007<span style="text-decoration: underline;">35</span> 0.000<span style="text-decoration: underline;">522</span> 0.037<span style="text-decoration: underline;">5</span>  0.000<span style="text-decoration: underline;">722</span> 0.000<span style="text-decoration: underline;">012</span>6 0.027<span style="text-decoration: underline;">8</span> </span></span>
+<span><span class="co">## <span style="color: #BCBCBC;"> 8</span> w[6,1]   0.006<span style="text-decoration: underline;">67</span> 0.000<span style="text-decoration: underline;">570</span> 0.025<span style="text-decoration: underline;">4</span>  0.000<span style="text-decoration: underline;">792</span> 0.000<span style="text-decoration: underline;">013</span>3 0.031<span style="text-decoration: underline;">6</span> </span></span>
+<span><span class="co">## <span style="color: #BCBCBC;"> 9</span> w[7,1]   0.001<span style="text-decoration: underline;">89</span> 0.001<span style="text-decoration: underline;">20</span>  0.002<span style="text-decoration: underline;">71</span> 0.001<span style="text-decoration: underline;">04</span>  0.000<span style="text-decoration: underline;">230</span>  0.006<span style="text-decoration: underline;">03</span></span></span>
+<span><span class="co">## <span style="color: #BCBCBC;">10</span> w[8,1]   0.974   0.979    0.017<span style="text-decoration: underline;">8</span>  0.012<span style="text-decoration: underline;">0</span>   0.943     0.992  </span></span>
 <span><span class="co">## <span style="color: #949494;"># ℹ 14 more rows</span></span></span></code></pre>
-<div class="sourceCode" id="cb58"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb11"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="co"># View detailed summarized results for a specific K, here K = 2</span></span>
 <span><span class="va">results</span><span class="op">$</span><span class="va">draws_and_summary</span><span class="op">[[</span><span class="fl">2</span><span class="op">]</span><span class="op">]</span><span class="op">$</span><span class="va">summarized_results</span></span></code></pre></div>
 <pre><code><span><span class="co">## <span style="color: #949494;"># A tibble: 11 × 8</span></span></span>
 <span><span class="co">##    segment_original_indx segment_name      segment_id karyotype chr   clock_mean</span></span>
 <span><span class="co">##                    <span style="color: #949494; font-style: italic;">&lt;int&gt;</span> <span style="color: #949494; font-style: italic;">&lt;chr&gt;</span>                  <span style="color: #949494; font-style: italic;">&lt;dbl&gt;</span> <span style="color: #949494; font-style: italic;">&lt;chr&gt;</span>     <span style="color: #949494; font-style: italic;">&lt;chr&gt;</span>      <span style="color: #949494; font-style: italic;">&lt;dbl&gt;</span></span></span>
-<span><span class="co">## <span style="color: #BCBCBC;"> 1</span>                    38 chr5_75225353_75…          1 2:1       chr5       0.105</span></span>
-<span><span class="co">## <span style="color: #BCBCBC;"> 2</span>                    40 chr5_76857368_76…          2 2:1       chr5       0.105</span></span>
-<span><span class="co">## <span style="color: #BCBCBC;"> 3</span>                    42 chr5_77822720_82…          3 2:1       chr5       0.105</span></span>
-<span><span class="co">## <span style="color: #BCBCBC;"> 4</span>                    44 chr5_83468190_18…          4 2:1       chr5       0.105</span></span>
-<span><span class="co">## <span style="color: #BCBCBC;"> 5</span>                    46 chr6_242501_4335…          5 2:0       chr6       0.949</span></span>
-<span><span class="co">## <span style="color: #BCBCBC;"> 6</span>                    48 chr6_4347801_290…          6 2:0       chr6       0.949</span></span>
-<span><span class="co">## <span style="color: #BCBCBC;"> 7</span>                    50 chr6_29161839_38…          7 2:0       chr6       0.949</span></span>
-<span><span class="co">## <span style="color: #BCBCBC;"> 8</span>                    54 chr7_65454_99371…          8 2:1       chr7       0.105</span></span>
-<span><span class="co">## <span style="color: #BCBCBC;"> 9</span>                    56 chr7_9946564_579…          9 2:1       chr7       0.105</span></span>
-<span><span class="co">## <span style="color: #BCBCBC;">10</span>                    57 chr7_5.8e+07_616…         10 2:1       chr7       0.105</span></span>
-<span><span class="co">## <span style="color: #BCBCBC;">11</span>                    58 chr7_61700000_15…         11 2:1       chr7       0.105</span></span>
+<span><span class="co">## <span style="color: #BCBCBC;"> 1</span>                    38 chr5_75225353_75…          1 2:1       chr5      0.093<span style="text-decoration: underline;">3</span></span></span>
+<span><span class="co">## <span style="color: #BCBCBC;"> 2</span>                    40 chr5_76857368_76…          2 2:1       chr5      0.093<span style="text-decoration: underline;">3</span></span></span>
+<span><span class="co">## <span style="color: #BCBCBC;"> 3</span>                    42 chr5_77822720_82…          3 2:1       chr5      0.093<span style="text-decoration: underline;">3</span></span></span>
+<span><span class="co">## <span style="color: #BCBCBC;"> 4</span>                    44 chr5_83468190_18…          4 2:1       chr5      0.093<span style="text-decoration: underline;">3</span></span></span>
+<span><span class="co">## <span style="color: #BCBCBC;"> 5</span>                    46 chr6_242501_4335…          5 2:0       chr6      0.950 </span></span>
+<span><span class="co">## <span style="color: #BCBCBC;"> 6</span>                    48 chr6_4347801_290…          6 2:0       chr6      0.950 </span></span>
+<span><span class="co">## <span style="color: #BCBCBC;"> 7</span>                    50 chr6_29161839_38…          7 2:0       chr6      0.950 </span></span>
+<span><span class="co">## <span style="color: #BCBCBC;"> 8</span>                    54 chr7_65454_99371…          8 2:1       chr7      0.093<span style="text-decoration: underline;">3</span></span></span>
+<span><span class="co">## <span style="color: #BCBCBC;"> 9</span>                    56 chr7_9946564_579…          9 2:1       chr7      0.093<span style="text-decoration: underline;">3</span></span></span>
+<span><span class="co">## <span style="color: #BCBCBC;">10</span>                    57 chr7_5.8e+07_616…         10 2:1       chr7      0.093<span style="text-decoration: underline;">3</span></span></span>
+<span><span class="co">## <span style="color: #BCBCBC;">11</span>                    58 chr7_61700000_15…         11 2:1       chr7      0.093<span style="text-decoration: underline;">3</span></span></span>
 <span><span class="co">## <span style="color: #949494;"># ℹ 2 more variables: clock_low &lt;dbl&gt;, clock_high &lt;dbl&gt;</span></span></span></code></pre>
 </div>
 <div class="section level3">
@@ -916,28 +403,11 @@ otherwise choose 1 as best K. The function takes as input the
 <code>best_K</code> and the corresponding <code>best_fit</code> together
 with the <code>model_selection_tibble</code> and the
 <code>entropy_list</code> used to evaluate the ICL score.</p>
-<div class="sourceCode" id="cb60"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb13"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="va">results_model_selection</span> <span class="op">&lt;-</span> <span class="fu">tickTack</span><span class="fu">::</span><span class="fu"><a href="../reference/model_selection_h.html">model_selection_h</a></span><span class="op">(</span><span class="va">results</span>, n_components <span class="op">=</span> <span class="fl">0</span><span class="op">)</span></span></code></pre></div>
-<pre><code><span><span class="co">## [1] "entropy per segment: "</span></span>
-<span><span class="co">## [1] -0.005085997</span></span>
-<span><span class="co">## [1] "entropy per segment normalized: "</span></span>
-<span><span class="co">## [1] -9.999995e-07</span></span>
-<span><span class="co">## [1] "entropy per segment: "</span></span>
-<span><span class="co">## [1] 325.2039</span></span>
-<span><span class="co">## [1] "entropy per segment normalized: "</span></span>
-<span><span class="co">## [1] 0.06394099</span></span></code></pre>
-<pre><code><span><span class="co">## Warning: Some Pareto k diagnostic values are too high. See help('pareto-k-diagnostic') for details.</span></span></code></pre>
-<pre><code><span><span class="co">## [1] "entropy per segment: "</span></span>
-<span><span class="co">## [1] 178.8736</span></span>
-<span><span class="co">## [1] "entropy per segment normalized: "</span></span>
-<span><span class="co">## [1] 0.0351698</span></span></code></pre>
-<pre><code><span><span class="co">## Warning: Some Pareto k diagnostic values are too high. See help('pareto-k-diagnostic') for details.</span></span></code></pre>
-<pre><code><span><span class="co">## [1] "entropy per segment: "</span></span>
-<span><span class="co">## [1] 21.21569</span></span>
-<span><span class="co">## [1] "entropy per segment normalized: "</span></span>
-<span><span class="co">## [1] 0.00417139</span></span></code></pre>
-<pre><code><span><span class="co">## <span style="color: #00BBBB;">ℹ</span> The algorithm should be run with more Components</span></span></code></pre>
-<div class="sourceCode" id="cb67"><pre class="downlit sourceCode r">
+<pre><code><span><span class="co">## Warning: Some Pareto k diagnostic values are too high. See help('pareto-k-diagnostic') for details.</span></span>
+<span><span class="co">## Warning: Some Pareto k diagnostic values are too high. See help('pareto-k-diagnostic') for details.</span></span></code></pre>
+<div class="sourceCode" id="cb15"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="va">best_K</span> <span class="op">&lt;-</span> <span class="va">results_model_selection</span><span class="op">$</span><span class="va">best_K</span></span>
 <span><span class="va">model_selection_tibble</span> <span class="op">&lt;-</span> <span class="va">results_model_selection</span><span class="op">$</span><span class="va">model_selection_tibble</span></span>
 <span><span class="va">entropy</span> <span class="op">&lt;-</span> <span class="va">results_model_selection</span><span class="op">$</span><span class="va">entropy_list</span></span></code></pre></div>
@@ -948,9 +418,9 @@ with the <code>model_selection_tibble</code> and the
 </h2>
 <p>The results can be viewed is genome-wise perspective using the
 <code><a href="../reference/plot_timing_h.html">tickTack::plot_timing_h</a></code> function.</p>
-<div class="sourceCode" id="cb68"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb16"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="fu">tickTack</span><span class="fu">::</span><span class="fu"><a href="../reference/plot_timing_h.html">plot_timing_h</a></span><span class="op">(</span><span class="va">results</span>, <span class="fl">2</span><span class="op">)</span></span></code></pre></div>
-<p><img src="a4_Multiple_segment_timing_files/figure-html/unnamed-chunk-6-1.png" width="700"></p>
+<p><img src="a4_Multiple_segment_timing_files/figure-html/unnamed-chunk-6-1.png" width="576" style="display: block; margin: auto;"></p>
 </div>
 <div class="section level2">
 <h2 id="visualize-distributions-of-draws-from-the-approximate-posterior">Visualize distributions of draws from the approximate posterior<a class="anchor" aria-label="anchor" href="#visualize-distributions-of-draws-from-the-approximate-posterior"></a>
@@ -959,34 +429,34 @@ with the <code>model_selection_tibble</code> and the
 <code><a href="../reference/plot_posterior_clocks_h.html">tickTack::plot_posterior_clocks_h</a></code> and
 <code><a href="../reference/plot_posterior_weights_h.html">tickTack::plot_posterior_weights_h</a></code> functions, that
 internally use functions from Bayesplot.</p>
-<div class="sourceCode" id="cb69"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb17"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="va">posterior_clocks</span> <span class="op">&lt;-</span> <span class="fu">tickTack</span><span class="fu">::</span><span class="fu"><a href="../reference/plot_posterior_clocks_h.html">plot_posterior_clocks_h</a></span><span class="op">(</span><span class="va">results</span>, <span class="fl">2</span><span class="op">)</span></span></code></pre></div>
 <pre><code><span><span class="co">## Scale for <span style="color: #00BB00;">x</span> is already present.</span></span>
 <span><span class="co">## Adding another scale for <span style="color: #00BB00;">x</span>, which will replace the existing scale.</span></span></code></pre>
-<div class="sourceCode" id="cb71"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb19"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="va">posterior_weights</span> <span class="op">&lt;-</span> <span class="fu">tickTack</span><span class="fu">::</span><span class="fu"><a href="../reference/plot_posterior_weights_h.html">plot_posterior_weights_h</a></span><span class="op">(</span><span class="va">results</span>, <span class="fl">2</span><span class="op">)</span></span></code></pre></div>
-<p><img src="a4_Multiple_segment_timing_files/figure-html/unnamed-chunk-7-1.png" width="700"></p>
+<p><img src="a4_Multiple_segment_timing_files/figure-html/unnamed-chunk-7-1.png" width="576" style="display: block; margin: auto;"></p>
 </div>
 <div class="section level2">
 <h2 id="visualize-the-behavior-of-the-elbo-during-the-inference">Visualize the behavior of the ELBO during the inference<a class="anchor" aria-label="anchor" href="#visualize-the-behavior-of-the-elbo-during-the-inference"></a>
 </h2>
-<div class="sourceCode" id="cb72"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb20"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="va">K</span> <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/nrow.html" class="external-link">nrow</a></span><span class="op">(</span><span class="va">results_model_selection</span><span class="op">$</span><span class="va">model_selection_tibble</span><span class="op">)</span></span>
 <span></span>
 <span><span class="va">p_elbo</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/list.html" class="external-link">list</a></span><span class="op">(</span><span class="op">)</span></span>
 <span><span class="kw">for</span> <span class="op">(</span><span class="va">i</span> <span class="kw">in</span> <span class="fl">1</span><span class="op">:</span><span class="va">K</span><span class="op">)</span><span class="op">{</span></span>
 <span>  <span class="va">p_elbo</span><span class="op">[[</span><span class="va">i</span><span class="op">]</span><span class="op">]</span> <span class="op">&lt;-</span> <span class="fu">tickTack</span><span class="fu">::</span><span class="fu"><a href="../reference/plot_elbo_h.html">plot_elbo_h</a></span><span class="op">(</span><span class="va">results</span><span class="op">$</span><span class="va">elbo_iterations</span><span class="op">[[</span><span class="va">i</span><span class="op">]</span><span class="op">]</span><span class="op">)</span> <span class="op">+</span> <span class="fu">ggplot2</span><span class="fu">::</span><span class="fu"><a href="https://ggplot2.tidyverse.org/reference/labs.html" class="external-link">ggtitle</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/paste.html" class="external-link">paste0</a></span><span class="op">(</span><span class="st">"K = "</span>, <span class="va">i</span><span class="op">)</span><span class="op">)</span></span>
 <span><span class="op">}</span></span>
-<span><span class="va">p_elbo</span> <span class="op">&lt;-</span> <span class="fu">gridExtra</span><span class="fu">::</span><span class="fu"><a href="https://rdrr.io/pkg/gridExtra/man/arrangeGrob.html" class="external-link">grid.arrange</a></span><span class="op">(</span>grobs <span class="op">=</span> <span class="va">p_elbo</span>, nrow<span class="op">=</span><span class="va">K</span><span class="op">)</span>  <span class="co">#add global title</span></span></code></pre></div>
-<p><img src="a4_Multiple_segment_timing_files/figure-html/unnamed-chunk-8-1.png" width="700"></p>
-<div class="sourceCode" id="cb73"><pre class="downlit sourceCode r">
+<span><span class="va">p_elbo</span> <span class="op">&lt;-</span> <span class="fu">gridExtra</span><span class="fu">::</span><span class="fu"><a href="https://rdrr.io/pkg/gridExtra/man/arrangeGrob.html" class="external-link">grid.arrange</a></span><span class="op">(</span>grobs <span class="op">=</span> <span class="va">p_elbo</span>, ncol <span class="op">=</span> <span class="fl">2</span><span class="op">)</span>  <span class="co">#add global title</span></span></code></pre></div>
+<p><img src="a4_Multiple_segment_timing_files/figure-html/unnamed-chunk-8-1.png" width="576" style="display: block; margin: auto;"></p>
+<div class="sourceCode" id="cb21"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="va">p_elbo</span></span></code></pre></div>
-<pre><code><span><span class="co">## TableGrob (4 x 1) "arrange": 4 grobs</span></span>
+<pre><code><span><span class="co">## TableGrob (2 x 2) "arrange": 4 grobs</span></span>
 <span><span class="co">##   z     cells    name           grob</span></span>
 <span><span class="co">## 1 1 (1-1,1-1) arrange gtable[layout]</span></span>
-<span><span class="co">## 2 2 (2-2,1-1) arrange gtable[layout]</span></span>
-<span><span class="co">## 3 3 (3-3,1-1) arrange gtable[layout]</span></span>
-<span><span class="co">## 4 4 (4-4,1-1) arrange gtable[layout]</span></span></code></pre>
+<span><span class="co">## 2 2 (1-1,2-2) arrange gtable[layout]</span></span>
+<span><span class="co">## 3 3 (2-2,1-1) arrange gtable[layout]</span></span>
+<span><span class="co">## 4 4 (2-2,2-2) arrange gtable[layout]</span></span></code></pre>
 <!-- ## Visualize model selection scores -->
 <!-- ```{r} -->
 <!-- #  -->
@@ -999,21 +469,21 @@ internally use functions from Bayesplot.</p>
 <div class="section level2">
 <h2 id="visualize-all-the-inference-results-for-each-k">Visualize all the inference results for each K<a class="anchor" aria-label="anchor" href="#visualize-all-the-inference-results-for-each-k"></a>
 </h2>
-<div class="sourceCode" id="cb75"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb23"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="va">plot_model_selection_inference</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/list.html" class="external-link">list</a></span><span class="op">(</span><span class="op">)</span></span>
 <span><span class="kw">for</span> <span class="op">(</span><span class="va">i</span> <span class="kw">in</span> <span class="fl">1</span><span class="op">:</span><span class="va">K</span><span class="op">)</span><span class="op">{</span></span>
 <span>  <span class="va">plot_model_selection_inference</span><span class="op">[[</span><span class="va">i</span><span class="op">]</span><span class="op">]</span> <span class="op">&lt;-</span> <span class="fu">tickTack</span><span class="fu">::</span><span class="fu"><a href="../reference/plot_timing_h.html">plot_timing_h</a></span><span class="op">(</span><span class="va">results</span>, <span class="va">i</span><span class="op">)</span> <span class="op">+</span> <span class="fu">ggplot2</span><span class="fu">::</span><span class="fu"><a href="https://ggplot2.tidyverse.org/reference/labs.html" class="external-link">ggtitle</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/paste.html" class="external-link">paste0</a></span><span class="op">(</span><span class="st">"K = "</span>, <span class="va">i</span><span class="op">)</span><span class="op">)</span></span>
 <span><span class="op">}</span></span>
-<span><span class="va">plot_model_selection_inference</span> <span class="op">&lt;-</span> <span class="fu">gridExtra</span><span class="fu">::</span><span class="fu"><a href="https://rdrr.io/pkg/gridExtra/man/arrangeGrob.html" class="external-link">grid.arrange</a></span><span class="op">(</span>grobs <span class="op">=</span> <span class="va">plot_model_selection_inference</span>, nrow <span class="op">=</span> <span class="va">K</span><span class="op">)</span> <span class="co">#add global title</span></span></code></pre></div>
-<p><img src="a4_Multiple_segment_timing_files/figure-html/unnamed-chunk-9-1.png" width="700"></p>
-<div class="sourceCode" id="cb76"><pre class="downlit sourceCode r">
+<span><span class="va">plot_model_selection_inference</span> <span class="op">&lt;-</span> <span class="fu">gridExtra</span><span class="fu">::</span><span class="fu"><a href="https://rdrr.io/pkg/gridExtra/man/arrangeGrob.html" class="external-link">grid.arrange</a></span><span class="op">(</span>grobs <span class="op">=</span> <span class="va">plot_model_selection_inference</span>, ncol <span class="op">=</span> <span class="fl">2</span><span class="op">)</span> <span class="co">#add global title</span></span></code></pre></div>
+<p><img src="a4_Multiple_segment_timing_files/figure-html/unnamed-chunk-9-1.png" width="576" style="display: block; margin: auto;"></p>
+<div class="sourceCode" id="cb24"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="va">plot_model_selection_inference</span></span></code></pre></div>
-<pre><code><span><span class="co">## TableGrob (4 x 1) "arrange": 4 grobs</span></span>
+<pre><code><span><span class="co">## TableGrob (2 x 2) "arrange": 4 grobs</span></span>
 <span><span class="co">##   z     cells    name           grob</span></span>
 <span><span class="co">## 1 1 (1-1,1-1) arrange gtable[layout]</span></span>
-<span><span class="co">## 2 2 (2-2,1-1) arrange gtable[layout]</span></span>
-<span><span class="co">## 3 3 (3-3,1-1) arrange gtable[layout]</span></span>
-<span><span class="co">## 4 4 (4-4,1-1) arrange gtable[layout]</span></span></code></pre>
+<span><span class="co">## 2 2 (1-1,2-2) arrange gtable[layout]</span></span>
+<span><span class="co">## 3 3 (2-2,1-1) arrange gtable[layout]</span></span>
+<span><span class="co">## 4 4 (2-2,2-2) arrange gtable[layout]</span></span></code></pre>
 </div>
   </main><aside class="col-md-3"><nav id="toc" aria-label="Table of contents"><h2>On this page</h2>
     </nav></aside>
