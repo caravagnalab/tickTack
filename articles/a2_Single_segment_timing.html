@@ -14,8 +14,8 @@
 <link rel="apple-touch-icon" type="image/png" sizes="60x60" href="../apple-touch-icon-60x60.png">
 <script src="../deps/jquery-3.6.0/jquery-3.6.0.min.js"></script><meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
 <link href="../deps/bootstrap-5.3.1/bootstrap.min.css" rel="stylesheet">
-<script src="../deps/bootstrap-5.3.1/bootstrap.bundle.min.js"></script><link href="../deps/font-awesome-6.5.2/css/all.min.css" rel="stylesheet">
-<link href="../deps/font-awesome-6.5.2/css/v4-shims.min.css" rel="stylesheet">
+<script src="../deps/bootstrap-5.3.1/bootstrap.bundle.min.js"></script><link href="../deps/font-awesome-6.4.2/css/all.min.css" rel="stylesheet">
+<link href="../deps/font-awesome-6.4.2/css/v4-shims.min.css" rel="stylesheet">
 <script src="../deps/headroom-0.11.0/headroom.min.js"></script><script src="../deps/headroom-0.11.0/jQuery.headroom.min.js"></script><script src="../deps/bootstrap-toc-1.0.1/bootstrap-toc.min.js"></script><script src="../deps/clipboard.js-2.0.11/clipboard.min.js"></script><script src="../deps/search-1.0.0/autocomplete.jquery.min.js"></script><script src="../deps/search-1.0.0/fuse.min.js"></script><script src="../deps/search-1.0.0/mark.min.js"></script><!-- pkgdown --><script src="../pkgdown.js"></script><meta property="og:title" content="2. Timing Clonal Peaks">
 </head>
 <body>
@@ -37,7 +37,7 @@
       <ul class="navbar-nav me-auto">
 <li class="nav-item"><a class="nav-link" href="../articles/tickTack.html">Get started</a></li>
 <li class="nav-item"><a class="nav-link" href="../reference/index.html">Reference</a></li>
-<li class="active nav-item dropdown">
+<li class="nav-item dropdown">
   <button class="nav-link dropdown-toggle" type="button" id="dropdown-articles" data-bs-toggle="dropdown" aria-expanded="false" aria-haspopup="true">Articles</button>
   <ul class="dropdown-menu" aria-labelledby="dropdown-articles">
 <li><a class="dropdown-item" href="../articles/a1_introduction.html">1. Introduction</a></li>
@@ -228,16 +228,16 @@ can inspect these to understand the timing of clonal peaks:</p>
 <pre><code><span><span class="co">## <span style="color: #949494;"># A tibble: 72 × 7</span></span></span>
 <span><span class="co">##    tau_low tau_mean tau_high segment karyotype chr   segment_id              </span></span>
 <span><span class="co">##      <span style="color: #949494; font-style: italic;">&lt;dbl&gt;</span>    <span style="color: #949494; font-style: italic;">&lt;dbl&gt;</span>    <span style="color: #949494; font-style: italic;">&lt;dbl&gt;</span>   <span style="color: #949494; font-style: italic;">&lt;int&gt;</span> <span style="color: #949494; font-style: italic;">&lt;chr&gt;</span>     <span style="color: #949494; font-style: italic;">&lt;chr&gt;</span> <span style="color: #949494; font-style: italic;">&lt;chr&gt;</span>                   </span></span>
-<span><span class="co">## <span style="color: #BCBCBC;"> 1</span>   0.808    0.890    0.953       2 2:2       chr1  chr1_790009_13212499    </span></span>
+<span><span class="co">## <span style="color: #BCBCBC;"> 1</span>   0.805    0.890    0.953       2 2:2       chr1  chr1_790009_13212499    </span></span>
 <span><span class="co">## <span style="color: #BCBCBC;"> 2</span>   0.844    0.912    0.963       3 2:2       chr1  chr1_13212500_33458785  </span></span>
 <span><span class="co">## <span style="color: #BCBCBC;"> 3</span>   0.818    0.888    0.942       5 2:2       chr1  chr1_33564127_56834601  </span></span>
-<span><span class="co">## <span style="color: #BCBCBC;"> 4</span>   0.863    0.903    0.936       6 2:2       chr1  chr1_56834602_121499999 </span></span>
-<span><span class="co">## <span style="color: #BCBCBC;"> 5</span>   0.393    0.683    0.892      10 2:2       chr1  chr1_143277461_149255831</span></span>
-<span><span class="co">## <span style="color: #BCBCBC;"> 6</span>   0.807    0.866    0.914      11 2:2       chr1  chr1_149255832_196892499</span></span>
-<span><span class="co">## <span style="color: #BCBCBC;"> 7</span>   0.811    0.863    0.909      12 2:2       chr1  chr1_196892500_247247500</span></span>
-<span><span class="co">## <span style="color: #BCBCBC;"> 8</span>   0.541    0.791    0.947      13 2:2       chr1  chr1_247247501_249250620</span></span>
+<span><span class="co">## <span style="color: #BCBCBC;"> 4</span>   0.862    0.902    0.936       6 2:2       chr1  chr1_56834602_121499999 </span></span>
+<span><span class="co">## <span style="color: #BCBCBC;"> 5</span>   0.403    0.685    0.891      10 2:2       chr1  chr1_143277461_149255831</span></span>
+<span><span class="co">## <span style="color: #BCBCBC;"> 6</span>   0.808    0.866    0.916      11 2:2       chr1  chr1_149255832_196892499</span></span>
+<span><span class="co">## <span style="color: #BCBCBC;"> 7</span>   0.810    0.863    0.909      12 2:2       chr1  chr1_196892500_247247500</span></span>
+<span><span class="co">## <span style="color: #BCBCBC;"> 8</span>   0.544    0.792    0.948      13 2:2       chr1  chr1_247247501_249250620</span></span>
 <span><span class="co">## <span style="color: #BCBCBC;"> 9</span>   0.769    0.825    0.875      30 2:2       chr4  chr4_74473_48199999     </span></span>
-<span><span class="co">## <span style="color: #BCBCBC;">10</span>   0.464    0.770    0.956      31 2:2       chr4  chr4_48200000_52699999  </span></span>
+<span><span class="co">## <span style="color: #BCBCBC;">10</span>   0.458    0.768    0.953      31 2:2       chr4  chr4_48200000_52699999  </span></span>
 <span><span class="co">## <span style="color: #949494;"># ℹ 62 more rows</span></span></span></code></pre>
 <div class="sourceCode" id="cb10"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="co"># View detailed inference results</span></span>
@@ -245,16 +245,16 @@ can inspect these to understand the timing of clonal peaks:</p>
 <pre><code><span><span class="co">## <span style="color: #949494;"># A tibble: 1,152,000 × 5</span></span></span>
 <span><span class="co">##      tau segment karyotype chr   segment_id          </span></span>
 <span><span class="co">##    <span style="color: #949494; font-style: italic;">&lt;dbl&gt;</span>   <span style="color: #949494; font-style: italic;">&lt;int&gt;</span> <span style="color: #949494; font-style: italic;">&lt;chr&gt;</span>     <span style="color: #949494; font-style: italic;">&lt;chr&gt;</span> <span style="color: #949494; font-style: italic;">&lt;chr&gt;</span>               </span></span>
-<span><span class="co">## <span style="color: #BCBCBC;"> 1</span> 0.890       2 2:2       chr1  chr1_790009_13212499</span></span>
-<span><span class="co">## <span style="color: #BCBCBC;"> 2</span> 0.882       2 2:2       chr1  chr1_790009_13212499</span></span>
-<span><span class="co">## <span style="color: #BCBCBC;"> 3</span> 0.878       2 2:2       chr1  chr1_790009_13212499</span></span>
-<span><span class="co">## <span style="color: #BCBCBC;"> 4</span> 0.890       2 2:2       chr1  chr1_790009_13212499</span></span>
-<span><span class="co">## <span style="color: #BCBCBC;"> 5</span> 0.881       2 2:2       chr1  chr1_790009_13212499</span></span>
-<span><span class="co">## <span style="color: #BCBCBC;"> 6</span> 0.933       2 2:2       chr1  chr1_790009_13212499</span></span>
-<span><span class="co">## <span style="color: #BCBCBC;"> 7</span> 0.918       2 2:2       chr1  chr1_790009_13212499</span></span>
-<span><span class="co">## <span style="color: #BCBCBC;"> 8</span> 0.896       2 2:2       chr1  chr1_790009_13212499</span></span>
-<span><span class="co">## <span style="color: #BCBCBC;"> 9</span> 0.865       2 2:2       chr1  chr1_790009_13212499</span></span>
-<span><span class="co">## <span style="color: #BCBCBC;">10</span> 0.924       2 2:2       chr1  chr1_790009_13212499</span></span>
+<span><span class="co">## <span style="color: #BCBCBC;"> 1</span> 0.927       2 2:2       chr1  chr1_790009_13212499</span></span>
+<span><span class="co">## <span style="color: #BCBCBC;"> 2</span> 0.867       2 2:2       chr1  chr1_790009_13212499</span></span>
+<span><span class="co">## <span style="color: #BCBCBC;"> 3</span> 0.865       2 2:2       chr1  chr1_790009_13212499</span></span>
+<span><span class="co">## <span style="color: #BCBCBC;"> 4</span> 0.889       2 2:2       chr1  chr1_790009_13212499</span></span>
+<span><span class="co">## <span style="color: #BCBCBC;"> 5</span> 0.939       2 2:2       chr1  chr1_790009_13212499</span></span>
+<span><span class="co">## <span style="color: #BCBCBC;"> 6</span> 0.938       2 2:2       chr1  chr1_790009_13212499</span></span>
+<span><span class="co">## <span style="color: #BCBCBC;"> 7</span> 0.939       2 2:2       chr1  chr1_790009_13212499</span></span>
+<span><span class="co">## <span style="color: #BCBCBC;"> 8</span> 0.881       2 2:2       chr1  chr1_790009_13212499</span></span>
+<span><span class="co">## <span style="color: #BCBCBC;"> 9</span> 0.884       2 2:2       chr1  chr1_790009_13212499</span></span>
+<span><span class="co">## <span style="color: #BCBCBC;">10</span> 0.913       2 2:2       chr1  chr1_790009_13212499</span></span>
 <span><span class="co">## <span style="color: #949494;"># ℹ 1,151,990 more rows</span></span></span></code></pre>
 </div>
 <div class="section level3">
