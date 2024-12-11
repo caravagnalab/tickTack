@@ -5,6 +5,8 @@
 <url><loc>https://caravagnalab.github.io/tickTack/articles/a1_introduction.html</loc></url>
 <url><loc>https://caravagnalab.github.io/tickTack/articles/a2_Single_segment_timing.html</loc></url>
 <url><loc>https://caravagnalab.github.io/tickTack/articles/a3_Understanding_single_segment_timing.html</loc></url>
+<url><loc>https://caravagnalab.github.io/tickTack/articles/a4_Multiple_segment_timing.html</loc></url>
+<url><loc>https://caravagnalab.github.io/tickTack/articles/a5_Understanding_multiple_segments_timing.html</loc></url>
 <url><loc>https://caravagnalab.github.io/tickTack/articles/index.html</loc></url>
 <url><loc>https://caravagnalab.github.io/tickTack/articles/tickTack.html</loc></url>
 <url><loc>https://caravagnalab.github.io/tickTack/authors.html</loc></url>
@@ -23,6 +25,10 @@
 <url><loc>https://caravagnalab.github.io/tickTack/reference/model_selection_h.html</loc></url>
 <url><loc>https://caravagnalab.github.io/tickTack/reference/pcawg_example.html</loc></url>
 <url><loc>https://caravagnalab.github.io/tickTack/reference/pcawg_example_2.html</loc></url>
+<url><loc>https://caravagnalab.github.io/tickTack/reference/plot_elbo_h.html</loc></url>
+<url><loc>https://caravagnalab.github.io/tickTack/reference/plot_model_selection_h.html</loc></url>
+<url><loc>https://caravagnalab.github.io/tickTack/reference/plot_posterior_clocks_h.html</loc></url>
+<url><loc>https://caravagnalab.github.io/tickTack/reference/plot_posterior_weights_h.html</loc></url>
 <url><loc>https://caravagnalab.github.io/tickTack/reference/plot_timing.html</loc></url>
 <url><loc>https://caravagnalab.github.io/tickTack/reference/plot_timing_h.html</loc></url>
 <url><loc>https://caravagnalab.github.io/tickTack/reference/prepare_input_data.html</loc></url>
