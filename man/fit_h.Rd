@@ -12,7 +12,10 @@ fit_h(
   possible_k = c("2:1", "2:2", "2:0"),
   alpha = 0.05,
   min_mutations_number = 2,
-  n_components = 0
+  n_components = 0,
+  initial_iter = 200,
+  grad_samples = 200,
+  elbo_samples = 200
 )
 }
 \arguments{
@@ -31,6 +34,12 @@ fit_h(
 \item{min_mutations_number}{num: (type double) minimum number of accepted mutations for a segment to be included in the inference}
 
 \item{n_components}{number of components specified from user}
+
+\item{initial_iter}{description}
+
+\item{grad_samples}{description}
+
+\item{elbo_samples}{description}
 }
 \value{
 results_and_data = list(data = input_data_list, results = results, output_files_list = output_files_list)

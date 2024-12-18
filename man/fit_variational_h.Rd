@@ -10,8 +10,8 @@ fit_variational_h(
   initialization = NULL,
   INIT = TRUE,
   initial_iter = 100,
-  grad_samples = 10,
-  elbo_samples = 100,
+  grad_samples = 200,
+  elbo_samples = 200,
   tolerance = 0.01
 )
 }
