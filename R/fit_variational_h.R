@@ -57,7 +57,8 @@ fit_variational_h <- function(input_data, max_attempts = 2, initialization = NUL
       # Increment total_attempts at the start of each retry
       total_attempts <- total_attempts + 1
       
-      result <- tryCatch({
+     
+       result <- tryCatch({
         # Attempt variational inference
         print(list(initialization))
         if (INIT == TRUE) {
