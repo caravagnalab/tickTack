@@ -17,7 +17,7 @@
 #'
 #' @export
 
-fit_variational_h <- function(input_data, max_attempts = 2, initialization = NULL, INIT = TRUE, initial_iter = 100, grad_samples = 100, elbo_samples = 100, tolerance = 0.01) {
+fit_variational_h <- function(input_data, max_attempts = 2, initialization = NULL, INIT = TRUE, initial_iter = 100, grad_samples = 200, elbo_samples = 200, tolerance = 0.01) {
   # Load the Stan model
   model <- get_model("hierarchical") 
   # cmdstanr::cmdstan_model("../models/timing_mixed_simple.stan")
