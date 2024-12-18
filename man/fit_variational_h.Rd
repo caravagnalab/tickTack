@@ -9,7 +9,7 @@ fit_variational_h(
   max_attempts = 2,
   initialization = NULL,
   INIT = TRUE,
-  initial_iter = 1000,
+  initial_iter = 100,
   grad_samples = 10,
   elbo_samples = 100,
   tolerance = 0.01

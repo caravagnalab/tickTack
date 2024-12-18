@@ -17,7 +17,7 @@
 #'
 #' @export
 
-fit_variational_h <- function(input_data, max_attempts = 2, initialization = NULL, INIT = TRUE, initial_iter = 1000, grad_samples = 10, elbo_samples = 100, tolerance = 0.01) {
+fit_variational_h <- function(input_data, max_attempts = 2, initialization = NULL, INIT = TRUE, initial_iter = 100, grad_samples = 10, elbo_samples = 100, tolerance = 0.01) {
   # Load the Stan model
   model <- get_model("hierarchical") 
   # cmdstanr::cmdstan_model("../models/timing_mixed_simple.stan")
@@ -111,6 +111,9 @@ fit_variational_h <- function(input_data, max_attempts = 2, initialization = NUL
         message("An error occurred during inference: ", e$message)
         # retries <- retries + 1  # Increment retry count
         fit_successful <- FALSE  # Mark fit as unsuccessful
+        iter <- iter + 100
+        tol_rel_obj <- tol_rel_obj * 5
+        
         NULL  # Ensure NULL is returned so loop can continue
       })
 
