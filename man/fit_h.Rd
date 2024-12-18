@@ -8,13 +8,13 @@ fit_h(
   x,
   max_attempts = 2,
   INIT = TRUE,
-  tolerance = 0.01,
+  tolerance = 1e-04,
   possible_k = c("2:1", "2:2", "2:0"),
   alpha = 0.05,
   min_mutations_number = 2,
   n_components = 0,
   initial_iter = 200,
-  grad_samples = 200,
+  grad_samples = 10,
   elbo_samples = 200
 )
 }
