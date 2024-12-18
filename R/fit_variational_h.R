@@ -111,8 +111,11 @@ fit_variational_h <- function(input_data, max_attempts = 2, initialization = NUL
         message("An error occurred during inference: ", e$message)
         # retries <- retries + 1  # Increment retry count
         fit_successful <- FALSE  # Mark fit as unsuccessful
-        iter <- iter + 100
+        iter <- iter + 400
         tol_rel_obj <- tol_rel_obj * 5
+        grad_samples <- grad_samples * 3
+        elbo_samples <- elbo_samples * 3
+        
         
         NULL  # Ensure NULL is returned so loop can continue
       })
