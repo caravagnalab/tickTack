@@ -11,23 +11,29 @@ Roxygen: list(markdown = TRUE)
 RoxygenNote: 7.3.2
 Imports: 
     bayesplot,
+    biomformat,
     cli,
     cmdstanr,
     dplyr,
+    GenomicRanges,
     ggplot2,
     gridExtra,
+    IRanges,
     loo,
     magrittr,
+    methods,
     patchwork,
     ppclust,
     rlang,
+    S4Vectors,
     scales,
     stats,
     stringr,
     TailRank,
     tibble,
     tidyr,
-    utils
+    utils,
+    VariantAnnotation
 Depends: 
     R (>= 2.10)
 LazyData: true
