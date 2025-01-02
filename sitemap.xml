@@ -13,13 +13,20 @@
 <url><loc>https://caravagnalab.github.io/tickTack/index.html</loc></url>
 <url><loc>https://caravagnalab.github.io/tickTack/reference/CNA.html</loc></url>
 <url><loc>https://caravagnalab.github.io/tickTack/reference/Mutations.html</loc></url>
+<url><loc>https://caravagnalab.github.io/tickTack/reference/add_DP_and_NV.html</loc></url>
 <url><loc>https://caravagnalab.github.io/tickTack/reference/chr_coordinates_GRCh38.html</loc></url>
 <url><loc>https://caravagnalab.github.io/tickTack/reference/chr_coordinates_hg19.html</loc></url>
+<url><loc>https://caravagnalab.github.io/tickTack/reference/convert_to_granges.html</loc></url>
+<url><loc>https://caravagnalab.github.io/tickTack/reference/convert_to_vcf.html</loc></url>
 <url><loc>https://caravagnalab.github.io/tickTack/reference/fit.html</loc></url>
 <url><loc>https://caravagnalab.github.io/tickTack/reference/fit_h.html</loc></url>
 <url><loc>https://caravagnalab.github.io/tickTack/reference/fit_variational_h.html</loc></url>
 <url><loc>https://caravagnalab.github.io/tickTack/reference/get_clonal_peaks.html</loc></url>
 <url><loc>https://caravagnalab.github.io/tickTack/reference/get_initialization.html</loc></url>
+<url><loc>https://caravagnalab.github.io/tickTack/reference/get_major.html</loc></url>
+<url><loc>https://caravagnalab.github.io/tickTack/reference/get_simulation.html</loc></url>
+<url><loc>https://caravagnalab.github.io/tickTack/reference/get_taus_karyo.html</loc></url>
+<url><loc>https://caravagnalab.github.io/tickTack/reference/get_taus_karyo_gerstrung.html</loc></url>
 <url><loc>https://caravagnalab.github.io/tickTack/reference/index.html</loc></url>
 <url><loc>https://caravagnalab.github.io/tickTack/reference/karyo_to_int.html</loc></url>
 <url><loc>https://caravagnalab.github.io/tickTack/reference/model_selection_h.html</loc></url>
@@ -32,6 +39,7 @@
 <url><loc>https://caravagnalab.github.io/tickTack/reference/plot_timing.html</loc></url>
 <url><loc>https://caravagnalab.github.io/tickTack/reference/plot_timing_h.html</loc></url>
 <url><loc>https://caravagnalab.github.io/tickTack/reference/prepare_input_data.html</loc></url>
+<url><loc>https://caravagnalab.github.io/tickTack/reference/simulate_mutations.html</loc></url>
 <url><loc>https://caravagnalab.github.io/tickTack/reference/tickTack-package.html</loc></url>
 </urlset>
 
