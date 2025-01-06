@@ -8,13 +8,15 @@ vignette: >
 ---
 
 ```{r echo=TRUE, results='hide', message=FALSE}
+
+library(dplyr)
 n_clocks=3
 n_events=8
 purity=0.9 
 coverage=100 
 epsilon=0.20 
 seed = 123 
-tolerance = 0.001
+tolerance = 0.0001
 max_attempts = 2
 INIT = TRUE
 min_mutations_number = 3
@@ -42,21 +44,26 @@ res_simulate <- tickTack::get_simulation_tickTack(number_clocks=n_clocks,
                                                epsilon=epsilon, 
                                                seed = seed)
   
-  data_simulation = as.data.frame(res_simulate$data_simulation) %>% mutate(chr=   1:length(res_simulate$data_simulation$taus))
-  x = res_simulate$x
-  
-  df = x$cna %>% left_join(data_simulation)
-  
- # timing inference ticktack hierarchical
+data_simulation = as.data.frame(res_simulate$data_simulation) %>% mutate(chr=   1:length(res_simulate$data_simulation$taus))
+x = res_simulate$x
 
-  x <- tickTack::fit_h(x, max_attempts=max_attempts, INIT=INIT, tolerance = tolerance)
-  
-  
-  results_simulated <- x$results_timing
-  results_model_selection <- tickTack::model_selection_h(results_simulated)
-  best_K <- results_model_selection$best_K
+df = x$cna %>% left_join(data_simulation)
+
+# timing inference ticktack hierarchical
+
+x <- tickTack::fit_h(x, max_attempts=max_attempts, INIT=INIT, tolerance = tolerance)
 
 
+results_simulated <- x$results_timing
+results_model_selection <- tickTack::model_selection_h(results_simulated)
+best_K <- results_model_selection$best_K
+
+
+```
+
+
+```{r echo=TRUE, message=FALSE}
+data_simulation$taus
 
 ```
 
@@ -97,7 +104,7 @@ results_model_selection <- tickTack::model_selection_h(results, n_components = 0
 best_K <- results_model_selection$best_K
 model_selection_tibble <- results_model_selection$model_selection_tibble
 entropy <- results_model_selection$entropy_list
-
+print(best_K)
 ```
 
 
@@ -106,7 +113,7 @@ entropy <- results_model_selection$entropy_list
 The results can be viewed is genome-wise perspective using the `tickTack::plot_timing_h` function.
 
 ```{r, fig.align='center', fig.width=6, fig.height=4}
-tickTack::plot_timing_h(results, 2)
+tickTack::plot_timing_h(results, best_K)
 ```
 
 
@@ -116,8 +123,8 @@ The approximate posterior distributions can be viewed using the `tickTack::plot_
 
 
 ```{r, fig.align='center', fig.width=6, fig.height=4}
-posterior_clocks <- tickTack::plot_posterior_clocks_h(results, 2)
-posterior_weights <- tickTack::plot_posterior_weights_h(results, 2)
+posterior_clocks <- tickTack::plot_posterior_clocks_h(results, best_K)
+posterior_weights <- tickTack::plot_posterior_weights_h(results, best_K)
 
 ```
 
