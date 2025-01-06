@@ -1,0 +1,162 @@
+---
+title: "6. Simulate data"
+output: rmarkdown::html_vignette
+vignette: >
+  %\VignetteIndexEntry{6. Simulate data}
+  %\VignetteEngine{knitr::rmarkdown}
+  %\VignetteEncoding{UTF-8}
+---
+
+```{r echo=TRUE, results='hide', message=FALSE}
+n_clocks=3
+n_events=8
+purity=0.9 
+coverage=100 
+epsilon=0.20 
+seed = 123 
+tolerance = 0.001
+max_attempts = 2
+INIT = TRUE
+min_mutations_number = 3
+
+
+cat("coverage: ", coverage)
+
+mu = 1e-4 # mutation rate
+cat("mutation rate: ", mu)
+
+w = 1e-2 # cell division rate
+cat("cell division rate: ", w)
+
+l = 2e7 # length of the segment
+cat("length of the segment: ", l)
+
+time_interval = 7
+cat("time_interval: ", time_interval)
+
+
+res_simulate <- tickTack::get_simulation_tickTack(number_clocks=n_clocks, 
+                                               number_events=n_events, 
+                                               purity=purity, 
+                                               coverage=coverage, 
+                                               epsilon=epsilon, 
+                                               seed = seed)
+  
+  data_simulation = as.data.frame(res_simulate$data_simulation) %>% mutate(chr=   1:length(res_simulate$data_simulation$taus))
+  x = res_simulate$x
+  
+  df = x$cna %>% left_join(data_simulation)
+  
+ # timing inference ticktack hierarchical
+
+  x <- tickTack::fit_h(x, max_attempts=max_attempts, INIT=INIT, tolerance = tolerance)
+  
+  
+  results_simulated <- x$results_timing
+  results_model_selection <- tickTack::model_selection_h(results_simulated)
+  best_K <- results_model_selection$best_K
+
+
+
+```
+
+
+### Results
+
+The `results` object that is returned together with the CNAqc input object contains four components: `data`, `draws_and_summary`, `log_lik_matrix_list` and `elbo_iterations`. 
+
+```{r echo=TRUE}
+# View summary for a specific K, here K = 2
+results <- x$results
+```
+
+### Interpreting the output
+
+We can inspect the main output of interest to understand the timing of clonal peaks.
+`results$draws_and_summary` contains:
+- **`draws`** the draws from the approximate posterior distribution of the taus and weights;
+- **`summary`** a summary with the main statistics of the approximate posterior distributions;
+- **`summarized_results`** represents the clock assignment, a tibble with the estimate of taus for each segment with a copy number event that has been included in the hierarchical inference
+
+```{r echo=TRUE}
+# View summary for a specific K, here K = 2
+results$draws_and_summary[[2]]$summary
+
+# View detailed summarized results for a specific K, here K = 2
+results$draws_and_summary[[2]]$summarized_results
+```
+
+
+
+### Obtain the best K with model_selection_h
+W e can run the `model_selection_h` function to obtain the scores for each inference performed with a different K and take the one with best ICL score if the BIC score prefer 2 components instead of 1, otherwise choose 1 as best K. The function takes as input the `results` and `n_components` and outputs the `best_K` and the corresponding `best_fit` together with the `model_selection_tibble` and the `entropy_list` used to evaluate  the ICL score.
+
+```{r echo=TRUE, results='hide', message=FALSE}
+results_model_selection <- tickTack::model_selection_h(results, n_components = 0)
+
+best_K <- results_model_selection$best_K
+model_selection_tibble <- results_model_selection$model_selection_tibble
+entropy <- results_model_selection$entropy_list
+
+```
+
+
+## Visulizing the output
+
+The results can be viewed is genome-wise perspective using the `tickTack::plot_timing_h` function.
+
+```{r, fig.align='center', fig.width=6, fig.height=4}
+tickTack::plot_timing_h(results, 2)
+```
+
+
+
+## Visualize distributions of draws from the approximate posterior 
+The approximate posterior distributions can be viewed using the `tickTack::plot_posterior_clocks_h`  and `tickTack::plot_posterior_weights_h`  functions, that internally use functions from Bayesplot.
+
+
+```{r, fig.align='center', fig.width=6, fig.height=4}
+posterior_clocks <- tickTack::plot_posterior_clocks_h(results, 2)
+posterior_weights <- tickTack::plot_posterior_weights_h(results, 2)
+
+```
+
+
+## Visualize  the behavior of the ELBO during the inference
+
+
+```{r, fig.align='center', fig.width=6, fig.height=5}
+K = nrow(results_model_selection$model_selection_tibble)
+
+p_elbo <- list()
+for (i in 1:K){
+  p_elbo[[i]] <- tickTack::plot_elbo_h(results$elbo_iterations[[i]]) + ggplot2::ggtitle(paste0("K = ", i))
+}
+p_elbo <- gridExtra::grid.arrange(grobs = p_elbo, ncol = 2)  #add global title
+p_elbo
+
+```
+
+
+<!-- ## Visualize model selection scores -->
+
+<!-- ```{r} -->
+<!-- #  -->
+<!-- # p_model_selection <- tickTack::plot_model_selection_h(model_selection_tibble, best_K) -->
+<!-- # p_model_selection -->
+<!-- #  -->
+<!-- # cat("Best K =",best_K) -->
+<!-- ``` -->
+
+
+## Visualize all the inference results for each K
+
+```{r, fig.align='center', fig.width=6, fig.height=5, message=FALSE}
+plot_model_selection_inference <- list()
+for (i in 1:K){
+  plot_model_selection_inference[[i]] <- tickTack::plot_timing_h(results, i) + ggplot2::ggtitle(paste0("K = ", i))
+}
+plot_model_selection_inference <- gridExtra::grid.arrange(grobs = plot_model_selection_inference, ncol = 2) #add global title
+plot_model_selection_inference
+
+```
