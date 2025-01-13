@@ -49,17 +49,29 @@ fit_h = function(x, max_attempts=2, INIT=TRUE, tolerance = 0.0001, possible_k = 
   input_data = accepted_data$input_data
   accepted_cna = accepted_data$accepted_cna
   
+  
+  message(" ", input_data$S, " segments will be included in the inference")
+  
+  
   if (n_components != 0){
-    k_max = n_components
-  } else if (input_data$S <= 2){
-    k_max = (input_data$S)
-  } else if (input_data$S <= 7){
-    k_max = (input_data$S-1)
-  } else if (input_data$S <= 15) {
-    k_max = ((floor(input_data$S/2))-1)
+    range_k = n_components
+  } else if (input_data$S <= 2){ range_k = (1:input_data$S)
+  } else if (input_data$S <= 7){ range_k = (1:input_data$S-1)
+  } else if (input_data$S <= 10) {range_k = (1:(ceiling(input_data$S/2))+1)
+  } else if (input_data$S <= 15) {range_k = (1:(floor(input_data$S/2))+1)
+  } else if (input_data$S <= 25) {range_k = (1:(floor(input_data$S/2)))
   } else{
-    k_max = ceiling(sqrt(input_data$S))
+    optimal_k <- get_k_max_k_means(input_data, purity)
+      # Define the number of additional K values to try
+      n_additional <- 2
+    range_k <- round(seq(optimal_k - floor(input_data$S / 8), optimal_k + floor(input_data$S / 8), length.out = n_additional))
+    range_k <- c(range_k,1,2)
+    range_k <- sort(unique(range_k[range_k >= 1 & range_k <= input_data$S]))
   }
+  
+  
+  message("Performing inference with the following number of components ", range_k, ". Insert a specificset of values in the <range> parameter if a different set of components is desired! ")
+  
   
   draws_and_summary = c()
   elbo_iterations = list()
@@ -68,7 +80,7 @@ fit_h = function(x, max_attempts=2, INIT=TRUE, tolerance = 0.0001, possible_k = 
   
   # set k_max
   # before inference add K to the list obtained as input_data
-  for (K in 1:k_max){
+  for (K in range_k){
     input_data$K = K
     
     if (INIT==TRUE){
@@ -107,9 +119,9 @@ fit_h = function(x, max_attempts=2, INIT=TRUE, tolerance = 0.0001, possible_k = 
     
     # log_lik_contributions <- res$draws(variables = "log_lik_matrix")
     log_lik_matrix <- res$draws(variables = "log_lik")
-    log_lik_matrix_list[[K]] <- log_lik_matrix
+    log_lik_matrix_list[[as.character(K)]] <- log_lik_matrix
     result_single <- list(draws = tau_and_w_draws, summary = tau_and_w_summary, summarized_results = summarized_results)
-    draws_and_summary[[K]] = result_single
+    draws_and_summary[[as.character(K)]] = result_single
     
     output_files <- res$latent_dynamics_files()
     print(paste0("output_files ", output_files,"\n"))
@@ -119,7 +131,7 @@ fit_h = function(x, max_attempts=2, INIT=TRUE, tolerance = 0.0001, possible_k = 
     elbo_values <- elbo_data$ELBO  # ELBO column
     elbo_df <- data.frame(iteration = iterations, elbo = elbo_values)
     
-    elbo_iterations[[K]] = elbo_df
+    elbo_iterations[[as.character(K)]] = elbo_df
     
     # get summarized results from the draws (estimate of the paramenters and the relative confidence associated to them)
     # implement a function to get the fit like "get_posterior"

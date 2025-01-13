@@ -19,25 +19,32 @@ model_selection_h = function(results, n_components = 0) {
   
   karyo <- data$karyotype
   
-  if (n_components != 0){
-    k_max = n_components
-  } else if (length(karyo) <= 2){
-    k_max = (length(karyo))
-  } else if (length(karyo) <= 7){
-    k_max = (length(karyo)-1)
-  } else if (length(karyo) <= 15) {
-    k_max = ((floor(length(karyo)/2))-1)
-  } else{
-    k_max = ceiling(sqrt(length(karyo)))
-  }
+  range_k <- as.numeric(names(results$draws_and_summary)) 
+  
+  # if (n_components != 0){
+  #   range_k = n_components
+  # } else if (length(karyo) <= 2){ range_k = (1:length(karyo))
+  # } else if (length(karyo) <= 7){ range_k = (1:length(karyo)-1)
+  # } else if (length(karyo) <= 10) {range_k = (1:(ceiling(length(karyo)/2))+1)
+  # } else if (length(karyo)<= 15) {range_k = (1:(floor(length(karyo)))+1)
+  # } else if (length(karyo) <= 25) {range_k = (1:(floor(length(karyo)/2)))
+  # } else{
+  #   optimal_k <- get_k_max_k_means(data, purity)
+  #   # Define the number of additional K values to try
+  #   n_additional <- 8
+  #   range_k <- round(seq(optimal_k - floor(data$S / 8), optimal_k + floor(data$S / 8), length.out = n_additional))
+  #   range_k <- c(range_k,1,2)
+  #   range_k <- sort(unique(range_k[range_k >= 1 & range_k <= data$S]))
+  # }
+  
   
   model_selection_tibble <- dplyr::tibble()
   S <- length(length(karyo))
   
-  entropy_per_segment_matrix = matrix(0, k_max, S) # k_max rows and S columns
-  entropy_per_segment_matrix_norm = matrix(0, k_max, S)
+  entropy_per_segment_matrix = list() # k_max rows and S columns
+  entropy_per_segment_matrix_norm = list()
   
-  for (K in 1:k_max) {
+  for (K in range_k) {
     
     # select it from results
     # elbo_df <- elbo_iterations[[K]]
@@ -49,7 +56,7 @@ model_selection_h = function(results, n_components = 0) {
     total_number_params <- K+((K-1)*S)+2                    # tau = K, w = K*S, phi, kappa (dirichlet reparametrization)
     N <- length(data$NV)
     
-    log_lik_matrix <- log_lik_matrix_list[[K]]
+    log_lik_matrix <- log_lik_matrix_list[[as.character(K)]]
     log_lik_total_per_sample <- rowSums(log_lik_matrix)
     L <- stats::median(log_lik_total_per_sample)
     
@@ -67,7 +74,7 @@ model_selection_h = function(results, n_components = 0) {
     names_weights <- outer(1:S, 1:K,
                            FUN = function(i, j) paste0("w[", i, ",", j, "]"))
     names_weights <- as.vector(names_weights)
-    tau_and_w_draws <- draws_and_summary[[K]]$draws
+    tau_and_w_draws <- draws_and_summary[[as.character(K)]]$draws
     w_ICL <- tau_and_w_draws[, colnames(tau_and_w_draws) %in% names_weights]
     
     dim(w_ICL) = c(draws,S*K)
@@ -101,8 +108,8 @@ model_selection_h = function(results, n_components = 0) {
     
     # ICL PER SEGMENT to see its behaviour with increasing K
     post_Segments = t(w_ICL)
-    entropy_per_segment = c()
-    entropy_per_segment_norm = c()
+    entropy_per_segment = list()
+    entropy_per_segment_norm = list()
     for (s in 1:S ){
       post_s = post_Segments[s]
       log_post_s = log(post_s + 0.000001)
@@ -124,8 +131,8 @@ model_selection_h = function(results, n_components = 0) {
     print("entropy per segment normalized: ")
     print(entropy_per_segment_norm)
     
-    entropy_per_segment_matrix_norm[K,] = entropy_per_segment_norm
-    entropy_per_segment_matrix[K,] = entropy_per_segment
+    entropy_per_segment_matrix_norm[[as.character(K)]] = entropy_per_segment_norm
+    entropy_per_segment_matrix[[as.character(K)]] = entropy_per_segment
     
   }
   
@@ -135,17 +142,17 @@ model_selection_h = function(results, n_components = 0) {
   best_K_temp <- model_selection_tibble_temp %>% dplyr::filter(BIC == min(BIC)) %>% dplyr::pull(K)
 
   if (best_K_temp!=1){
-    if (k_max==2){
+    if (length(range_k)==2){
       best_K <- 2
       cli::cli_alert_info("The algorithm should be run with more Components ")
     }else{
       
-      while(mean(entropy_per_segment_matrix_norm[best_K_temp+1,]) - mean(entropy_per_segment_matrix_norm[best_K_temp,]) < 0 & best_K_temp < k_max ){
-        best_K_temp = best_K_temp + 1
-        if ( best_K_temp == k_max ){
+      while ( best_K_temp < range_k[length(range_k)] & as.numeric((entropy_per_segment_matrix_norm[[as.character(range_k[best_K_temp+1])]])) - as.numeric(entropy_per_segment_matrix_norm[[as.character(range_k[best_K_temp])]]) < 0 ){
+        best_K_temp = range_k[best_K_temp + 1]
+        if ( best_K_temp == range_k[length(range_k)] ){
           break
-        }}}
-  } else {
+        }}
+  }} else {
     best_K <- 1
   }
   best_K <- best_K_temp
@@ -155,11 +162,11 @@ model_selection_h = function(results, n_components = 0) {
   # }else {
     # best_K <- 1}
        
-  if(best_K==k_max){
+  if(best_K==range_k[length(range_k)]){
     cli::cli_alert_info("The algorithm should be run with more Components ")
   }
   
-  result_model_selection = list(best_fit = draws_and_summary[[best_K]], best_K = best_K, model_selection_tibble = model_selection_tibble, entropy_list = entropy_list)
+  result_model_selection = list(best_fit = draws_and_summary[[as.character(best_K)]], best_K = best_K, model_selection_tibble = model_selection_tibble, entropy_list = entropy_list)
   return (result_model_selection)
 }
 
