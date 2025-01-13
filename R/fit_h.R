@@ -63,7 +63,7 @@ fit_h = function(x, max_attempts=2, INIT=TRUE, tolerance = 0.0001, possible_k = 
   } else{
     optimal_k <- get_k_max_k_means(input_data, purity)
       # Define the number of additional K values to try
-      n_additional <- 2
+      n_additional <- 8
     range_k <- round(seq(optimal_k - floor(input_data$S / 8), optimal_k + floor(input_data$S / 8), length.out = n_additional))
     range_k <- c(range_k,1,2)
     range_k <- sort(unique(range_k[range_k >= 1 & range_k <= input_data$S]))
