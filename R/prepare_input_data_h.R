@@ -103,7 +103,7 @@ prepare_input_data = function(mutations, segments, purity, possible_k = c("2:1",
   }
   
   else {  fileConn<-file("segments.txt")
-  writeLines(c(pste0("The number of accepted segments is ", nrow(accepted_segments_info))," "), fileConn)
+  writeLines(c(paste0("The number of accepted segments is ", nrow(accepted_segments_info))," "), fileConn)
   close(fileConn) }
   
   # then obtain the data "all together" and get the input for the variational model inference
