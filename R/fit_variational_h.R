@@ -51,13 +51,15 @@ fit_variational_h <- function(input_data, max_attempts = 2, initialization = NUL
     
     retries <- 0
     
+    tol_rel_obj <- tolerance
+    
     while (!fit_successful && retries < 3) {  # Set a max number of retries for each attempt
       message("Retries ", retries, " of ", 3)
       
       # Increment total_attempts at the start of each retry
       total_attempts <- total_attempts + 1
       
-     
+      
        result <- tryCatch({
         # Attempt variational inference
         print(list(initialization))
