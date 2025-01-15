@@ -23,7 +23,7 @@ prepare_input_data = function(mutations, segments, purity, possible_k = c("2:1",
     tidyr::drop_na(Major, minor)
   
   n_segments <- nrow(segments)
-  accepted_segments_info <- dplyr::tibble()
+  accepted_segments_info <- dplyr::tibble() ###
   # summarized_results <- dplyr::tibble()
   
   accapted_mutations_all <- dplyr::tibble()
@@ -47,7 +47,7 @@ prepare_input_data = function(mutations, segments, purity, possible_k = c("2:1",
     minor <- segment$minor
     
     k <- paste(Major, minor, sep=':')
-    
+    print(k)
     peaks <- get_clonal_peaks(k, purity)
     
     if (k %in% possible_k) {
@@ -82,7 +82,7 @@ prepare_input_data = function(mutations, segments, purity, possible_k = c("2:1",
       if (nrow(accepted_mutations) >= min_mutations_number) {
         
         accepted_segment_idx <- accepted_segment_idx + 1
-        
+        print("Adding segment with index {.val {segment_idx}} to segments included in the inference.")
         cli::cli_alert_info("Adding segment with index {.val {segment_idx}} to segments included in the inference.")
         
         # return the fit result directly together with the information about the segments associated to the clocks
@@ -93,14 +93,18 @@ prepare_input_data = function(mutations, segments, purity, possible_k = c("2:1",
         accapted_mutations_all <- dplyr::bind_rows(accapted_mutations_all, accepted_mutations)
         # accepted_mutations <- data.frame(DP = DP[accepted_idx], NV = NV[accepted_idx], segment_id=data$segment_name[accepted_idx], karyotype=data$karyotype[accepted_idx], tau=data$tau[accepted_idx] , segment_index=data$segment_id[accepted_idx])
         
-      }
-    }
+      } else {cli::cli_alert_info("Segment with index {.val {segment_idx}} did not respect the conditions.")}
+    } else{cli::cli_alert_info("Segment with index {.val {segment_idx}} has no acceptable karyotype.")}
   }
   
   # check that there is at least one segment
   if(!nrow(accepted_segments_info)*ncol(accepted_segments_info)){
     stop("No segments respected the constraint to perform the clock inference in this CNAqc object.")
   }
+  
+  else {  fileConn<-file("segments.txt")
+  writeLines(c(pste0("The number of accepted segments is ", nrow(accepted_segments_info))," "), fileConn)
+  close(fileConn) }
   
   # then obtain the data "all together" and get the input for the variational model inference
   

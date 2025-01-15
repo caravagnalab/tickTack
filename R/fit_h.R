@@ -31,8 +31,6 @@ fit_h = function(x, max_attempts=2, INIT=TRUE, tolerance = 0.0001, possible_k = 
   
   # cna <- CNAqc::CNA(x)
   segments <- CNA(x)
-  # just while developing the package to accelerate the inference
-  # cna <- cna[1:13,]
   
   if(!nrow(segments)*ncol(segments)){
     stop("No CNA events have been called on this CNAqc object.")
@@ -72,13 +70,10 @@ fit_h = function(x, max_attempts=2, INIT=TRUE, tolerance = 0.0001, possible_k = 
   
   message("Performing inference with the following number of components ", range_k, ". Insert a specificset of values in the <range> parameter if a different set of components is desired! ")
   
-  
   draws_and_summary = c()
   elbo_iterations = list()
   log_lik_matrix_list = list()
   
-  
-  # set k_max
   # before inference add K to the list obtained as input_data
   for (K in range_k){
     input_data$K = K
@@ -115,9 +110,6 @@ fit_h = function(x, max_attempts=2, INIT=TRUE, tolerance = 0.0001, possible_k = 
 
 
     
-    # Check log likelihood values  POSSO ESTRARRE LA LOG LIK DIRETTAMENTE DAL MODELLO E NON DALLE GENERATED QUANTITIES?
-    
-    # log_lik_contributions <- res$draws(variables = "log_lik_matrix")
     log_lik_matrix <- res$draws(variables = "log_lik")
     log_lik_matrix_list[[as.character(K)]] <- log_lik_matrix
     result_single <- list(draws = tau_and_w_draws, summary = tau_and_w_summary, summarized_results = summarized_results)
@@ -133,10 +125,7 @@ fit_h = function(x, max_attempts=2, INIT=TRUE, tolerance = 0.0001, possible_k = 
     
     elbo_iterations[[as.character(K)]] = elbo_df
     
-    # get summarized results from the draws (estimate of the paramenters and the relative confidence associated to them)
     # implement a function to get the fit like "get_posterior"
-    
-    
     
     
   }
