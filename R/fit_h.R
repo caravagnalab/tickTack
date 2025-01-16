@@ -80,7 +80,7 @@ fit_h = function(x, max_attempts=2, INIT=TRUE, tolerance = 0.0001, possible_k = 
     
     
       # inits_chain <- get_initialization(input_data, purity = purity)
-      inits_chain <- null
+      inits_chain <- NULL
      
       res <-  tryCatch({res <-fit_variational_h(input_data,
                                initialization = inits_chain,
