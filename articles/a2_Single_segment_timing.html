@@ -229,16 +229,16 @@ can inspect these to understand the timing of clonal peaks:</p>
 <pre><code><span><span class="co">## <span style="color: #949494;"># A tibble: 72 × 7</span></span></span>
 <span><span class="co">##    tau_low tau_mean tau_high segment karyotype chr   segment_id              </span></span>
 <span><span class="co">##      <span style="color: #949494; font-style: italic;">&lt;dbl&gt;</span>    <span style="color: #949494; font-style: italic;">&lt;dbl&gt;</span>    <span style="color: #949494; font-style: italic;">&lt;dbl&gt;</span>   <span style="color: #949494; font-style: italic;">&lt;int&gt;</span> <span style="color: #949494; font-style: italic;">&lt;chr&gt;</span>     <span style="color: #949494; font-style: italic;">&lt;chr&gt;</span> <span style="color: #949494; font-style: italic;">&lt;chr&gt;</span>                   </span></span>
-<span><span class="co">## <span style="color: #BCBCBC;"> 1</span>   0.808    0.890    0.953       2 2:2       chr1  chr1_790009_13212499    </span></span>
-<span><span class="co">## <span style="color: #BCBCBC;"> 2</span>   0.844    0.912    0.963       3 2:2       chr1  chr1_13212500_33458785  </span></span>
-<span><span class="co">## <span style="color: #BCBCBC;"> 3</span>   0.818    0.888    0.942       5 2:2       chr1  chr1_33564127_56834601  </span></span>
-<span><span class="co">## <span style="color: #BCBCBC;"> 4</span>   0.863    0.903    0.936       6 2:2       chr1  chr1_56834602_121499999 </span></span>
-<span><span class="co">## <span style="color: #BCBCBC;"> 5</span>   0.393    0.683    0.892      10 2:2       chr1  chr1_143277461_149255831</span></span>
-<span><span class="co">## <span style="color: #BCBCBC;"> 6</span>   0.807    0.866    0.914      11 2:2       chr1  chr1_149255832_196892499</span></span>
-<span><span class="co">## <span style="color: #BCBCBC;"> 7</span>   0.811    0.863    0.909      12 2:2       chr1  chr1_196892500_247247500</span></span>
-<span><span class="co">## <span style="color: #BCBCBC;"> 8</span>   0.541    0.791    0.947      13 2:2       chr1  chr1_247247501_249250620</span></span>
-<span><span class="co">## <span style="color: #BCBCBC;"> 9</span>   0.769    0.825    0.875      30 2:2       chr4  chr4_74473_48199999     </span></span>
-<span><span class="co">## <span style="color: #BCBCBC;">10</span>   0.464    0.770    0.956      31 2:2       chr4  chr4_48200000_52699999  </span></span>
+<span><span class="co">## <span style="color: #BCBCBC;"> 1</span>   0.807    0.890    0.952       2 2:2       chr1  chr1_790009_13212499    </span></span>
+<span><span class="co">## <span style="color: #BCBCBC;"> 2</span>   0.842    0.912    0.963       3 2:2       chr1  chr1_13212500_33458785  </span></span>
+<span><span class="co">## <span style="color: #BCBCBC;"> 3</span>   0.817    0.888    0.942       5 2:2       chr1  chr1_33564127_56834601  </span></span>
+<span><span class="co">## <span style="color: #BCBCBC;"> 4</span>   0.862    0.902    0.935       6 2:2       chr1  chr1_56834602_121499999 </span></span>
+<span><span class="co">## <span style="color: #BCBCBC;"> 5</span>   0.402    0.684    0.888      10 2:2       chr1  chr1_143277461_149255831</span></span>
+<span><span class="co">## <span style="color: #BCBCBC;"> 6</span>   0.808    0.866    0.914      11 2:2       chr1  chr1_149255832_196892499</span></span>
+<span><span class="co">## <span style="color: #BCBCBC;"> 7</span>   0.810    0.863    0.909      12 2:2       chr1  chr1_196892500_247247500</span></span>
+<span><span class="co">## <span style="color: #BCBCBC;"> 8</span>   0.547    0.792    0.947      13 2:2       chr1  chr1_247247501_249250620</span></span>
+<span><span class="co">## <span style="color: #BCBCBC;"> 9</span>   0.768    0.825    0.876      30 2:2       chr4  chr4_74473_48199999     </span></span>
+<span><span class="co">## <span style="color: #BCBCBC;">10</span>   0.458    0.767    0.955      31 2:2       chr4  chr4_48200000_52699999  </span></span>
 <span><span class="co">## <span style="color: #949494;"># ℹ 62 more rows</span></span></span></code></pre>
 <div class="sourceCode" id="cb10"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="co"># View detailed inference results</span></span>
@@ -246,16 +246,16 @@ can inspect these to understand the timing of clonal peaks:</p>
 <pre><code><span><span class="co">## <span style="color: #949494;"># A tibble: 1,152,000 × 5</span></span></span>
 <span><span class="co">##      tau segment karyotype chr   segment_id          </span></span>
 <span><span class="co">##    <span style="color: #949494; font-style: italic;">&lt;dbl&gt;</span>   <span style="color: #949494; font-style: italic;">&lt;int&gt;</span> <span style="color: #949494; font-style: italic;">&lt;chr&gt;</span>     <span style="color: #949494; font-style: italic;">&lt;chr&gt;</span> <span style="color: #949494; font-style: italic;">&lt;chr&gt;</span>               </span></span>
-<span><span class="co">## <span style="color: #BCBCBC;"> 1</span> 0.890       2 2:2       chr1  chr1_790009_13212499</span></span>
-<span><span class="co">## <span style="color: #BCBCBC;"> 2</span> 0.882       2 2:2       chr1  chr1_790009_13212499</span></span>
-<span><span class="co">## <span style="color: #BCBCBC;"> 3</span> 0.878       2 2:2       chr1  chr1_790009_13212499</span></span>
-<span><span class="co">## <span style="color: #BCBCBC;"> 4</span> 0.890       2 2:2       chr1  chr1_790009_13212499</span></span>
-<span><span class="co">## <span style="color: #BCBCBC;"> 5</span> 0.881       2 2:2       chr1  chr1_790009_13212499</span></span>
-<span><span class="co">## <span style="color: #BCBCBC;"> 6</span> 0.933       2 2:2       chr1  chr1_790009_13212499</span></span>
-<span><span class="co">## <span style="color: #BCBCBC;"> 7</span> 0.918       2 2:2       chr1  chr1_790009_13212499</span></span>
-<span><span class="co">## <span style="color: #BCBCBC;"> 8</span> 0.896       2 2:2       chr1  chr1_790009_13212499</span></span>
-<span><span class="co">## <span style="color: #BCBCBC;"> 9</span> 0.865       2 2:2       chr1  chr1_790009_13212499</span></span>
-<span><span class="co">## <span style="color: #BCBCBC;">10</span> 0.924       2 2:2       chr1  chr1_790009_13212499</span></span>
+<span><span class="co">## <span style="color: #BCBCBC;"> 1</span> 0.880       2 2:2       chr1  chr1_790009_13212499</span></span>
+<span><span class="co">## <span style="color: #BCBCBC;"> 2</span> 0.845       2 2:2       chr1  chr1_790009_13212499</span></span>
+<span><span class="co">## <span style="color: #BCBCBC;"> 3</span> 0.891       2 2:2       chr1  chr1_790009_13212499</span></span>
+<span><span class="co">## <span style="color: #BCBCBC;"> 4</span> 0.923       2 2:2       chr1  chr1_790009_13212499</span></span>
+<span><span class="co">## <span style="color: #BCBCBC;"> 5</span> 0.834       2 2:2       chr1  chr1_790009_13212499</span></span>
+<span><span class="co">## <span style="color: #BCBCBC;"> 6</span> 0.916       2 2:2       chr1  chr1_790009_13212499</span></span>
+<span><span class="co">## <span style="color: #BCBCBC;"> 7</span> 0.897       2 2:2       chr1  chr1_790009_13212499</span></span>
+<span><span class="co">## <span style="color: #BCBCBC;"> 8</span> 0.909       2 2:2       chr1  chr1_790009_13212499</span></span>
+<span><span class="co">## <span style="color: #BCBCBC;"> 9</span> 0.826       2 2:2       chr1  chr1_790009_13212499</span></span>
+<span><span class="co">## <span style="color: #BCBCBC;">10</span> 0.869       2 2:2       chr1  chr1_790009_13212499</span></span>
 <span><span class="co">## <span style="color: #949494;"># ℹ 1,151,990 more rows</span></span></span></code></pre>
 </div>
 <div class="section level3">

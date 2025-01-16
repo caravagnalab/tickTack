@@ -121,9 +121,12 @@
 <span></span>
 <span></span>
 <span><span class="va">results_simulated</span> <span class="op">&lt;-</span> <span class="va">x</span><span class="op">$</span><span class="va">results_timing</span></span>
-<span><span class="va">results_model_selection</span> <span class="op">&lt;-</span> <span class="fu">tickTack</span><span class="fu">::</span><span class="fu"><a href="../reference/model_selection_h.html">model_selection_h</a></span><span class="op">(</span><span class="va">results_simulated</span><span class="op">)</span></span>
-<span><span class="va">best_K</span> <span class="op">&lt;-</span> <span class="va">results_model_selection</span><span class="op">$</span><span class="va">best_K</span></span></code></pre></div>
-<div class="sourceCode" id="cb2"><pre class="downlit sourceCode r">
+<span><span class="va">results_model_selection</span> <span class="op">&lt;-</span> <span class="fu">tickTack</span><span class="fu">::</span><span class="fu"><a href="../reference/model_selection_h.html">model_selection_h</a></span><span class="op">(</span><span class="va">results_simulated</span><span class="op">)</span></span></code></pre></div>
+<pre><code><span><span class="co">## Warning: Some Pareto k diagnostic values are too high. See help('pareto-k-diagnostic') for details.</span></span>
+<span><span class="co">## Warning: Some Pareto k diagnostic values are too high. See help('pareto-k-diagnostic') for details.</span></span></code></pre>
+<div class="sourceCode" id="cb3"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span><span class="va">best_K</span> <span class="op">&lt;-</span> <span class="va">results_model_selection</span><span class="op">$</span><span class="va">best_K</span></span></code></pre></div>
+<div class="sourceCode" id="cb4"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="va">data_simulation</span><span class="op">$</span><span class="va">taus</span></span></code></pre></div>
 <pre><code><span><span class="co">## [1] 0.1028646 0.1028646 0.4348927 0.4348927 0.9849570 0.9849570 0.9849570</span></span>
 <span><span class="co">## [8] 0.4348927</span></span></code></pre>
@@ -134,7 +137,7 @@
 CNAqc input object contains four components: <code>data</code>,
 <code>draws_and_summary</code>, <code>log_lik_matrix_list</code> and
 <code>elbo_iterations</code>.</p>
-<div class="sourceCode" id="cb4"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb6"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="co"># View summary for a specific K, here K = 2</span></span>
 <span><span class="va">results</span> <span class="op">&lt;-</span> <span class="va">x</span><span class="op">$</span><span class="va">results</span></span></code></pre></div>
 </div>
@@ -151,44 +154,44 @@ of the approximate posterior distributions; -
 assignment, a tibble with the estimate of taus for each segment with a
 copy number event that has been included in the hierarchical
 inference</p>
-<div class="sourceCode" id="cb5"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb7"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="co"># View summary for a specific K, here K = 2</span></span>
 <span><span class="va">results</span><span class="op">$</span><span class="va">draws_and_summary</span><span class="op">[[</span><span class="fl">2</span><span class="op">]</span><span class="op">]</span><span class="op">$</span><span class="va">summary</span></span></code></pre></div>
 <pre><code><span><span class="co">## <span style="color: #949494;"># A tibble: 18 × 7</span></span></span>
-<span><span class="co">##    variable    mean  median      sd     mad       q5     q95</span></span>
-<span><span class="co">##    <span style="color: #949494; font-style: italic;">&lt;chr&gt;</span>      <span style="color: #949494; font-style: italic;">&lt;dbl&gt;</span>   <span style="color: #949494; font-style: italic;">&lt;dbl&gt;</span>   <span style="color: #949494; font-style: italic;">&lt;dbl&gt;</span>   <span style="color: #949494; font-style: italic;">&lt;dbl&gt;</span>    <span style="color: #949494; font-style: italic;">&lt;dbl&gt;</span>   <span style="color: #949494; font-style: italic;">&lt;dbl&gt;</span></span></span>
-<span><span class="co">## <span style="color: #BCBCBC;"> 1</span> tau[1]   0.990   0.991   0.003<span style="text-decoration: underline;">00</span> 0.002<span style="text-decoration: underline;">68</span> 0.985    0.994  </span></span>
-<span><span class="co">## <span style="color: #BCBCBC;"> 2</span> tau[2]   0.088<span style="text-decoration: underline;">2</span>  0.087<span style="text-decoration: underline;">3</span>  0.019<span style="text-decoration: underline;">2</span>  0.019<span style="text-decoration: underline;">8</span>  0.060<span style="text-decoration: underline;">3</span>   0.121  </span></span>
-<span><span class="co">## <span style="color: #BCBCBC;"> 3</span> w[1,1]   0.017<span style="text-decoration: underline;">8</span>  0.010<span style="text-decoration: underline;">6</span>  0.023<span style="text-decoration: underline;">0</span>  0.009<span style="text-decoration: underline;">81</span> 0.001<span style="text-decoration: underline;">87</span>  0.060<span style="text-decoration: underline;">5</span> </span></span>
-<span><span class="co">## <span style="color: #BCBCBC;"> 4</span> w[2,1]   0.003<span style="text-decoration: underline;">21</span> 0.001<span style="text-decoration: underline;">93</span> 0.004<span style="text-decoration: underline;">25</span> 0.001<span style="text-decoration: underline;">82</span> 0.000<span style="text-decoration: underline;">331</span> 0.009<span style="text-decoration: underline;">89</span></span></span>
-<span><span class="co">## <span style="color: #BCBCBC;"> 5</span> w[3,1]   0.297   0.297   0.062<span style="text-decoration: underline;">1</span>  0.064<span style="text-decoration: underline;">8</span>  0.196    0.396  </span></span>
-<span><span class="co">## <span style="color: #BCBCBC;"> 6</span> w[4,1]   0.224   0.221   0.026<span style="text-decoration: underline;">7</span>  0.026<span style="text-decoration: underline;">7</span>  0.183    0.271  </span></span>
-<span><span class="co">## <span style="color: #BCBCBC;"> 7</span> w[5,1]   0.996   0.998   0.006<span style="text-decoration: underline;">94</span> 0.001<span style="text-decoration: underline;">80</span> 0.989    1.00   </span></span>
-<span><span class="co">## <span style="color: #BCBCBC;"> 8</span> w[6,1]   0.994   0.996   0.007<span style="text-decoration: underline;">13</span> 0.003<span style="text-decoration: underline;">28</span> 0.980    0.999  </span></span>
-<span><span class="co">## <span style="color: #BCBCBC;"> 9</span> w[7,1]   0.969   0.976   0.024<span style="text-decoration: underline;">8</span>  0.016<span style="text-decoration: underline;">8</span>  0.921    0.993  </span></span>
-<span><span class="co">## <span style="color: #BCBCBC;">10</span> w[8,1]   0.245   0.245   0.024<span style="text-decoration: underline;">5</span>  0.025<span style="text-decoration: underline;">8</span>  0.207    0.286  </span></span>
-<span><span class="co">## <span style="color: #BCBCBC;">11</span> w[1,2]   0.982   0.989   0.023<span style="text-decoration: underline;">0</span>  0.009<span style="text-decoration: underline;">81</span> 0.939    0.998  </span></span>
-<span><span class="co">## <span style="color: #BCBCBC;">12</span> w[2,2]   0.997   0.998   0.004<span style="text-decoration: underline;">25</span> 0.001<span style="text-decoration: underline;">82</span> 0.990    1.00   </span></span>
-<span><span class="co">## <span style="color: #BCBCBC;">13</span> w[3,2]   0.703   0.703   0.062<span style="text-decoration: underline;">1</span>  0.064<span style="text-decoration: underline;">8</span>  0.604    0.804  </span></span>
-<span><span class="co">## <span style="color: #BCBCBC;">14</span> w[4,2]   0.776   0.779   0.026<span style="text-decoration: underline;">7</span>  0.026<span style="text-decoration: underline;">7</span>  0.729    0.817  </span></span>
-<span><span class="co">## <span style="color: #BCBCBC;">15</span> w[5,2]   0.003<span style="text-decoration: underline;">51</span> 0.001<span style="text-decoration: underline;">87</span> 0.006<span style="text-decoration: underline;">94</span> 0.001<span style="text-decoration: underline;">80</span> 0.000<span style="text-decoration: underline;">318</span> 0.010<span style="text-decoration: underline;">8</span> </span></span>
-<span><span class="co">## <span style="color: #BCBCBC;">16</span> w[6,2]   0.006<span style="text-decoration: underline;">02</span> 0.003<span style="text-decoration: underline;">51</span> 0.007<span style="text-decoration: underline;">13</span> 0.003<span style="text-decoration: underline;">27</span> 0.000<span style="text-decoration: underline;">712</span> 0.020<span style="text-decoration: underline;">1</span> </span></span>
-<span><span class="co">## <span style="color: #BCBCBC;">17</span> w[7,2]   0.031<span style="text-decoration: underline;">4</span>  0.024<span style="text-decoration: underline;">3</span>  0.024<span style="text-decoration: underline;">8</span>  0.016<span style="text-decoration: underline;">8</span>  0.007<span style="text-decoration: underline;">23</span>  0.079<span style="text-decoration: underline;">4</span> </span></span>
-<span><span class="co">## <span style="color: #BCBCBC;">18</span> w[8,2]   0.755   0.755   0.024<span style="text-decoration: underline;">5</span>  0.025<span style="text-decoration: underline;">8</span>  0.714    0.793</span></span></code></pre>
-<div class="sourceCode" id="cb7"><pre class="downlit sourceCode r">
+<span><span class="co">##    variable    mean  median      sd     mad       q5    q95</span></span>
+<span><span class="co">##    <span style="color: #949494; font-style: italic;">&lt;chr&gt;</span>      <span style="color: #949494; font-style: italic;">&lt;dbl&gt;</span>   <span style="color: #949494; font-style: italic;">&lt;dbl&gt;</span>   <span style="color: #949494; font-style: italic;">&lt;dbl&gt;</span>   <span style="color: #949494; font-style: italic;">&lt;dbl&gt;</span>    <span style="color: #949494; font-style: italic;">&lt;dbl&gt;</span>  <span style="color: #949494; font-style: italic;">&lt;dbl&gt;</span></span></span>
+<span><span class="co">## <span style="color: #BCBCBC;"> 1</span> tau[1]   0.988   0.989   0.003<span style="text-decoration: underline;">66</span> 0.003<span style="text-decoration: underline;">18</span> 0.982    0.993 </span></span>
+<span><span class="co">## <span style="color: #BCBCBC;"> 2</span> tau[2]   0.092<span style="text-decoration: underline;">5</span>  0.090<span style="text-decoration: underline;">0</span>  0.018<span style="text-decoration: underline;">4</span>  0.018<span style="text-decoration: underline;">1</span>  0.066<span style="text-decoration: underline;">4</span>   0.125 </span></span>
+<span><span class="co">## <span style="color: #BCBCBC;"> 3</span> w[1,1]   0.010<span style="text-decoration: underline;">4</span>  0.005<span style="text-decoration: underline;">22</span> 0.018<span style="text-decoration: underline;">0</span>  0.005<span style="text-decoration: underline;">12</span> 0.000<span style="text-decoration: underline;">739</span> 0.036<span style="text-decoration: underline;">7</span></span></span>
+<span><span class="co">## <span style="color: #BCBCBC;"> 4</span> w[2,1]   0.005<span style="text-decoration: underline;">59</span> 0.002<span style="text-decoration: underline;">30</span> 0.012<span style="text-decoration: underline;">1</span>  0.002<span style="text-decoration: underline;">42</span> 0.000<span style="text-decoration: underline;">268</span> 0.021<span style="text-decoration: underline;">7</span></span></span>
+<span><span class="co">## <span style="color: #BCBCBC;"> 5</span> w[3,1]   0.264   0.259   0.061<span style="text-decoration: underline;">3</span>  0.060<span style="text-decoration: underline;">0</span>  0.172    0.371 </span></span>
+<span><span class="co">## <span style="color: #BCBCBC;"> 6</span> w[4,1]   0.256   0.255   0.022<span style="text-decoration: underline;">7</span>  0.023<span style="text-decoration: underline;">2</span>  0.222    0.294 </span></span>
+<span><span class="co">## <span style="color: #BCBCBC;"> 7</span> w[5,1]   0.996   0.999   0.010<span style="text-decoration: underline;">2</span>  0.001<span style="text-decoration: underline;">67</span> 0.984    1.00  </span></span>
+<span><span class="co">## <span style="color: #BCBCBC;"> 8</span> w[6,1]   0.996   0.998   0.005<span style="text-decoration: underline;">19</span> 0.002<span style="text-decoration: underline;">12</span> 0.988    1.00  </span></span>
+<span><span class="co">## <span style="color: #BCBCBC;"> 9</span> w[7,1]   0.971   0.977   0.023<span style="text-decoration: underline;">7</span>  0.015<span style="text-decoration: underline;">0</span>  0.930    0.992 </span></span>
+<span><span class="co">## <span style="color: #BCBCBC;">10</span> w[8,1]   0.249   0.249   0.026<span style="text-decoration: underline;">8</span>  0.027<span style="text-decoration: underline;">1</span>  0.205    0.293 </span></span>
+<span><span class="co">## <span style="color: #BCBCBC;">11</span> w[1,2]   0.990   0.995   0.018<span style="text-decoration: underline;">0</span>  0.005<span style="text-decoration: underline;">12</span> 0.963    0.999 </span></span>
+<span><span class="co">## <span style="color: #BCBCBC;">12</span> w[2,2]   0.994   0.998   0.012<span style="text-decoration: underline;">1</span>  0.002<span style="text-decoration: underline;">42</span> 0.978    1.00  </span></span>
+<span><span class="co">## <span style="color: #BCBCBC;">13</span> w[3,2]   0.736   0.741   0.061<span style="text-decoration: underline;">3</span>  0.060<span style="text-decoration: underline;">0</span>  0.629    0.828 </span></span>
+<span><span class="co">## <span style="color: #BCBCBC;">14</span> w[4,2]   0.744   0.745   0.022<span style="text-decoration: underline;">7</span>  0.023<span style="text-decoration: underline;">2</span>  0.706    0.778 </span></span>
+<span><span class="co">## <span style="color: #BCBCBC;">15</span> w[5,2]   0.004<span style="text-decoration: underline;">16</span> 0.001<span style="text-decoration: underline;">41</span> 0.010<span style="text-decoration: underline;">2</span>  0.001<span style="text-decoration: underline;">67</span> 0.000<span style="text-decoration: underline;">125</span> 0.015<span style="text-decoration: underline;">9</span></span></span>
+<span><span class="co">## <span style="color: #BCBCBC;">16</span> w[6,2]   0.003<span style="text-decoration: underline;">70</span> 0.002<span style="text-decoration: underline;">12</span> 0.005<span style="text-decoration: underline;">19</span> 0.002<span style="text-decoration: underline;">12</span> 0.000<span style="text-decoration: underline;">263</span> 0.012<span style="text-decoration: underline;">2</span></span></span>
+<span><span class="co">## <span style="color: #BCBCBC;">17</span> w[7,2]   0.029<span style="text-decoration: underline;">2</span>  0.022<span style="text-decoration: underline;">5</span>  0.023<span style="text-decoration: underline;">7</span>  0.015<span style="text-decoration: underline;">0</span>  0.007<span style="text-decoration: underline;">52</span>  0.070<span style="text-decoration: underline;">1</span></span></span>
+<span><span class="co">## <span style="color: #BCBCBC;">18</span> w[8,2]   0.751   0.751   0.026<span style="text-decoration: underline;">8</span>  0.027<span style="text-decoration: underline;">1</span>  0.707    0.795</span></span></code></pre>
+<div class="sourceCode" id="cb9"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="co"># View detailed summarized results for a specific K, here K = 2</span></span>
 <span><span class="va">results</span><span class="op">$</span><span class="va">draws_and_summary</span><span class="op">[[</span><span class="fl">2</span><span class="op">]</span><span class="op">]</span><span class="op">$</span><span class="va">summarized_results</span></span></code></pre></div>
 <pre><code><span><span class="co">## <span style="color: #949494;"># A tibble: 8 × 8</span></span></span>
 <span><span class="co">##   segment_original_indx segment_name segment_id karyotype   chr clock_mean</span></span>
 <span><span class="co">##                   <span style="color: #949494; font-style: italic;">&lt;int&gt;</span> <span style="color: #949494; font-style: italic;">&lt;chr&gt;</span>             <span style="color: #949494; font-style: italic;">&lt;dbl&gt;</span> <span style="color: #949494; font-style: italic;">&lt;chr&gt;</span>     <span style="color: #949494; font-style: italic;">&lt;int&gt;</span>      <span style="color: #949494; font-style: italic;">&lt;dbl&gt;</span></span></span>
-<span><span class="co">## <span style="color: #BCBCBC;">1</span>                     1 1_1_2e+07             1 2:1           1     0.087<span style="text-decoration: underline;">3</span></span></span>
-<span><span class="co">## <span style="color: #BCBCBC;">2</span>                     2 2_1_2e+07             2 2:0           2     0.087<span style="text-decoration: underline;">3</span></span></span>
-<span><span class="co">## <span style="color: #BCBCBC;">3</span>                     3 3_1_2e+07             3 2:1           3     0.087<span style="text-decoration: underline;">3</span></span></span>
-<span><span class="co">## <span style="color: #BCBCBC;">4</span>                     4 4_1_2e+07             4 2:2           4     0.087<span style="text-decoration: underline;">3</span></span></span>
-<span><span class="co">## <span style="color: #BCBCBC;">5</span>                     5 5_1_2e+07             5 2:2           5     0.991 </span></span>
-<span><span class="co">## <span style="color: #BCBCBC;">6</span>                     6 6_1_2e+07             6 2:2           6     0.991 </span></span>
-<span><span class="co">## <span style="color: #BCBCBC;">7</span>                     7 7_1_2e+07             7 2:1           7     0.991 </span></span>
-<span><span class="co">## <span style="color: #BCBCBC;">8</span>                     8 8_1_2e+07             8 2:2           8     0.087<span style="text-decoration: underline;">3</span></span></span>
+<span><span class="co">## <span style="color: #BCBCBC;">1</span>                     1 1_1_2e+07             1 2:1           1     0.090<span style="text-decoration: underline;">0</span></span></span>
+<span><span class="co">## <span style="color: #BCBCBC;">2</span>                     2 2_1_2e+07             2 2:0           2     0.090<span style="text-decoration: underline;">0</span></span></span>
+<span><span class="co">## <span style="color: #BCBCBC;">3</span>                     3 3_1_2e+07             3 2:1           3     0.090<span style="text-decoration: underline;">0</span></span></span>
+<span><span class="co">## <span style="color: #BCBCBC;">4</span>                     4 4_1_2e+07             4 2:2           4     0.090<span style="text-decoration: underline;">0</span></span></span>
+<span><span class="co">## <span style="color: #BCBCBC;">5</span>                     5 5_1_2e+07             5 2:2           5     0.989 </span></span>
+<span><span class="co">## <span style="color: #BCBCBC;">6</span>                     6 6_1_2e+07             6 2:2           6     0.989 </span></span>
+<span><span class="co">## <span style="color: #BCBCBC;">7</span>                     7 7_1_2e+07             7 2:1           7     0.989 </span></span>
+<span><span class="co">## <span style="color: #BCBCBC;">8</span>                     8 8_1_2e+07             8 2:2           8     0.090<span style="text-decoration: underline;">0</span></span></span>
 <span><span class="co">## <span style="color: #949494;"># ℹ 2 more variables: clock_low &lt;dbl&gt;, clock_high &lt;dbl&gt;</span></span></span></code></pre>
 </div>
 <div class="section level3">
@@ -202,10 +205,12 @@ otherwise choose 1 as best K. The function takes as input the
 <code>best_K</code> and the corresponding <code>best_fit</code> together
 with the <code>model_selection_tibble</code> and the
 <code>entropy_list</code> used to evaluate the ICL score.</p>
-<div class="sourceCode" id="cb9"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span><span class="va">results_model_selection</span> <span class="op">&lt;-</span> <span class="fu">tickTack</span><span class="fu">::</span><span class="fu"><a href="../reference/model_selection_h.html">model_selection_h</a></span><span class="op">(</span><span class="va">results</span>, n_components <span class="op">=</span> <span class="fl">0</span><span class="op">)</span></span>
-<span></span>
-<span><span class="va">best_K</span> <span class="op">&lt;-</span> <span class="va">results_model_selection</span><span class="op">$</span><span class="va">best_K</span></span>
+<div class="sourceCode" id="cb11"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span><span class="va">results_model_selection</span> <span class="op">&lt;-</span> <span class="fu">tickTack</span><span class="fu">::</span><span class="fu"><a href="../reference/model_selection_h.html">model_selection_h</a></span><span class="op">(</span><span class="va">results</span>, n_components <span class="op">=</span> <span class="fl">0</span><span class="op">)</span></span></code></pre></div>
+<pre><code><span><span class="co">## Warning: Some Pareto k diagnostic values are too high. See help('pareto-k-diagnostic') for details.</span></span>
+<span><span class="co">## Warning: Some Pareto k diagnostic values are too high. See help('pareto-k-diagnostic') for details.</span></span></code></pre>
+<div class="sourceCode" id="cb13"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span><span class="va">best_K</span> <span class="op">&lt;-</span> <span class="va">results_model_selection</span><span class="op">$</span><span class="va">best_K</span></span>
 <span><span class="va">model_selection_tibble</span> <span class="op">&lt;-</span> <span class="va">results_model_selection</span><span class="op">$</span><span class="va">model_selection_tibble</span></span>
 <span><span class="va">entropy</span> <span class="op">&lt;-</span> <span class="va">results_model_selection</span><span class="op">$</span><span class="va">entropy_list</span></span>
 <span><span class="fu"><a href="https://rdrr.io/r/base/print.html" class="external-link">print</a></span><span class="op">(</span><span class="va">best_K</span><span class="op">)</span></span></code></pre></div>
@@ -215,7 +220,7 @@ with the <code>model_selection_tibble</code> and the
 </h2>
 <p>The results can be viewed is genome-wise perspective using the
 <code><a href="../reference/plot_timing_h.html">tickTack::plot_timing_h</a></code> function.</p>
-<div class="sourceCode" id="cb10"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb14"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="fu">tickTack</span><span class="fu">::</span><span class="fu"><a href="../reference/plot_timing_h.html">plot_timing_h</a></span><span class="op">(</span><span class="va">results</span>, <span class="va">best_K</span><span class="op">)</span></span></code></pre></div>
 <p><img src="a6_Simulate_data_files/figure-html/unnamed-chunk-6-1.png" width="576" style="display: block; margin: auto;"></p>
 </div>
@@ -226,18 +231,18 @@ with the <code>model_selection_tibble</code> and the
 <code><a href="../reference/plot_posterior_clocks_h.html">tickTack::plot_posterior_clocks_h</a></code> and
 <code><a href="../reference/plot_posterior_weights_h.html">tickTack::plot_posterior_weights_h</a></code> functions, that
 internally use functions from Bayesplot.</p>
-<div class="sourceCode" id="cb11"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb15"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="va">posterior_clocks</span> <span class="op">&lt;-</span> <span class="fu">tickTack</span><span class="fu">::</span><span class="fu"><a href="../reference/plot_posterior_clocks_h.html">plot_posterior_clocks_h</a></span><span class="op">(</span><span class="va">results</span>, <span class="va">best_K</span><span class="op">)</span></span></code></pre></div>
 <pre><code><span><span class="co">## Scale for <span style="color: #00BB00;">x</span> is already present.</span></span>
 <span><span class="co">## Adding another scale for <span style="color: #00BB00;">x</span>, which will replace the existing scale.</span></span></code></pre>
-<div class="sourceCode" id="cb13"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb17"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="va">posterior_weights</span> <span class="op">&lt;-</span> <span class="fu">tickTack</span><span class="fu">::</span><span class="fu"><a href="../reference/plot_posterior_weights_h.html">plot_posterior_weights_h</a></span><span class="op">(</span><span class="va">results</span>, <span class="va">best_K</span><span class="op">)</span></span></code></pre></div>
 <p><img src="a6_Simulate_data_files/figure-html/unnamed-chunk-7-1.png" width="576" style="display: block; margin: auto;"></p>
 </div>
 <div class="section level2">
 <h2 id="visualize-the-behavior-of-the-elbo-during-the-inference">Visualize the behavior of the ELBO during the inference<a class="anchor" aria-label="anchor" href="#visualize-the-behavior-of-the-elbo-during-the-inference"></a>
 </h2>
-<div class="sourceCode" id="cb14"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb18"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="va">K</span> <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/nrow.html" class="external-link">nrow</a></span><span class="op">(</span><span class="va">results_model_selection</span><span class="op">$</span><span class="va">model_selection_tibble</span><span class="op">)</span></span>
 <span></span>
 <span><span class="va">p_elbo</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/list.html" class="external-link">list</a></span><span class="op">(</span><span class="op">)</span></span>
@@ -246,13 +251,15 @@ internally use functions from Bayesplot.</p>
 <span><span class="op">}</span></span>
 <span><span class="va">p_elbo</span> <span class="op">&lt;-</span> <span class="fu">gridExtra</span><span class="fu">::</span><span class="fu"><a href="https://rdrr.io/pkg/gridExtra/man/arrangeGrob.html" class="external-link">grid.arrange</a></span><span class="op">(</span>grobs <span class="op">=</span> <span class="va">p_elbo</span>, ncol <span class="op">=</span> <span class="fl">2</span><span class="op">)</span>  <span class="co">#add global title</span></span></code></pre></div>
 <p><img src="a6_Simulate_data_files/figure-html/unnamed-chunk-8-1.png" width="576" style="display: block; margin: auto;"></p>
-<div class="sourceCode" id="cb15"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb19"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="va">p_elbo</span></span></code></pre></div>
-<pre><code><span><span class="co">## TableGrob (2 x 2) "arrange": 3 grobs</span></span>
+<pre><code><span><span class="co">## TableGrob (3 x 2) "arrange": 5 grobs</span></span>
 <span><span class="co">##   z     cells    name           grob</span></span>
 <span><span class="co">## 1 1 (1-1,1-1) arrange gtable[layout]</span></span>
 <span><span class="co">## 2 2 (1-1,2-2) arrange gtable[layout]</span></span>
-<span><span class="co">## 3 3 (2-2,1-1) arrange gtable[layout]</span></span></code></pre>
+<span><span class="co">## 3 3 (2-2,1-1) arrange gtable[layout]</span></span>
+<span><span class="co">## 4 4 (2-2,2-2) arrange gtable[layout]</span></span>
+<span><span class="co">## 5 5 (3-3,1-1) arrange gtable[layout]</span></span></code></pre>
 <!-- ## Visualize model selection scores -->
 <!-- ```{r} -->
 <!-- #  -->
@@ -265,20 +272,22 @@ internally use functions from Bayesplot.</p>
 <div class="section level2">
 <h2 id="visualize-all-the-inference-results-for-each-k">Visualize all the inference results for each K<a class="anchor" aria-label="anchor" href="#visualize-all-the-inference-results-for-each-k"></a>
 </h2>
-<div class="sourceCode" id="cb17"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb21"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="va">plot_model_selection_inference</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/list.html" class="external-link">list</a></span><span class="op">(</span><span class="op">)</span></span>
 <span><span class="kw">for</span> <span class="op">(</span><span class="va">i</span> <span class="kw">in</span> <span class="fl">1</span><span class="op">:</span><span class="va">K</span><span class="op">)</span><span class="op">{</span></span>
 <span>  <span class="va">plot_model_selection_inference</span><span class="op">[[</span><span class="va">i</span><span class="op">]</span><span class="op">]</span> <span class="op">&lt;-</span> <span class="fu">tickTack</span><span class="fu">::</span><span class="fu"><a href="../reference/plot_timing_h.html">plot_timing_h</a></span><span class="op">(</span><span class="va">results</span>, <span class="va">i</span><span class="op">)</span> <span class="op">+</span> <span class="fu">ggplot2</span><span class="fu">::</span><span class="fu"><a href="https://ggplot2.tidyverse.org/reference/labs.html" class="external-link">ggtitle</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/paste.html" class="external-link">paste0</a></span><span class="op">(</span><span class="st">"K = "</span>, <span class="va">i</span><span class="op">)</span><span class="op">)</span></span>
 <span><span class="op">}</span></span>
 <span><span class="va">plot_model_selection_inference</span> <span class="op">&lt;-</span> <span class="fu">gridExtra</span><span class="fu">::</span><span class="fu"><a href="https://rdrr.io/pkg/gridExtra/man/arrangeGrob.html" class="external-link">grid.arrange</a></span><span class="op">(</span>grobs <span class="op">=</span> <span class="va">plot_model_selection_inference</span>, ncol <span class="op">=</span> <span class="fl">2</span><span class="op">)</span> <span class="co">#add global title</span></span></code></pre></div>
 <p><img src="a6_Simulate_data_files/figure-html/unnamed-chunk-9-1.png" width="576" style="display: block; margin: auto;"></p>
-<div class="sourceCode" id="cb18"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb22"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="va">plot_model_selection_inference</span></span></code></pre></div>
-<pre><code><span><span class="co">## TableGrob (2 x 2) "arrange": 3 grobs</span></span>
+<pre><code><span><span class="co">## TableGrob (3 x 2) "arrange": 5 grobs</span></span>
 <span><span class="co">##   z     cells    name           grob</span></span>
 <span><span class="co">## 1 1 (1-1,1-1) arrange gtable[layout]</span></span>
 <span><span class="co">## 2 2 (1-1,2-2) arrange gtable[layout]</span></span>
-<span><span class="co">## 3 3 (2-2,1-1) arrange gtable[layout]</span></span></code></pre>
+<span><span class="co">## 3 3 (2-2,1-1) arrange gtable[layout]</span></span>
+<span><span class="co">## 4 4 (2-2,2-2) arrange gtable[layout]</span></span>
+<span><span class="co">## 5 5 (3-3,1-1) arrange gtable[layout]</span></span></code></pre>
 </div>
   </main><aside class="col-md-3"><nav id="toc" aria-label="Table of contents"><h2>On this page</h2>
     </nav></aside>
