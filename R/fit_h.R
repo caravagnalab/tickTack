@@ -18,7 +18,7 @@
 #'
 #' @return   results_and_data = list(data = input_data_list, results = results, output_files_list = output_files_list)
 #' @export
-fit_h = function(x, max_attempts=2, INIT=TRUE, tolerance = 0.0001, possible_k = c("2:1", "2:2", "2:0"), alpha = .05, min_mutations_number = 2, n_components = 0, initial_iter=200, grad_samples=10, elbo_samples=200)
+fit_h = function(x, max_attempts=2, INIT=TRUE, tolerance = 0.0001, possible_k = c("2:1", "2:2", "2:0"), alpha = .05, min_mutations_number = 5, n_components = 0, initial_iter=200, grad_samples=10, elbo_samples=200)
 {
   # stopifnot(inherits(x, 'cnaqc'))
   
@@ -54,10 +54,10 @@ fit_h = function(x, max_attempts=2, INIT=TRUE, tolerance = 0.0001, possible_k = 
   if (n_components != 0){
     range_k = n_components
   } else if (input_data$S <= 2){ range_k = (1:input_data$S)
-  } else if (input_data$S <= 7){ range_k = (1:input_data$S-1)
-  } else if (input_data$S <= 10) {range_k = (1:(ceiling(input_data$S/2))+1)
-  } else if (input_data$S <= 15) {range_k = (1:(floor(input_data$S/2))+1)
-  } else if (input_data$S <= 25) {range_k = (1:(floor(input_data$S/2)))
+  } else if (input_data$S <= 7){ range_k = (1:(input_data$S-1))
+  } else if (input_data$S <= 10) {range_k = (1:((ceiling(input_data$S/2))+1))
+  } else if (input_data$S <= 15) {range_k = (1:((floor(input_data$S/2))+1))
+  } else if (input_data$S <= 25) {range_k = (1:((floor(input_data$S/2))))
   } else{
     optimal_k <- get_k_max_k_means(input_data, purity)
       # Define the number of additional K values to try
@@ -78,9 +78,11 @@ fit_h = function(x, max_attempts=2, INIT=TRUE, tolerance = 0.0001, possible_k = 
   for (K in range_k){
     input_data$K = K
     
-    if (INIT==TRUE){
-      inits_chain <- get_initialization(input_data, purity = purity)
-      res <- fit_variational_h(input_data,
+    
+      # inits_chain <- get_initialization(input_data, purity = purity)
+      inits_chain <- null
+     
+      res <-  tryCatch({res <-fit_variational_h(input_data,
                                initialization = inits_chain,
                                max_attempts = max_attempts,
                                INIT = INIT,
@@ -88,7 +90,7 @@ fit_h = function(x, max_attempts=2, INIT=TRUE, tolerance = 0.0001, possible_k = 
                                grad_samples = grad_samples,
                                elbo_samples = elbo_samples,
                                tolerance = tolerance)
-    }
+    
     
     S = input_data$S
     # extract only what's needed from the fit
@@ -98,6 +100,8 @@ fit_h = function(x, max_attempts=2, INIT=TRUE, tolerance = 0.0001, possible_k = 
     names_weights <- as.vector(names_weights)
     vars <- append (names_tau, names_weights)
     
+    
+    ###################################################################
     tau_and_w_draws <- res$draws(variables = vars)
     tau_and_w_summary <- res$summary(variables = vars)
     
@@ -124,9 +128,16 @@ fit_h = function(x, max_attempts=2, INIT=TRUE, tolerance = 0.0001, possible_k = 
     elbo_df <- data.frame(iteration = iterations, elbo = elbo_values)
     
     elbo_iterations[[as.character(K)]] = elbo_df
+    res
     
     # implement a function to get the fit like "get_posterior"
+    ####################################################################################
     
+      }, error = function(e) {message(paste("Inference with number of components = ", K, " could not converge. Inference is available up to ", K - 1, "."))
+        
+  },finally = {
+    #pass
+  })
     
   }
   

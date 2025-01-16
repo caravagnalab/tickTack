@@ -49,18 +49,20 @@ fit_variational_h <- function(input_data, max_attempts = 2, initialization = NUL
     fit_successful <- FALSE  # Reset success flag for each attempt
     iter <- initial_iter  # Reset iterations for each new attempt
     
-    retries <- 0
+    inits_chain <- get_initialization(input_data, purity = purity)
+    initialization <- inits_chain
     
-    tol_rel_obj <- tolerance
+    retries <- 0
+    tol_rel_obj <- tolerance 
     
     while (!fit_successful && retries < 3) {  # Set a max number of retries for each attempt
-      message("Retries ", retries, " of ", 3)
+      message("Retries ", retries + 1, " of ", 3)
       
       # Increment total_attempts at the start of each retry
       total_attempts <- total_attempts + 1
       
-     
-       result <- tryCatch({
+      print(paste0("tolerance: ",tol_rel_obj))
+      result <- tryCatch({
         # Attempt variational inference
         print(list(initialization))
         if (INIT == TRUE) {
@@ -130,18 +132,31 @@ fit_variational_h <- function(input_data, max_attempts = 2, initialization = NUL
         
       }, error = function(e) {
         message("An error occurred during inference: ", e$message)
-        retries <- retries + 1  # Increment retry count
-        fit_successful <- FALSE  # Mark fit as unsuccessful
-        iter <- iter + 400
-        tol_rel_obj <- tol_rel_obj * 5
-        grad_samples <- grad_samples * 3
-        elbo_samples <- elbo_samples * 3
-        
         # if it failed then       retries <- retries + 1 and fit_succ <- false else continue 
         
         NULL  # Ensure NULL is returned so loop can continue
       })
       
+      retries <- retries + 1  # Increment retry count
+
+      fit_successful <- TRUE
+      fit_successful <- tryCatch(
+        {
+          res$draws()
+          fit_successful <- TRUE
+        },
+        error = function(cond){
+          fit_successful <- FALSE
+        },
+        finally = {
+          #pass
+        })  # Mark fit as unsuccessful
+      
+      
+      iter <- iter + 200
+      tol_rel_obj <- tol_rel_obj * 10
+      grad_samples <- grad_samples * 2
+      elbo_samples <- elbo_samples * 2
       # No return from `tryCatch` - just continue the loop if not successful
     }
     

@@ -92,7 +92,11 @@ get_initialization = function(input_data, purity, phi=c(), kappa=5, alpha = 0.05
   }
   
   # Apply fuzzy c-means clustering
-  res.fcm <- ppclust::fcm(as.matrix(proportions$tau_posterior), centers = K)
+  # res.fcm <- ppclust::fcm(as.matrix(proportions$tau_posterior), centers = K)
+  
+  res.fcm <- run_fcm_with_fallback(proportions$tau_posterior, K)
+  
+  
   
   # print(paste0("dim(proportions$tau_posterior): ", length(proportions$tau_posterior) ))
   if (length(proportions$tau_posterior)==K){
@@ -106,6 +110,8 @@ get_initialization = function(input_data, purity, phi=c(), kappa=5, alpha = 0.05
   init_taus[init_taus >= 0.88] <- 0.88  # Check for elements greater than 1 and replace them with 1 otherwise fit fails
   init_taus[init_taus == 0] <- 0.07
   init_w <- as.matrix(res.fcm$u)
+  
+  
   epsilon <- 1e-4
   if (all(init_w > 0.5) ){
     perturbed_probabilities <- init_w - epsilon
@@ -134,4 +140,79 @@ get_initialization = function(input_data, purity, phi=c(), kappa=5, alpha = 0.05
   return(inits)
   
 }
+
+
+
+
+
+# Function to adjust cluster results
+adjust_fcm_results <- function(result, original_K) {
+  current_K <- nrow(result$v)
+  
+  # If current K is smaller than original K, expand results
+  if (current_K < original_K) {
+    message(paste("Adjusting results to match original K =", original_K, "..."))
+    
+    # Adjust cluster centers (res.fcm$v)
+    sampled_v <- result$v[sample(1:current_K, original_K, replace = TRUE), , drop = FALSE]
+    
+    # Adjust membership matrix (res.fcm$u)
+    sampled_u <- result$u[, sample(1:current_K, original_K, replace = TRUE), drop = FALSE]
+    
+    # Normalize the membership matrix rows to ensure they sum to 1
+    sampled_u <- sweep(sampled_u, 1, rowSums(sampled_u), FUN = "/")
+
+    # Update result
+    result$v <- sampled_v
+    result$u <- sampled_u
+  }
+  
+  return(result)
+}
+
+
+# data <- proportions$tau_posterior
+
+# Main function to run FCM with fallback and adjustment
+run_fcm_with_fallback <- function(data, K, min_K = 2) {
+  original_K <- K
+  current_K <- K
+  result <- NULL
+  
+  if (current_K == 1){
+    result <- ppclust::fcm(as.matrix(data), centers = current_K)
+  }
+  
+  while (is.null(result) && current_K > 1) {
+    print(current_K)
+    
+   current_K <- tryCatch({
+      # Attempt to run FCM
+      result <- ppclust::fcm(as.matrix(data), centers = current_K)
+      current_K <- result
+    }, error = function(e) {
+      if (grepl("too few positive probabilities", e$message)) {
+        message(paste("Error encountered with K =", current_K, ". Trying K =", current_K - 1, "..."))
+        
+        # Update current_K
+        current_K <- current_K - 1
+        
+      } else {
+        stop(e)  # Re-throw unexpected errors
+      }
+    },
+    finally = {
+      #pass
+    })
+  }
+  
+    result <- adjust_fcm_results(result, original_K)
+
+  
+  return(result)
+}
+
+
+
+
 

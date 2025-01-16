@@ -139,7 +139,7 @@ model_selection_h = function(results, n_components = 0) {
   entropy_list <- list(entropy_per_segment_matrix = entropy_per_segment_matrix, entropy_per_segment_matrix_norm = entropy_per_segment_matrix_norm)
 
   model_selection_tibble_temp <- model_selection_tibble[1:2, bycol= TRUE]
-  best_K_temp <- model_selection_tibble_temp %>% dplyr::filter(BIC == min(BIC)) %>% dplyr::pull(K)
+  best_K_temp <- min(model_selection_tibble_temp %>% dplyr::filter(BIC == min(BIC)) %>% dplyr::pull(K))
 
   if (best_K_temp!=1){
     if (length(range_k)==2){

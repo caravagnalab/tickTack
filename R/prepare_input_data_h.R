@@ -82,7 +82,6 @@ prepare_input_data = function(mutations, segments, purity, possible_k = c("2:1",
       if (nrow(accepted_mutations) >= min_mutations_number) {
         
         accepted_segment_idx <- accepted_segment_idx + 1
-        print("Adding segment with index {.val {segment_idx}} to segments included in the inference.")
         cli::cli_alert_info("Adding segment with index {.val {segment_idx}} to segments included in the inference.")
         
         # return the fit result directly together with the information about the segments associated to the clocks
