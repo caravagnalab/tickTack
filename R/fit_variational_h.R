@@ -10,6 +10,7 @@
 #' @param grad_samples description
 #' @param elbo_samples description
 #' @param tolerance num: tolerance in the ELBO optimization procedure
+#' @param purity sample purity
 #'
 #' @keywords variational
 #'
@@ -17,7 +18,7 @@
 #'
 #' @export
 
-fit_variational_h <- function(input_data, max_attempts = 2, initialization = NULL, INIT = TRUE, initial_iter = 100, grad_samples = 200, elbo_samples = 200, tolerance = 0.01) {
+fit_variational_h <- function(input_data, purity, max_attempts = 2, initialization = NULL, INIT = TRUE, initial_iter = 100, grad_samples = 200, elbo_samples = 200, tolerance = 0.01) {
   # Load the Stan model
   
   get_model <- function(model_name) {

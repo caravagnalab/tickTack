@@ -6,6 +6,7 @@
 \usage{
 fit_variational_h(
   input_data,
+  purity,
   max_attempts = 2,
   initialization = NULL,
   INIT = TRUE,
@@ -17,6 +18,8 @@ fit_variational_h(
 }
 \arguments{
 \item{input_data}{list: List of 7: $S: int, $N: int, $karyotype: num (0 or 1), $seg_assignment: num, $peaks:List of N of num (1:2), $NV: num, $DP: num}
+
+\item{purity}{sample purity}
 
 \item{max_attempts}{num: max number of repeated inference for ADVI}
 
