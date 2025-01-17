@@ -122,8 +122,7 @@
 <span></span>
 <span><span class="va">results_simulated</span> <span class="op">&lt;-</span> <span class="va">x</span><span class="op">$</span><span class="va">results_timing</span></span>
 <span><span class="va">results_model_selection</span> <span class="op">&lt;-</span> <span class="fu">tickTack</span><span class="fu">::</span><span class="fu"><a href="../reference/model_selection_h.html">model_selection_h</a></span><span class="op">(</span><span class="va">results_simulated</span><span class="op">)</span></span></code></pre></div>
-<pre><code><span><span class="co">## Warning: Some Pareto k diagnostic values are too high. See help('pareto-k-diagnostic') for details.</span></span>
-<span><span class="co">## Warning: Some Pareto k diagnostic values are too high. See help('pareto-k-diagnostic') for details.</span></span></code></pre>
+<pre><code><span><span class="co">## Warning: Some Pareto k diagnostic values are too high. See help('pareto-k-diagnostic') for details.</span></span></code></pre>
 <div class="sourceCode" id="cb3"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="va">best_K</span> <span class="op">&lt;-</span> <span class="va">results_model_selection</span><span class="op">$</span><span class="va">best_K</span></span></code></pre></div>
 <div class="sourceCode" id="cb4"><pre class="downlit sourceCode r">
@@ -207,8 +206,7 @@ with the <code>model_selection_tibble</code> and the
 <code>entropy_list</code> used to evaluate the ICL score.</p>
 <div class="sourceCode" id="cb11"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="va">results_model_selection</span> <span class="op">&lt;-</span> <span class="fu">tickTack</span><span class="fu">::</span><span class="fu"><a href="../reference/model_selection_h.html">model_selection_h</a></span><span class="op">(</span><span class="va">results</span>, n_components <span class="op">=</span> <span class="fl">0</span><span class="op">)</span></span></code></pre></div>
-<pre><code><span><span class="co">## Warning: Some Pareto k diagnostic values are too high. See help('pareto-k-diagnostic') for details.</span></span>
-<span><span class="co">## Warning: Some Pareto k diagnostic values are too high. See help('pareto-k-diagnostic') for details.</span></span></code></pre>
+<pre><code><span><span class="co">## Warning: Some Pareto k diagnostic values are too high. See help('pareto-k-diagnostic') for details.</span></span></code></pre>
 <div class="sourceCode" id="cb13"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="va">best_K</span> <span class="op">&lt;-</span> <span class="va">results_model_selection</span><span class="op">$</span><span class="va">best_K</span></span>
 <span><span class="va">model_selection_tibble</span> <span class="op">&lt;-</span> <span class="va">results_model_selection</span><span class="op">$</span><span class="va">model_selection_tibble</span></span>
@@ -253,13 +251,12 @@ internally use functions from Bayesplot.</p>
 <p><img src="a6_Simulate_data_files/figure-html/unnamed-chunk-8-1.png" width="576" style="display: block; margin: auto;"></p>
 <div class="sourceCode" id="cb19"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="va">p_elbo</span></span></code></pre></div>
-<pre><code><span><span class="co">## TableGrob (3 x 2) "arrange": 5 grobs</span></span>
+<pre><code><span><span class="co">## TableGrob (2 x 2) "arrange": 4 grobs</span></span>
 <span><span class="co">##   z     cells    name           grob</span></span>
 <span><span class="co">## 1 1 (1-1,1-1) arrange gtable[layout]</span></span>
 <span><span class="co">## 2 2 (1-1,2-2) arrange gtable[layout]</span></span>
 <span><span class="co">## 3 3 (2-2,1-1) arrange gtable[layout]</span></span>
-<span><span class="co">## 4 4 (2-2,2-2) arrange gtable[layout]</span></span>
-<span><span class="co">## 5 5 (3-3,1-1) arrange gtable[layout]</span></span></code></pre>
+<span><span class="co">## 4 4 (2-2,2-2) arrange gtable[layout]</span></span></code></pre>
 <!-- ## Visualize model selection scores -->
 <!-- ```{r} -->
 <!-- #  -->
@@ -281,13 +278,12 @@ internally use functions from Bayesplot.</p>
 <p><img src="a6_Simulate_data_files/figure-html/unnamed-chunk-9-1.png" width="576" style="display: block; margin: auto;"></p>
 <div class="sourceCode" id="cb22"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="va">plot_model_selection_inference</span></span></code></pre></div>
-<pre><code><span><span class="co">## TableGrob (3 x 2) "arrange": 5 grobs</span></span>
+<pre><code><span><span class="co">## TableGrob (2 x 2) "arrange": 4 grobs</span></span>
 <span><span class="co">##   z     cells    name           grob</span></span>
 <span><span class="co">## 1 1 (1-1,1-1) arrange gtable[layout]</span></span>
 <span><span class="co">## 2 2 (1-1,2-2) arrange gtable[layout]</span></span>
 <span><span class="co">## 3 3 (2-2,1-1) arrange gtable[layout]</span></span>
-<span><span class="co">## 4 4 (2-2,2-2) arrange gtable[layout]</span></span>
-<span><span class="co">## 5 5 (3-3,1-1) arrange gtable[layout]</span></span></code></pre>
+<span><span class="co">## 4 4 (2-2,2-2) arrange gtable[layout]</span></span></code></pre>
 </div>
   </main><aside class="col-md-3"><nav id="toc" aria-label="Table of contents"><h2>On this page</h2>
     </nav></aside>
