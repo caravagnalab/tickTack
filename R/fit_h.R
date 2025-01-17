@@ -18,7 +18,7 @@
 #'
 #' @return   results_and_data = list(data = input_data_list, results = results, output_files_list = output_files_list)
 #' @export
-fit_h = function(x, max_attempts=2, INIT=TRUE, tolerance = 0.0001, possible_k = c("2:1", "2:2", "2:0"), alpha = .05, min_mutations_number = 5, n_components = 0, initial_iter=200, grad_samples=10, elbo_samples=200)
+fit_h = function(x, max_attempts=2, INIT=TRUE, tolerance = 0.0001, possible_k = c("2:1", "2:2", "2:0"), alpha = .05, min_mutations_number = 4, n_components = 0, initial_iter=200, grad_samples=10, elbo_samples=200)
 {
   # stopifnot(inherits(x, 'cnaqc'))
   
@@ -55,19 +55,20 @@ fit_h = function(x, max_attempts=2, INIT=TRUE, tolerance = 0.0001, possible_k = 
     range_k = n_components
   } else if (input_data$S <= 2){ range_k = (1:input_data$S)
   } else if (input_data$S <= 7){ range_k = (1:(input_data$S-1))
-  } else if (input_data$S <= 10) {range_k = (1:((ceiling(input_data$S/2))+1))
-  } else if (input_data$S <= 15) {range_k = (1:((floor(input_data$S/2))+1))
-  } else if (input_data$S <= 25) {range_k = (1:((floor(input_data$S/2))))
-  } else{
-    optimal_k <- get_k_max_k_means(input_data, purity)
-      # Define the number of additional K values to try
-      n_additional <- 8
-    range_k <- round(seq(optimal_k - floor(input_data$S / 8), optimal_k + floor(input_data$S / 8), length.out = n_additional))
-    range_k <- c(range_k,1,2)
-    range_k <- sort(unique(range_k[range_k >= 1 & range_k <= input_data$S]))
+  } else if (input_data$S <= 10) {range_k = (1:((ceiling(input_data$S/2))))
+  } else {range_k = (1:5)
+  # } else if (input_data$S <= 15) {range_k = (1:((floor(input_data$S/2))+1))
+  # } else if (input_data$S <= 25) {range_k = (1:((floor(input_data$S/2))))
+  # } else{
+  #   optimal_k <- get_k_max_k_means(input_data, purity)
+  #     # Define the number of additional K values to try
+  #     n_additional <- 8
+  #   range_k <- round(seq(optimal_k - floor(input_data$S / 8), optimal_k + floor(input_data$S / 8), length.out = n_additional))
+  #   range_k <- c(range_k,1,2)
+  #   range_k <- sort(unique(range_k[range_k >= 1 & range_k <= input_data$S]))
   }
   
-  
+
   message("Performing inference with the following number of components ", range_k, ". Insert a specificset of values in the <range> parameter if a different set of components is desired! ")
   
   draws_and_summary = c()

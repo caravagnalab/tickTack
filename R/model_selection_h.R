@@ -104,7 +104,7 @@ model_selection_h = function(results, n_components = 0) {
     ICL = BIC + entropy
     
     
-    model_selection_tibble <- dplyr::bind_rows(model_selection_tibble, dplyr::tibble(K = K, BIC = BIC, Log_lik = L, ICL = ICL)) #  AIC = AIC, LOO = loo_value,
+    model_selection_tibble <- dplyr::bind_rows(model_selection_tibble, dplyr::tibble(K = K, BIC = BIC, Log_lik = L, ICL = ICL, AIC = AIC, LOO = loo_value)) #  AIC = AIC, LOO = loo_value,
     
     # ICL PER SEGMENT to see its behaviour with increasing K
     post_Segments = t(w_ICL)
