@@ -183,7 +183,7 @@ run_fcm_with_fallback <- function(data, K, min_K = 2) {
     result <- ppclust::fcm(as.matrix(data), centers = current_K)
   }
   
-  while (is.null(result) && current_K > 1) {
+  while (is.null(result) && current_K > 0) {
     print(current_K)
     
    current_K <- tryCatch({
