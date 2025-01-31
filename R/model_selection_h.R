@@ -125,11 +125,11 @@ model_selection_h = function(results, n_components = 0) {
       
     }
     
-    print("entropy per segment: ")
-    print(entropy_per_segment)
-    
-    print("entropy per segment normalized: ")
-    print(entropy_per_segment_norm)
+    # print("entropy per segment: ")
+    # print(entropy_per_segment)
+    # 
+    # print("entropy per segment normalized: ")
+    # print(entropy_per_segment_norm)
     
     entropy_per_segment_matrix_norm[[as.character(K)]] = entropy_per_segment_norm
     entropy_per_segment_matrix[[as.character(K)]] = entropy_per_segment
@@ -138,24 +138,27 @@ model_selection_h = function(results, n_components = 0) {
   
   entropy_list <- list(entropy_per_segment_matrix = entropy_per_segment_matrix, entropy_per_segment_matrix_norm = entropy_per_segment_matrix_norm)
 
-  model_selection_tibble_temp <- model_selection_tibble[1:2, bycol= TRUE]
-  best_K_temp <- min(model_selection_tibble_temp %>% dplyr::filter(BIC == min(BIC)) %>% dplyr::pull(K))
-
-  if (best_K_temp!=1){
-    if (length(range_k)==2){
-      best_K <- 2
-      cli::cli_alert_info("The algorithm should be run with more Components ")
-    }else{
-      
-      while ( best_K_temp < range_k[length(range_k)] & as.numeric((entropy_per_segment_matrix_norm[[as.character(range_k[best_K_temp+1])]])) - as.numeric(entropy_per_segment_matrix_norm[[as.character(range_k[best_K_temp])]]) < 0 ){
-        best_K_temp = range_k[best_K_temp + 1]
-        if ( best_K_temp == range_k[length(range_k)] ){
-          break
-        }}
-  }} else {
-    best_K <- 1
-  }
-  best_K <- best_K_temp
+  # model_selection_tibble_temp <- model_selection_tibble[1:2, bycol= TRUE]
+  # best_K_temp <- min(model_selection_tibble_temp %>% dplyr::filter(BIC == min(BIC)) %>% dplyr::pull(K))
+  # 
+  # if (best_K_temp!=1){
+  #   if (length(range_k)==2){
+  #     best_K <- 2
+  #     cli::cli_alert_info("The algorithm should be run with more Components ")
+  #   }else{
+  #     
+  #     while ( best_K_temp < range_k[length(range_k)] & as.numeric((entropy_per_segment_matrix_norm[[as.character(range_k[best_K_temp+1])]])) - as.numeric(entropy_per_segment_matrix_norm[[as.character(range_k[best_K_temp])]]) < 0 ){
+  #       best_K_temp = range_k[best_K_temp + 1]
+  #       if ( best_K_temp == range_k[length(range_k)] ){
+  #         break
+  #       }}
+  # }} else {
+  #   best_K <- 1
+  # }
+  # best_K <- best_K_temp
+  
+  best_K <- min(model_selection_tibble %>% dplyr::filter(AIC == min(AIC)) %>% dplyr::pull(K))
+  
       # model_selection_tibble_temp <- model_selection_tibble[2:k_max, bycol= TRUE]
       # best_K <- model_selection_tibble_temp %>% dplyr::filter(ICL == min(ICL)) %>% dplyr::pull(K)
     # }
