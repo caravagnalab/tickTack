@@ -9,6 +9,8 @@
 # library(tidyverse)
 # library(mobster)
 
+utils::globalVariables(c("CNAqc:::blank_genome", "mobster:::template_density"))
+
 ALPHA = .8
 # color = c(
 #   'AmplificationTimeR' = alpha('forestgreen', alpha = ALPHA),
@@ -175,7 +177,20 @@ add_drivers_to_segment_plot = function(x, drivers_list, base_plot)
     ggplot2::coord_cartesian(clip = 'off')
 }
 
-merge_timing_and_segments <- function(x, chromosomes = paste0('chr', c(1:22)), add_mobster=FALSE, max_Y_height = 6, cn = 'absolute', highlight = x$most_prevalent_karyotype, highlight_QC = FALSE) {
+
+
+#' Plot 
+#'
+#' @param x A CNAqc object containing mutation data.
+#' @param chromosomes A character vector of chromosome names to filter for (default: 'chr1' to 'chr22', 'X', 'Y').
+#' @param add_mobster TRUE or FALSE
+#' @param max_Y_height heiht plot
+#' @param cn type of cn 
+#' @param highlight which karyotype to highlight
+#' @param highlight_QC FALSE
+#' @return Plot.
+#' @export
+plot_cnaqc <- function(x, chromosomes = paste0('chr', c(1:22)), add_mobster=FALSE, max_Y_height = 6, cn = 'absolute', highlight = x$most_prevalent_karyotype, highlight_QC = FALSE) {
   
   results_model_selection <- model_selection_h(x$results, n_components = 0)
   x$K = results_model_selection$best_K
@@ -237,7 +252,7 @@ merge_timing_and_segments <- function(x, chromosomes = paste0('chr', c(1:22)), a
   DDDDD"
   
   pp = pA + pB + pC + patchwork::guide_area() + pD +
-    ggplot2::plot_layout(design = des_left, guides = "collect") &
+    patchwork::plot_layout(design = des_left, guides = "collect") &
     ggplot2::theme(legend.position = "bottom", legend.direction = "horizontal")
   pp
   } else {
@@ -278,7 +293,7 @@ merge_timing_and_segments <- function(x, chromosomes = paste0('chr', c(1:22)), a
   DDDDD"
     
     pp = pA + pB + pC + patchwork::guide_area() + pD +
-      ggplot2::plot_layout(design = des_left, guides = "collect") &
+      patchwork::plot_layout(design = des_left, guides = "collect") &
       ggplot2::theme(legend.position = "bottom", legend.direction = "horizontal")
     pp
   }
