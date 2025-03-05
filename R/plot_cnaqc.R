@@ -564,9 +564,6 @@ plot_segments_tick_tack_data <- function(x, colour_by = "clock_mean", K = K) {
 
 plot_vaf = function(x, K){
   
-  
-  utils::globalVariables(c("..count..", "PANEL"))
-  
   mutations <- x$mutations
   results <- x$results_timing
   reference_genome <- get_reference(x$reference_genome)
