@@ -175,7 +175,7 @@ add_drivers_to_segment_plot = function(x, drivers_list, base_plot)
     ggplot2::coord_cartesian(clip = 'off')
 }
 
-merge_timing_and_segments <- function(x, chromosomes = paste0('chr', c(1:22)), max_Y_height = 6, cn = 'absolute', highlight = x$most_prevalent_karyotype, highlight_QC = FALSE) {
+merge_timing_and_segments <- function(x, chromosomes = paste0('chr', c(1:22)), add_mobster=FALSE, max_Y_height = 6, cn = 'absolute', highlight = x$most_prevalent_karyotype, highlight_QC = FALSE) {
   
   results_model_selection <- model_selection_h(x$results, n_components = 0)
   x$K = results_model_selection$best_K
@@ -197,7 +197,8 @@ merge_timing_and_segments <- function(x, chromosomes = paste0('chr', c(1:22)), m
   timing_plot <- plot_segments_tick_tack(x, colour_by = "clock_mean", K = K) +
     ggplot2::theme(legend.position='right',panel.spacing = ggplot2::unit(0, "lines"))
   
-  vaf_plot <- plot_vaf(x, K) +
+  if(add_mobster){
+      vaf_plot <- plot_vaf(x, K) +
     ggplot2::theme(plot.background = ggplot2::element_rect(fill = "white", color = "white", size = 20))
   
   # segment_plot <- plot_segments_h(x, chromosomes, max_Y_height, cn, highlight, highlight_QC) +
@@ -239,6 +240,49 @@ merge_timing_and_segments <- function(x, chromosomes = paste0('chr', c(1:22)), m
     ggplot2::plot_layout(design = des_left, guides = "collect") &
     ggplot2::theme(legend.position = "bottom", legend.direction = "horizontal")
   pp
+  } else {
+
+    # segment_plot <- plot_segments_h(x, chromosomes, max_Y_height, cn, highlight, highlight_QC) +
+    #   ggplot2::theme(axis.title.x = element_blank())  # Keep chromosome labels only on this plot
+    
+    pA = timing_plot + CNAqc:::my_ggplot_theme() +
+      ggplot2::theme(
+        axis.ticks = ggplot2::element_blank(),
+        axis.title.x = ggplot2::element_blank(),
+        axis.text.x = ggplot2::element_blank(),
+        legend.position = "left"
+      )
+    pB = plot_CNA + CNAqc:::my_ggplot_theme() +
+      ggplot2::theme(
+        axis.ticks = ggplot2::element_blank(),
+        axis.title.x = ggplot2::element_blank(),
+        axis.text.x = ggplot2::element_blank(),
+        legend.position = "left"
+      )
+    pC = data_plot + CNAqc:::my_ggplot_theme() +
+      ggplot2::theme(legend.position = "left") +
+      ggplot2::labs(y = "VAF")
+    pD = CNAqc:::my_ggplot_theme()
+    
+    des_left = "
+  AAAA#
+  AAAAE
+  AAAAE
+  AAAAE
+  AAAAE
+  BBBBE
+  BBBBE
+  BBBBE
+  CCCCE
+  CCCCE
+  DDDDD"
+    
+    pp = pA + pB + pC + patchwork::guide_area() + pD +
+      ggplot2::plot_layout(design = des_left, guides = "collect") &
+      ggplot2::theme(legend.position = "bottom", legend.direction = "horizontal")
+    pp
+  }
+
 }
 
 

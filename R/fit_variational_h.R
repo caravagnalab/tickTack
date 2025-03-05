@@ -174,3 +174,4 @@ fit_variational_h <- function(input_data, purity, max_attempts = 2, initializati
     return(NULL)  # Return NULL if no fit was successful
   }
 }
+

@@ -75,6 +75,11 @@ fit_h = function(x, max_attempts=2, INIT=TRUE, tolerance = 0.0001, possible_k = 
   elbo_iterations = list()
   log_lik_matrix_list = list()
   
+  if (input_data$S==1 & tolerance>=0.0001){
+    message("Performing inference with ", range_k, " component. Decreasing tolerance to 0.01")
+    tolerance = 0.01
+  }
+  
   # before inference add K to the list obtained as input_data
   for (K in range_k){
     input_data$K = K
@@ -82,7 +87,7 @@ fit_h = function(x, max_attempts=2, INIT=TRUE, tolerance = 0.0001, possible_k = 
     
       # inits_chain <- get_initialization(input_data, purity = purity)
       inits_chain <- NULL
-     
+      
       res <-  tryCatch({res <-fit_variational_h(input_data,
                                                 purity = purity,
                                                initialization = inits_chain,
@@ -95,6 +100,7 @@ fit_h = function(x, max_attempts=2, INIT=TRUE, tolerance = 0.0001, possible_k = 
     
     
     S = input_data$S
+    
     # extract only what's needed from the fit
     names_tau <- paste("tau[", 1:K, "]", sep = "")
     names_weights <- outer(1:S, 1:K,
