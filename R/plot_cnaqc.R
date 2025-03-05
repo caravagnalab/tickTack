@@ -9,8 +9,6 @@
 # library(tidyverse)
 # library(mobster)
 
-utils::globalVariables(c("CNAqc:::blank_genome", "mobster:::template_density"))
-
 ALPHA = .8
 # color = c(
 #   'AmplificationTimeR' = alpha('forestgreen', alpha = ALPHA),
