@@ -275,7 +275,7 @@ plot_cnaqc <- function(x, chromosomes = paste0('chr', c(1:22)), add_mobster=FALS
     pC = data_plot + CNAqc:::my_ggplot_theme() +
       ggplot2::theme(legend.position = "left") +
       ggplot2::labs(y = "VAF")
-    pD = CNAqc:::my_ggplot_theme()
+    pD = ggplot2::ggplot() + ggplot2::theme_void() + CNAqc:::my_ggplot_theme()
     
     des_left = "
   AAAA#
