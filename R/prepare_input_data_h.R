@@ -50,7 +50,7 @@ prepare_input_data = function(mutations, segments, purity, possible_k = c("2:1",
     print(k)
     peaks <- get_clonal_peaks(k, purity)
     
-    if (k %in% possible_k & (segment$to-segment$from)>1e6) {
+    if (k %in% possible_k ) { #& (segment$to-segment$from)>1e6
       # Get info for mutations
       segment_mutations <- mutations %>%
         dplyr::filter(chr == segment$chr,.data$from > segment$from, .data$to < segment$to) %>%
