@@ -15,7 +15,8 @@ fit_h(
   n_components = 0,
   initial_iter = 200,
   grad_samples = 10,
-  elbo_samples = 200
+  elbo_samples = 200,
+  tmp_file_path = NULL
 )
 }
 \arguments{

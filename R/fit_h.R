@@ -15,10 +15,11 @@
 #' @param initial_iter description
 #' @param grad_samples description
 #' @param elbo_samples description
+#' @param tmp_file_path path of the directory where to save the temporary files with the info on the elbo evaluations during the VI inference
 #'
 #' @return   results_and_data = list(data = input_data_list, results = results, output_files_list = output_files_list)
 #' @export
-fit_h = function(x, max_attempts=2, INIT=TRUE, tolerance = 0.0001, possible_k = c("2:1", "2:2", "2:0"), alpha = .05, min_mutations_number = 4, n_components = 0, initial_iter=200, grad_samples=10, elbo_samples=200)
+fit_h = function(x, max_attempts=2, INIT=TRUE, tolerance = 0.0001, possible_k = c("2:1", "2:2", "2:0"), alpha = .05, min_mutations_number = 4, n_components = 0, initial_iter=200, grad_samples=10, elbo_samples=200, tmp_file_path = NULL)
 {
   # stopifnot(inherits(x, 'cnaqc'))
   
@@ -87,7 +88,7 @@ fit_h = function(x, max_attempts=2, INIT=TRUE, tolerance = 0.0001, possible_k = 
     
       # inits_chain <- get_initialization(input_data, purity = purity)
       inits_chain <- NULL
-      
+      cmdstanr_output_dir = tmp_file_path
       res <-  tryCatch({res <-fit_variational_h(input_data,
                                                 purity = purity,
                                                initialization = inits_chain,
