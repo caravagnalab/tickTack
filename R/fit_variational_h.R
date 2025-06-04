@@ -11,6 +11,7 @@
 #' @param elbo_samples description
 #' @param tolerance num: tolerance in the ELBO optimization procedure
 #' @param purity sample purity
+#' @param tmp_file_path path of the directory where to save the temporary files during the inference
 #'
 #' @keywords variational
 #'
@@ -18,7 +19,7 @@
 #'
 #' @export
 
-fit_variational_h <- function(input_data, purity, max_attempts = 2, initialization = NULL, INIT = TRUE, initial_iter = 100, grad_samples = 200, elbo_samples = 200, tolerance = 0.01) {
+fit_variational_h <- function(input_data, purity, max_attempts = 2, initialization = NULL, INIT = TRUE, initial_iter = 100, grad_samples = 200, elbo_samples = 200, tolerance = 0.01, tmp_file_path=NULL) {
   # Load the Stan model
   
   get_model <- function(model_name) {
@@ -77,7 +78,8 @@ fit_variational_h <- function(input_data, purity, max_attempts = 2, initializati
             draws = 1000,
             # output_dir = "./",
             eval_elbo = 1,
-            tol_rel_obj = tolerance
+            tol_rel_obj = tolerance,
+            output_dir = tmp_file_path
           )
           # print(res$init())
           
@@ -108,7 +110,8 @@ fit_variational_h <- function(input_data, purity, max_attempts = 2, initializati
             draws = 1000,
             # output_dir = "./",
             eval_elbo = 1,
-            tol_rel_obj = tolerance
+            tol_rel_obj = tolerance,
+            output_dir = tmp_file_path
           )
         }
         

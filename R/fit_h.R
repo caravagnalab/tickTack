@@ -88,7 +88,6 @@ fit_h = function(x, max_attempts=2, INIT=TRUE, tolerance = 0.0001, possible_k = 
     
       # inits_chain <- get_initialization(input_data, purity = purity)
       inits_chain <- NULL
-      cmdstanr_output_dir = tmp_file_path
       res <-  tryCatch({res <-fit_variational_h(input_data,
                                                 purity = purity,
                                                initialization = inits_chain,
@@ -97,7 +96,8 @@ fit_h = function(x, max_attempts=2, INIT=TRUE, tolerance = 0.0001, possible_k = 
                                                initial_iter = initial_iter,
                                                grad_samples = grad_samples,
                                                elbo_samples = elbo_samples,
-                                               tolerance = tolerance)
+                                               tolerance = tolerance,
+                                               tmp_file_path = tmp_file_path)
     
     
     S = input_data$S

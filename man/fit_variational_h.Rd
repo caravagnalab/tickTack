@@ -13,7 +13,8 @@ fit_variational_h(
   initial_iter = 100,
   grad_samples = 200,
   elbo_samples = 200,
-  tolerance = 0.01
+  tolerance = 0.01,
+  tmp_file_path = NULL
 )
 }
 \arguments{
@@ -34,6 +35,8 @@ fit_variational_h(
 \item{elbo_samples}{description}
 
 \item{tolerance}{num: tolerance in the ELBO optimization procedure}
+
+\item{tmp_file_path}{path of the directory where to save the temporary files during the inference}
 }
 \value{
 best_fit

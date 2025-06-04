@@ -12,7 +12,8 @@ fit(
   alpha = 0.05,
   min_mutations_number = 2,
   beta_binomial = FALSE,
-  beta_binomial_disp = 0.01
+  beta_binomial_disp = 0.01,
+  tmp_file_path = NULL
 )
 }
 \arguments{
@@ -31,6 +32,8 @@ fit(
 \item{beta_binomial}{A logical value indicating whether to use the beta-binomial model. Default is FALSE.}
 
 \item{beta_binomial_disp}{A numeric value for the beta-binomial dispersion parameter. Default is 0.01.}
+
+\item{tmp_file_path}{path of the directory where to save the temporary files during the inference}
 }
 \value{
 A list containing two tibbles: \code{inference_results} and \code{summarized_results}. Returns NULL if no results are obtained.

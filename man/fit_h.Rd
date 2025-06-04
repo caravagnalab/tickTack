@@ -41,6 +41,8 @@ fit_h(
 \item{grad_samples}{description}
 
 \item{elbo_samples}{description}
+
+\item{tmp_file_path}{path of the directory where to save the temporary files with the info on the elbo evaluations during the VI inference}
 }
 \value{
 results_and_data = list(data = input_data_list, results = results, output_files_list = output_files_list)

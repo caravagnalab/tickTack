@@ -10,6 +10,7 @@
 #' @param min_mutations_number An integer specifying the minimum number of mutations required for analysis. Default is 2.
 #' @param beta_binomial A logical value indicating whether to use the beta-binomial model. Default is FALSE.
 #' @param beta_binomial_disp A numeric value for the beta-binomial dispersion parameter. Default is 0.01.
+#' @param tmp_file_path path of the directory where to save the temporary files during the inference
 #'
 #' @return A list containing two tibbles: `inference_results` and `summarized_results`. Returns NULL if no results are obtained.
 #' @export
@@ -18,7 +19,8 @@ fit <- function(segments, mutations, purity,
                        alpha = .05,
                        min_mutations_number = 2,
                        beta_binomial = FALSE,
-                       beta_binomial_disp = 0.01) {
+                       beta_binomial_disp = 0.01,
+                       tmp_file_path = NULL) {
 
   # Load the appropriate model based on the beta_binomial parameter
   if (beta_binomial) {
@@ -94,8 +96,12 @@ fit <- function(segments, mutations, purity,
           beta_dispersion = beta_binomial_disp
         )
 
-        fit <- model$sample(data = input_data, iter_warmup = 2000, iter_sampling = 2000, chains = 8, parallel_chains = 8)
-
+        print(tempdir())
+        
+        fit <- model$sample(data = input_data, iter_warmup = 2000, iter_sampling = 2000, chains = 8, parallel_chains = 8, output_dir = tmp_file_path)
+        
+        print(tempdir())
+        
         # Compute tau posteriors
         tau_posteriors <- get_tau_posteriors(fit, k)$tau %>% unname() %>% as.numeric()
         tau_low <- stats::quantile(tau_posteriors, alpha / 2) %>% unname()
