@@ -14,7 +14,8 @@ fit_variational_h(
   grad_samples = 200,
   elbo_samples = 200,
   tolerance = 0.01,
-  tmp_file_path = NULL
+  tmp_file_path = NULL,
+  cmd_version_old = FALSE
 )
 }
 \arguments{
@@ -37,6 +38,8 @@ fit_variational_h(
 \item{tolerance}{num: tolerance in the ELBO optimization procedure}
 
 \item{tmp_file_path}{path of the directory where to save the temporary files during the inference}
+
+\item{cmd_version_old}{version of cmdstanr for the draws parameter invariational method}
 }
 \value{
 best_fit

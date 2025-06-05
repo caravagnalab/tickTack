@@ -12,14 +12,15 @@
 #' @param tolerance num: tolerance in the ELBO optimization procedure
 #' @param purity sample purity
 #' @param tmp_file_path path of the directory where to save the temporary files during the inference
-#'
+#' @param cmd_version_old version of cmdstanr for the draws parameter invariational method 
+#' 
 #' @keywords variational
 #'
 #' @return best_fit
 #'
 #' @export
 
-fit_variational_h <- function(input_data, purity, max_attempts = 2, initialization = NULL, INIT = TRUE, initial_iter = 100, grad_samples = 200, elbo_samples = 200, tolerance = 0.01, tmp_file_path=NULL) {
+fit_variational_h <- function(input_data, purity, max_attempts = 2, initialization = NULL, INIT = TRUE, initial_iter = 100, grad_samples = 200, elbo_samples = 200, tolerance = 0.01, tmp_file_path=NULL, cmd_version_old=FALSE) {
   # Load the Stan model
   
   get_model <- function(model_name) {
@@ -68,19 +69,35 @@ fit_variational_h <- function(input_data, purity, max_attempts = 2, initializati
         # Attempt variational inference
         print(list(initialization))
         if (INIT == TRUE) {
-          res <- model$variational(
-            data = input_data,
-            init = list(initialization),  # Use the provided initialization
-            iter = iter,
-            grad_samples = grad_samples,
-            elbo_samples = elbo_samples,
-            save_latent_dynamics = TRUE,
-            draws = 1000,
-            # output_dir = "./",
-            eval_elbo = 1,
-            tol_rel_obj = tolerance,
-            output_dir = tmp_file_path
-          )
+          if (cmd_version_old == TRUE){
+            res <- model$variational(
+              data = input_data,
+              init = list(initialization),  # Use the provided initialization
+              iter = iter,
+              grad_samples = grad_samples,
+              elbo_samples = elbo_samples,
+              save_latent_dynamics = TRUE,
+              draws = 1000,
+              # output_dir = "./",
+              eval_elbo = 1,
+              tol_rel_obj = tolerance,
+              output_dir = tmp_file_path
+            )
+          } else {
+            res <- model$variational(
+              data = input_data,
+              init = list(initialization),  # Use the provided initialization
+              iter = iter,
+              grad_samples = grad_samples,
+              elbo_samples = elbo_samples,
+              save_latent_dynamics = TRUE,
+              output_samples = 1000,
+              # output_dir = "./",
+              eval_elbo = 1,
+              tol_rel_obj = tolerance,
+              output_dir = tmp_file_path
+            )
+          }
           # print(res$init())
           
           
@@ -101,18 +118,35 @@ fit_variational_h <- function(input_data, purity, max_attempts = 2, initializati
           
           
         } else {
-          res <- model$variational(                                                #getter?
-            data = input_data,
-            iter = iter,
-            grad_samples = grad_samples,
-            elbo_samples = elbo_samples,
-            save_latent_dynamics = TRUE,
-            draws = 1000,
-            # output_dir = "./",
-            eval_elbo = 1,
-            tol_rel_obj = tolerance,
-            output_dir = tmp_file_path
-          )
+          if (cmd_version_old == TRUE){
+            res <- model$variational(
+              data = input_data,
+              init = list(initialization),  # Use the provided initialization
+              iter = iter,
+              grad_samples = grad_samples,
+              elbo_samples = elbo_samples,
+              save_latent_dynamics = TRUE,
+              draws = 1000,
+              # output_dir = "./",
+              eval_elbo = 1,
+              tol_rel_obj = tolerance,
+              output_dir = tmp_file_path
+            )
+          } else {
+            res <- model$variational(
+              data = input_data,
+              init = list(initialization),  # Use the provided initialization
+              iter = iter,
+              grad_samples = grad_samples,
+              elbo_samples = elbo_samples,
+              save_latent_dynamics = TRUE,
+              output_samples = 1000,
+              # output_dir = "./",
+              eval_elbo = 1,
+              tol_rel_obj = tolerance,
+              output_dir = tmp_file_path
+            )
+          }
         }
         
         
