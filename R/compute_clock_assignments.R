@@ -6,6 +6,8 @@ compute_clock_assignment <- function(accepted_cna, tau_and_w_draws, tau_and_w_su
   
   tau_original_list = c()
   tau_inferred_assigned_list = tibble::tibble()
+  alpha_median = tibble::tibble()
+  beta_median = tibble::tibble()
   identity_matrix_RI = c()
   
   for (i in 1:nrow(accepted_cna)){
@@ -31,11 +33,25 @@ compute_clock_assignment <- function(accepted_cna, tau_and_w_draws, tau_and_w_su
     
     identity_matrix_RI = c(identity_matrix_RI, tau_index_assigned) #extract the vector of taus (unordered) to which the ordered segments are assigned
     
+    names_alpha <- paste0("theta[", segment_number, ",", tau_index_assigned, ",1]")
+    names_alpha <- as.vector(names_alpha)
+    names_beta <- paste0("theta[", segment_number, ",", tau_index_assigned, ",2]")
+    names_beta <- as.vector(names_beta)
+    
+    
+    alpha_inferred <- tau_and_w_draws[, colnames(tau_and_w_draws) %in% names_alpha]
+    beta_inferred <- tau_and_w_draws[, colnames(tau_and_w_draws) %in% names_beta]
+    
+    alpha_inferred_median <- lapply(1:ncol(alpha_inferred), function(i) {stats::median(alpha_inferred[,i])} ) %>% unlist() 
+    beta_inferred_median <- lapply(1:ncol(beta_inferred), function(i) {stats::median(beta_inferred[,i])} ) %>% unlist() 
+    alpha_median <- dplyr::bind_rows(alpha_median, tibble::tibble (alpha_median = alpha_inferred_median))
+    beta_median <- dplyr::bind_rows(beta_median, tibble::tibble (beta_median = beta_inferred_median))
+    
   }
   
   # result = list(original_clocks = tau_original_list, predicted_clocks = tau_inferred_assigned_list )
-  predicted_clocks=tau_inferred_assigned_list
-  return(predicted_clocks)
+  predictions=list(predicted_clocks=tau_inferred_assigned_list, alpha = alpha_median, beta = beta_median)
+  return(predictions)
   
 }
 

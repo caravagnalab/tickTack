@@ -109,7 +109,14 @@ fit_h = function(x, max_attempts=2, INIT=TRUE, tolerance = 0.0001, possible_k = 
     names_weights <- outer(1:S, 1:K,
                            FUN = function(i, j) paste0("w[", i, ",", j, "]"))
     names_weights <- as.vector(names_weights)
+    names_alpha_beta <- apply(
+      expand.grid(i = 1:S, j = 1:K, z = 1:2),
+      1,
+      function(x) paste0("theta[", x[1], ",", x[2], ",", x[3], "]")
+    )
+    names_alpha_beta <- as.vector(names_alpha_beta)
     vars <- append (names_tau, names_weights)
+    vars <- append (vars, names_alpha_beta)
     
     
     ###################################################################
@@ -119,9 +126,11 @@ fit_h = function(x, max_attempts=2, INIT=TRUE, tolerance = 0.0001, possible_k = 
     clock_assignment <- compute_clock_assignment(accepted_cna, tau_and_w_draws, tau_and_w_summary, K, data_simulation=NULL)
     
     summarized_results <- accepted_cna %>%
-      dplyr::mutate(clock_mean = clock_assignment$tau_inferred_median) %>%
-      dplyr::mutate(clock_low = clock_assignment$tau_inferred_low) %>%
-      dplyr::mutate(clock_high = clock_assignment$tau_inferred_high)
+      dplyr::mutate(clock_mean = clock_assignment$predicted_clocks$tau_inferred_median) %>%
+      dplyr::mutate(clock_low = clock_assignment$clock_assignment$predicted_clocks$tau_inferred_low) %>%
+      dplyr::mutate(clock_high = clock_assignment$clock_assignment$predicted_clocks$tau_inferred_high) %>%
+      dplyr::mutate(alpha = clock_assignment$alpha$alpha_median) %>%
+      dplyr::mutate(beta = clock_assignment$beta$beta_median)
 
 
     
