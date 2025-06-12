@@ -127,8 +127,8 @@ fit_h = function(x, max_attempts=2, INIT=TRUE, tolerance = 0.0001, possible_k = 
     
     summarized_results <- accepted_cna %>%
       dplyr::mutate(clock_mean = clock_assignment$predicted_clocks$tau_inferred_median) %>%
-      dplyr::mutate(clock_low = clock_assignment$clock_assignment$predicted_clocks$tau_inferred_low) %>%
-      dplyr::mutate(clock_high = clock_assignment$clock_assignment$predicted_clocks$tau_inferred_high) %>%
+      dplyr::mutate(clock_low = clock_assignment$predicted_clocks$tau_inferred_low) %>%
+      dplyr::mutate(clock_high = clock_assignment$predicted_clocks$tau_inferred_high) %>%
       dplyr::mutate(alpha = clock_assignment$alpha$alpha_median) %>%
       dplyr::mutate(beta = clock_assignment$beta$beta_median)
 
