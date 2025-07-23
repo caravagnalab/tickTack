@@ -1,5 +1,5 @@
 pandoc: 3.1.11
-pkgdown: 2.1.1
+pkgdown: 2.1.3
 pkgdown_sha: ~
 articles:
   a1_introduction: a1_introduction.html
@@ -9,7 +9,7 @@ articles:
   a5_Understanding_multiple_segments_timing: a5_Understanding_multiple_segments_timing.html
   a6_Simulate_data: a6_Simulate_data.html
   tickTack: tickTack.html
-last_built: 2025-01-31T17:16Z
+last_built: 2025-07-23T12:44Z
 urls:
   reference: https://caravagnalab.github.io/tickTack/reference
   article: https://caravagnalab.github.io/tickTack/articles
