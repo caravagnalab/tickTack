@@ -18,6 +18,17 @@ tool is able to
 - time CNAs in a hierarchical fashion, grouping together segments that
   most likely underwent a CNA concurrently
 
+#### Citation
+
+[![](https://img.shields.io/badge/doi-org/10.1101/2025.03.31.646456-red.svg)](https://doi.org/10.1101/2025.03.31.646456)
+
+If you use `tickTack`, please cite:
+
+- *Timing and clustering co-occurring genome amplifications in cancers*
+  Sara Cocomello, Giovanni Santacatterina, Riccardo Bergamin, Alice
+  Antonello, Giulio Caravagna. [biorXiv
+  2025](https://www.biorxiv.org/content/10.1101/2025.03.31.646456v1).
+
 #### Help and support
 
 ## [![](https://img.shields.io/badge/GitHub%20Pages-https://caravagnalab.github.io/tickTack/-yellow.svg)](https://caravagnalab.github.io/tickTack)
