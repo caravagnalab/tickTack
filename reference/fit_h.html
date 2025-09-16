@@ -59,7 +59,11 @@
 <span>  grad_samples <span class="op">=</span> <span class="fl">10</span>,</span>
 <span>  elbo_samples <span class="op">=</span> <span class="fl">200</span>,</span>
 <span>  tmp_file_path <span class="op">=</span> <span class="cn">NULL</span>,</span>
-<span>  cmd_version_old <span class="op">=</span> <span class="cn">FALSE</span></span>
+<span>  cmd_version_old <span class="op">=</span> <span class="cn">FALSE</span>,</span>
+<span>  eta <span class="op">=</span> <span class="cn">NULL</span>,</span>
+<span>  adapt_engaged <span class="op">=</span> <span class="cn">FALSE</span>,</span>
+<span>  adapt_iter <span class="op">=</span> <span class="cn">NULL</span>,</span>
+<span>  algorithm <span class="op">=</span> <span class="cn">NULL</span></span>
 <span><span class="op">)</span></span></code></pre></div>
     </div>
 
@@ -112,11 +116,27 @@
 
 
 <dt id="arg-tmp-file-path">tmp_file_path<a class="anchor" aria-label="anchor" href="#arg-tmp-file-path"></a></dt>
-<dd><p>path of the directory where to save the temporary files with the info on the elbo evaluations during the VI inference</p></dd>
+<dd><p>output_dir getOption("cmdstanr_output_dir") path of the directory where to save the temporary files with the info on the elbo evaluations during the VI inference</p></dd>
 
 
 <dt id="arg-cmd-version-old">cmd_version_old<a class="anchor" aria-label="anchor" href="#arg-cmd-version-old"></a></dt>
 <dd><p>version of cmdstanr for the draws parameter invariational method</p></dd>
+
+
+<dt id="arg-eta">eta<a class="anchor" aria-label="anchor" href="#arg-eta"></a></dt>
+<dd><p>NULL</p></dd>
+
+
+<dt id="arg-adapt-engaged">adapt_engaged<a class="anchor" aria-label="anchor" href="#arg-adapt-engaged"></a></dt>
+<dd><p>FALSE</p></dd>
+
+
+<dt id="arg-adapt-iter">adapt_iter<a class="anchor" aria-label="anchor" href="#arg-adapt-iter"></a></dt>
+<dd><p>NULL</p></dd>
+
+
+<dt id="arg-algorithm">algorithm<a class="anchor" aria-label="anchor" href="#arg-algorithm"></a></dt>
+<dd><p>NULL</p></dd>
 
 </dl></div>
     <div class="section level2">
