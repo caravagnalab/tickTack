@@ -15,12 +15,21 @@
 #' @param initial_iter description
 #' @param grad_samples description
 #' @param elbo_samples description
-#' @param tmp_file_path path of the directory where to save the temporary files with the info on the elbo evaluations during the VI inference
+#' @param tmp_file_path output_dir getOption("cmdstanr_output_dir") path of the directory where to save the temporary files with the info on the elbo evaluations during the VI inference
 #' @param cmd_version_old version of cmdstanr for the draws parameter invariational method 
+#'
+#' @param eta NULL
+#' @param adapt_engaged FALSE
+#' @param adapt_iter NULL
+#' @param algorithm NULL
 #'
 #' @return   results_and_data = list(data = input_data_list, results = results, output_files_list = output_files_list)
 #' @export
-fit_h = function(x, max_attempts=2, INIT=TRUE, tolerance = 0.0001, possible_k = c("2:1", "2:2", "2:0"), alpha = .05, min_mutations_number = 4, n_components = 0, initial_iter=200, grad_samples=10, elbo_samples=200, tmp_file_path = NULL, cmd_version_old=FALSE)
+fit_h = function(x, max_attempts=2, INIT=TRUE, tolerance = 0.0001, possible_k = c("2:1", "2:2", "2:0"), alpha = .05, min_mutations_number = 4, n_components = 0, initial_iter=200, grad_samples=10, elbo_samples=200, tmp_file_path = NULL, cmd_version_old=FALSE, 
+                 eta=NULL,
+                 adapt_engaged = FALSE,
+                 adapt_iter = NULL,
+                 algorithm = NULL)
 {
   # stopifnot(inherits(x, 'cnaqc'))
   
@@ -99,7 +108,11 @@ fit_h = function(x, max_attempts=2, INIT=TRUE, tolerance = 0.0001, possible_k = 
                                                elbo_samples = elbo_samples,
                                                tolerance = tolerance,
                                                tmp_file_path = tmp_file_path,
-                                               cmd_version_old = cmd_version_old)
+                                               cmd_version_old = cmd_version_old,
+                                               eta = eta,
+                                               adapt_engaged = adapt_engaged,
+                                               adapt_iter = adapt_iter,
+                                               algorithm = algorithm)
     
     
     S = input_data$S

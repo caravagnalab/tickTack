@@ -11,16 +11,25 @@
 #' @param elbo_samples description
 #' @param tolerance num: tolerance in the ELBO optimization procedure
 #' @param purity sample purity
-#' @param tmp_file_path path of the directory where to save the temporary files during the inference
+#' @param tmp_file_path output_dir getOption("cmdstanr_output_dir") path of the directory where to save the temporary files during the inference
 #' @param cmd_version_old version of cmdstanr for the draws parameter invariational method 
-#' 
+#' @param eta NULL
+#' @param adapt_engaged FALSE
+#' @param adapt_iter NULL
+#' @param algorithm NULL
+#'  
 #' @keywords variational
 #'
 #' @return best_fit
 #'
 #' @export
 
-fit_variational_h <- function(input_data, purity, max_attempts = 2, initialization = NULL, INIT = TRUE, initial_iter = 100, grad_samples = 200, elbo_samples = 200, tolerance = 0.01, tmp_file_path=NULL, cmd_version_old=FALSE) {
+fit_variational_h <- function(input_data, purity, max_attempts = 2, initialization = NULL, INIT = TRUE, initial_iter = 100, grad_samples = 200, elbo_samples = 200, tolerance = 0.01, tmp_file_path=NULL, 
+                              cmd_version_old=FALSE,
+                              eta=NULL,
+                              adapt_engaged = FALSE,
+                              adapt_iter = NULL,
+                              algorithm = NULL) {
   # Load the Stan model
   
   get_model <- function(model_name) {
@@ -81,8 +90,11 @@ fit_variational_h <- function(input_data, purity, max_attempts = 2, initializati
               # output_dir = "./",
               eval_elbo = 1,
               tol_rel_obj = tolerance,
-              output_dir = tmp_file_path
-            )
+              output_dir = tmp_file_path,
+              eta = eta,
+              adapt_engaged = adapt_engaged,
+              adapt_iter = adapt_iter,
+              algorithm = algorithm)
           } else {
             res <- model$variational(
               data = input_data,
@@ -95,7 +107,11 @@ fit_variational_h <- function(input_data, purity, max_attempts = 2, initializati
               # output_dir = "./",
               eval_elbo = 1,
               tol_rel_obj = tolerance,
-              output_dir = tmp_file_path
+              output_dir = tmp_file_path,
+              eta = eta,
+              adapt_engaged = adapt_engaged,
+              adapt_iter = adapt_iter,
+              algorithm = algorithm
             )
           }
           # print(res$init())
@@ -130,8 +146,11 @@ fit_variational_h <- function(input_data, purity, max_attempts = 2, initializati
               # output_dir = "./",
               eval_elbo = 1,
               tol_rel_obj = tolerance,
-              output_dir = tmp_file_path
-            )
+              output_dir = tmp_file_path,
+              eta = eta,
+              adapt_engaged = adapt_engaged,
+              adapt_iter = adapt_iter,
+              algorithm = algorithm            )
           } else {
             res <- model$variational(
               data = input_data,
@@ -144,8 +163,11 @@ fit_variational_h <- function(input_data, purity, max_attempts = 2, initializati
               # output_dir = "./",
               eval_elbo = 1,
               tol_rel_obj = tolerance,
-              output_dir = tmp_file_path
-            )
+              output_dir = tmp_file_path,
+              eta = eta,
+              adapt_engaged = adapt_engaged,
+              adapt_iter = adapt_iter,
+              algorithm = algorithm            )
           }
         }
         

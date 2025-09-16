@@ -17,7 +17,11 @@ fit_h(
   grad_samples = 10,
   elbo_samples = 200,
   tmp_file_path = NULL,
-  cmd_version_old = FALSE
+  cmd_version_old = FALSE,
+  eta = NULL,
+  adapt_engaged = FALSE,
+  adapt_iter = NULL,
+  algorithm = NULL
 )
 }
 \arguments{
@@ -43,9 +47,17 @@ fit_h(
 
 \item{elbo_samples}{description}
 
-\item{tmp_file_path}{path of the directory where to save the temporary files with the info on the elbo evaluations during the VI inference}
+\item{tmp_file_path}{output_dir getOption("cmdstanr_output_dir") path of the directory where to save the temporary files with the info on the elbo evaluations during the VI inference}
 
 \item{cmd_version_old}{version of cmdstanr for the draws parameter invariational method}
+
+\item{eta}{NULL}
+
+\item{adapt_engaged}{FALSE}
+
+\item{adapt_iter}{NULL}
+
+\item{algorithm}{NULL}
 }
 \value{
 results_and_data = list(data = input_data_list, results = results, output_files_list = output_files_list)

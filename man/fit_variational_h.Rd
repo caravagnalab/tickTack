@@ -15,7 +15,11 @@ fit_variational_h(
   elbo_samples = 200,
   tolerance = 0.01,
   tmp_file_path = NULL,
-  cmd_version_old = FALSE
+  cmd_version_old = FALSE,
+  eta = NULL,
+  adapt_engaged = FALSE,
+  adapt_iter = NULL,
+  algorithm = NULL
 )
 }
 \arguments{
@@ -37,9 +41,17 @@ fit_variational_h(
 
 \item{tolerance}{num: tolerance in the ELBO optimization procedure}
 
-\item{tmp_file_path}{path of the directory where to save the temporary files during the inference}
+\item{tmp_file_path}{output_dir getOption("cmdstanr_output_dir") path of the directory where to save the temporary files during the inference}
 
 \item{cmd_version_old}{version of cmdstanr for the draws parameter invariational method}
+
+\item{eta}{NULL}
+
+\item{adapt_engaged}{FALSE}
+
+\item{adapt_iter}{NULL}
+
+\item{algorithm}{NULL}
 }
 \value{
 best_fit
