@@ -6,6 +6,7 @@
 \usage{
 fit_h(
   x,
+  local_executable = FALSE,
   max_attempts = 2,
   INIT = TRUE,
   tolerance = 1e-04,
@@ -26,6 +27,8 @@ fit_h(
 }
 \arguments{
 \item{x}{list: A CNAqc object.}
+
+\item{local_executable}{FALSE}
 
 \item{max_attempts}{num: max number of repeated inference for ADVI}
 
@@ -49,7 +52,7 @@ fit_h(
 
 \item{tmp_file_path}{output_dir getOption("cmdstanr_output_dir") path of the directory where to save the temporary files with the info on the elbo evaluations during the VI inference}
 
-\item{cmd_version_old}{version of cmdstanr for the draws parameter invariational method}
+\item{cmd_version_old}{version of cmdstanr for the draws parameter in variational method}
 
 \item{eta}{NULL}
 

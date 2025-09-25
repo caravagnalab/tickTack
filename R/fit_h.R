@@ -16,16 +16,30 @@
 #' @param grad_samples description
 #' @param elbo_samples description
 #' @param tmp_file_path output_dir getOption("cmdstanr_output_dir") path of the directory where to save the temporary files with the info on the elbo evaluations during the VI inference
-#' @param cmd_version_old version of cmdstanr for the draws parameter invariational method 
+#' @param cmd_version_old version of cmdstanr for the draws parameter in variational method 
 #'
 #' @param eta NULL
 #' @param adapt_engaged FALSE
 #' @param adapt_iter NULL
 #' @param algorithm NULL
+#' @param local_executable FALSE
 #'
 #' @return   results_and_data = list(data = input_data_list, results = results, output_files_list = output_files_list)
 #' @export
-fit_h = function(x, max_attempts=2, INIT=TRUE, tolerance = 0.0001, possible_k = c("2:1", "2:2", "2:0"), alpha = .05, min_mutations_number = 4, n_components = 0, initial_iter=200, grad_samples=10, elbo_samples=200, tmp_file_path = NULL, cmd_version_old=FALSE, 
+fit_h = function(x, 
+                 local_executable = FALSE, 
+                 max_attempts=2, 
+                 INIT=TRUE, 
+                 tolerance = 0.0001, 
+                 possible_k = c("2:1", "2:2", "2:0"), 
+                 alpha = .05, 
+                 min_mutations_number = 4, 
+                 n_components = 0, 
+                 initial_iter=200, 
+                 grad_samples=10, 
+                 elbo_samples=200, 
+                 tmp_file_path = NULL, 
+                 cmd_version_old=FALSE, 
                  eta=NULL,
                  adapt_engaged = FALSE,
                  adapt_iter = NULL,
@@ -80,15 +94,15 @@ fit_h = function(x, max_attempts=2, INIT=TRUE, tolerance = 0.0001, possible_k = 
   }
   
 
-  message("Performing inference with the following number of components ", range_k, ". Insert a specificset of values in the <range> parameter if a different set of components is desired! ")
+  message("Performing inference with the following number of components ", range_k, ". Insert a specific set of values in the <range> parameter if a different set of components is desired! ")
   
   draws_and_summary = c()
   elbo_iterations = list()
   log_lik_matrix_list = list()
   
-  if (input_data$S==1 & tolerance>=0.0001){
+  if (input_data$S==1 & (tolerance>=0.0001|tolerance<=0.01)){
     message("Performing inference with ", range_k, " component. Decreasing tolerance to 0.01")
-    tolerance = 0.01
+    tolerance = 0.001
   }
   
   # before inference add K to the list obtained as input_data
@@ -99,6 +113,7 @@ fit_h = function(x, max_attempts=2, INIT=TRUE, tolerance = 0.0001, possible_k = 
       # inits_chain <- get_initialization(input_data, purity = purity)
       inits_chain <- NULL
       res <-  tryCatch({res <-fit_variational_h(input_data,
+                                                local_executable = local_executable,
                                                 purity = purity,
                                                initialization = inits_chain,
                                                max_attempts = max_attempts,

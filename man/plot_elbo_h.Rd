@@ -4,11 +4,13 @@
 \alias{plot_elbo_h}
 \title{Plot elbo Function}
 \usage{
-plot_elbo_h(elbo_iteration)
+plot_elbo_h(elbo_iteration, K = 2)
 }
 \arguments{
 \item{elbo_iteration}{data.frame':    #iterations until convergence of elbo obs. of  2 variables: iteration: int, elbo     : num
 one of the element list elbo_iteration obtained from fit_h "results"}
+
+\item{K}{number of components in the fit}
 }
 \value{
 p

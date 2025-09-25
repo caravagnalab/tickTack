@@ -3,6 +3,7 @@
 #' @description This function performs the inference using the ADVI algorithm. Repeat inference if it fails and repeat to avoid local minima, taking the best run.
 #'
 #' @param input_data list: List of 7: $S: int, $N: int, $karyotype: num (0 or 1), $seg_assignment: num, $peaks:List of N of num (1:2), $NV: num, $DP: num
+#' @param local_executable FALSE
 #' @param max_attempts num: max number of repeated inference for ADVI
 #' @param initialization list: List of 4: $w: num (1:S, 1:3), $tau: num (1:K), $phi: num (1:K), $kappa: num
 #' @param INIT logical: boolean variable to set the initialization phase to TRUE or FALSE
@@ -24,7 +25,17 @@
 #'
 #' @export
 
-fit_variational_h <- function(input_data, purity, max_attempts = 2, initialization = NULL, INIT = TRUE, initial_iter = 100, grad_samples = 200, elbo_samples = 200, tolerance = 0.01, tmp_file_path=NULL, 
+fit_variational_h <- function(input_data, 
+                              local_executable = FALSE, 
+                              purity, 
+                              max_attempts = 2, 
+                              initialization = NULL, 
+                              INIT = TRUE, 
+                              initial_iter = 100, 
+                              grad_samples = 200, 
+                              elbo_samples = 200, 
+                              tolerance = 0.01, 
+                              tmp_file_path=NULL, 
                               cmd_version_old=FALSE,
                               eta=NULL,
                               adapt_engaged = FALSE,
@@ -32,6 +43,7 @@ fit_variational_h <- function(input_data, purity, max_attempts = 2, initializati
                               algorithm = NULL) {
   # Load the Stan model
   
+
   get_model <- function(model_name) {
     all_paths <- list(
       "timing_betabinomial" = "mixture_CNA_timing_betabinomial.stan",
@@ -48,7 +60,31 @@ fit_variational_h <- function(input_data, purity, max_attempts = 2, initializati
     model
   }
   
-  model <- get_model("hierarchical") 
+  if(local_executable==FALSE){
+    model <- get_model("hierarchical") 
+  }else{
+    get_model <- function(model_name){
+      all_paths <- list(
+        "timing_betabinomial" = "mixture_CNA_timing_betabinomial.stan",
+        "timing_binomial" = "mixture_CNA_timing_binomial.stan",
+        "timing" = "mixture_CNA_timing.stan",
+        "clustering"  = "clustering.stan",
+        "hierarchical" = "timing_mixed_simple.stan")
+      
+      if (!(model_name %in% names(all_paths))) stop("model_name not recognized")
+      cache_dir <- file.path(normalizePath(getwd()), "tickTack_models")
+      if (!dir.exists(cache_dir)) dir.create(cache_dir, recursive = TRUE)
+      model_path <- system.file("cmdstan", all_paths[[model_name]], package = "tickTack", mustWork = TRUE)
+      cached_stan <- file.path(cache_dir, basename(model_path))
+      if (!file.exists(cached_stan)) {
+        file.copy(model_path, cached_stan, overwrite = TRUE)
+      }
+      
+      model <- cmdstanr::cmdstan_model(cached_stan, force_recompile = FALSE)
+      model
+    }
+    model <- get_model("hierarchical") 
+  }
   # cmdstanr::cmdstan_model("../models/timing_mixed_simple.stan")
   best_elbo <- -Inf  # Start with the worst possible ELBO
   best_fit <- NULL  # To store the best model fit

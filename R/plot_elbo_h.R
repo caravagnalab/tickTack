@@ -3,10 +3,11 @@
 #' @description Plot the ELBO behaviour for each fit fixing the number of cluster.
 #' @param elbo_iteration data.frame':	#iterations until convergence of elbo obs. of  2 variables: iteration: int, elbo     : num  
 #' one of the element list elbo_iteration obtained from fit_h "results"
+#' @param K number of components in the fit 
 #' 
 #' @return p 
 #' @export
-plot_elbo_h <- function(elbo_iteration){
+plot_elbo_h <- function(elbo_iteration,K=2){
   
   data <- elbo_iteration
   
@@ -14,7 +15,7 @@ plot_elbo_h <- function(elbo_iteration){
     ggplot2::geom_line(color = "blue", size = 0.2) +  
     # geom_point(color = "black", size = 1.5) +  
     ggplot2::labs(
-      title = paste0("ELBO Convergence for K = ", nrow(data) - 1),  
+      title = paste0("ELBO Convergence for ",K,"components and ", nrow(data)," iterations"),  
       x = "Iteration",
       y = "ELBO"
     ) +
