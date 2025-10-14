@@ -515,11 +515,12 @@ plot_segments_tick_tack_data <- function(x, colour_by = "clock_mean", K = K) {
   accepted_mutations = data.frame()
   for (segment_idx in 1:nrow(summarized_results)) {
     segment <- summarized_results[segment_idx, ]
-    print(segment$chr)
+    # print(segment$chr)
     segment_mutations <- absolute_mutations %>%
       dplyr::filter(.data$chr == segment$chr, .data$from > segment$from, .data$to < segment$to) %>%
       tidyr::drop_na(.data$DP)
-    print(nrow(segment_mutations))
+    segment_mutations <- segment_mutations %>% dplyr::mutate(karyotype = segment$karyotype)
+    # print(nrow(segment_mutations))
     # if (nrow(segment_mutations)> 40){
     accepted_mutations <- dplyr::bind_rows(accepted_mutations, segment_mutations)
     # }

@@ -101,9 +101,9 @@ prepare_input_data = function(mutations, segments, purity, possible_k = c("2:1",
     stop("No segments respected the constraint to perform the clock inference in this CNAqc object.")
   }
   
-  else {  fileConn<-file("segments.txt")
-  writeLines(c(paste0("The number of accepted segments is ", nrow(accepted_segments_info))," "), fileConn)
-  close(fileConn) }
+  # else {  fileConn<-file("segments.txt")
+  # writeLines(c(paste0("The number of accepted segments is ", nrow(accepted_segments_info))," "), fileConn)
+  # close(fileConn) }
   
   # then obtain the data "all together" and get the input for the variational model inference
   

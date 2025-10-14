@@ -7,18 +7,18 @@ vignette: >
   %\VignetteEncoding{UTF-8}
 ---
 
-The `_fit_h` function in the `tickTack` package estimates the timing of `K` clonal peaks in cancer genome sequencing data according to which a clustering can be performed. This vignette describes the functionality of the `fit_h` function, including input requirements, output, and an example analysis using the `tickTack::pcawg_example_2` dataset.
+The `_fit_h` function in the `tickTack` package estimates the timing of `K` clonal binomial peaks in cancer genome sequencing data according to which a clustering can be performed. This vignette describes the functionality of the `fit_h` function, including input requirements, output, and an example analysis using the `tickTack::pcawg_example_2` dataset.
 
 ## Overview of the `fit_h` Function
 
-The `fit_h` function uses a hierarchical model to fit clonal peaks in sequencing data considering the grouping tructure of the chromosomes segments. It identifies segments of the genome with specific karyotypes and mutations that meet the input criteria, then estimates the timing of the groups of events and assign each segment to a clock. 
+The `fit_h` function uses a hierarchical model to fit clonal binomial peaks in sequencing data considering the grouping structure of the chromosomes segments. It identifies segments of the genome with specific karyotypes and mutations that meet the input criteria, then estimates the timing of the groups of events and assign each segment to a clock. The clock represents the pseudotime, where 0 is the moment the cancerous population was born and 1 is the time of the most recent common ancestor (MRCA) of the cells in the bulk sequencing sample. 
 
 ### Key Parameters
 
 - **`x`**: a CNAqc object with mutations, cna and metadata
 - **`max_attempts`**: Number of times the variational inference is repeated to avoid local minima.
 - **`INIT`**: Logical flag to pass some initialization values tothe variational inference, default is `TRURE`.
-- **`tolerance`**: tolerance between two value of subsequent iterations of gradient ascent pn elbo, default is `0.01`.
+- **`tolerance`**: tolerance between two value of subsequent iterations of gradient ascent on elbo, default is `0.01`.
 - **`possible_k`**: A character vector of possible karyotypes, defaulting to `c("2:1", "2:2", "2:0")`.
 - **`alpha`**: Significance level, defaulting to `0.05`.
 - **`min_mutations_number`**: Minimum number of mutations required for analysis, defaulting to `2`.
@@ -30,7 +30,7 @@ The `fit_h` function uses a hierarchical model to fit clonal peaks in sequencing
 The function returns a list containing:
 
 1. **`data`**: The data used to perform the inference after selecting the ones that respect the assumptions to be used in the model.
-2. **`draws_and_summary`**: List of 3 for each K the inference is performed with. draws are available both for the clocks and for the weights Summary statistics for the estimated timing of clonal peaks.
+2. **`draws_and_summary`**: List of 3 for each K the inference is performed with. Draws are available both for the clocks and for the weights Summary statistics for the estimated timing of clonal peaks.
 3. **`log_lik_matrix_list`**: Summary statistics for the estimated timing of clonal peaks.
 4. **`elbo_iterations`**: Summary statistics for the estimated timing of clonal peaks.
 
@@ -52,6 +52,9 @@ Preview the data:
 
 ```{r echo=TRUE}
 library(tickTack)
+library(patchwork)
+library(ggplot2)
+
 
 # View example dataset components
 mutations <- tickTack::pcawg_example_2$mutations
@@ -67,15 +70,16 @@ metadata
 
 We can run the `fit_h` function on the `tickTack::pcawg_example_2` data to infer the timing of clonal peaks
 
-```{r echo=TRUE, results='hide', message=FALSE}
+```{r echo=FALSE, results='hide', message=FALSE}
 # Extract input data
-data <- tickTack::pcawg_example_2
+fit <- tickTack::pcawg_example_2
 tolerance = 0.1
+fit$metadata$purity
 
 # Run the fit function
-data <- fit_h(
-  x = data,
-  max_attempts = 2,
+fit <- tickTack::fit_h(
+  x = fit,
+  max_attempts = 1,
   INIT = TRUE,
   tolerance = tolerance
 )
@@ -84,11 +88,14 @@ data <- fit_h(
 
 ### Results
 
-The `results` object that is returned together with the CNAqc input object contains four components: `data`, `draws_and_summary`, `log_lik_matrix_list` and `elbo_iterations`. 
+The `results` object that is returned together with the CNAqc input object contains four components: `data`, `draws_and_summary`, `log_lik_matrix_list` and `elbo_iterations`.
+In the `data` there are both the `input_data` passed to the Stan model and the `accepted_cna` segments that respect the selection conditions and are included in the inference.
+The `draws_and_summary` part present an object for each inference performed with the used number of components. Each of them is named by the number of components `K` used for the inference so we can access them as below.
 
 ```{r echo=TRUE}
-# View summary for a specific K, here K = 2
-results <- data$results
+# View results
+fit$results_timing$data$accepted_cna
+results <- fit$results_timing
 ```
 
 ### Interpreting the output
@@ -100,11 +107,13 @@ We can inspect the main output of interest to understand the timing of clonal pe
 - **`summarized_results`** represents the clock assignment, a tibble with the estimate of taus for each segment with a copy number event that has been included in the hierarchical inference
 
 ```{r echo=TRUE}
-# View summary for a specific K, here K = 2
-results$draws_and_summary[[2]]$summary
+# View summary for a specific K, here K = 1
+inference_with_1_component <- results$draws_and_summary[["1"]]
+inference_with_5_component <- results$draws_and_summary[["5"]]
 
-# View detailed summarized results for a specific K, here K = 2
-results$draws_and_summary[[2]]$summarized_results
+# View detailed summarized results for a specific K, here K = 1 and K = 5
+inference_with_1_component$summarized_results
+inference_with_5_component$summarized_results
 ```
 
 
@@ -117,7 +126,6 @@ results_model_selection <- tickTack::model_selection_h(results, n_components = 0
 
 best_K <- results_model_selection$best_K
 model_selection_tibble <- results_model_selection$model_selection_tibble
-entropy <- results_model_selection$entropy_list
 
 ```
 
@@ -127,7 +135,13 @@ entropy <- results_model_selection$entropy_list
 The results can be viewed is genome-wise perspective using the `tickTack::plot_timing_h` function.
 
 ```{r, fig.align='center', fig.width=6, fig.height=4}
-tickTack::plot_timing_h(results, 2)
+# fit$metadata = tibble(purity=fit$purity)
+# fit$cna <- fit$cna%>%mutate(Major_2=Major,minor_2=minor)
+library(dplyr)
+
+fit$reference_genome <- "GRCh37"
+fit$cna <- fit$cna%>%mutate(Major_2=Major,minor_2=minor)
+plot_cnaqc(fit,add_mobster=F)
 ```
 
 
