@@ -61,7 +61,7 @@ model {
 
   // priors
   phi ~ dirichlet(rep_vector(1.0, K));;
-  kappa ~ gamma(2, 0.5);                  // strictly positive with a long right tail.
+  kappa ~ gamma(1, 1);                  // strictly positive with a long right tail.
                                           // phi = expected value of w, kappa (minus K) = concentrazione della distribuzione / strength of the prior mean measured in number of prior observations.
 
   for (s in 1:S){
