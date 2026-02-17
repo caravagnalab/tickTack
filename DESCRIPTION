@@ -33,7 +33,8 @@ Imports:
     TailRank,
     tibble,
     tidyr,
-    utils
+    utils,
+    xgboost
 Remotes: 
    caravagn/mobster,
    caravagn/CNAqc
