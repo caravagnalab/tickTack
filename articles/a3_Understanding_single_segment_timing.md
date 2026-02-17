@@ -1,0 +1,176 @@
+# 3. Understanding Timing of Clonal Peaks
+
+This vignette delves into how the `tickTack` package obtains timing
+results for clonal peaks using the `fit` function. It explains the
+underlying processes, including the computation of clonal peaks and the
+Stan model used for inference.
+
+## Key Components of the Analysis
+
+The timing results are obtained in the following steps:
+
+1.  **Extracting clonal peaks**: Theoretical peaks in the Variant Allele
+    Frequency (VAF) spectrum are calculated for specific karyotypes and
+    tumor purity.
+2.  **Filtering mutations**: Mutations within confidence intervals
+    around these peaks are selected for analysis.
+3.  **Fitting the model**: Bayesian inference is performed using a Stan
+    model to estimate the timing of clonal expansions.
+
+### Step 1: Calculating Clonal Peaks
+
+The clonal peaks are calculated using the `get_clonal_peaks` function.
+The function computes the theoretical VAF peaks based on the karyotype
+and tumor purity. They are computed using the following equation:
+
+$$\text{Peak}_{i} = \frac{M_{i} \cdot P}{\left( N_{\text{tot}} \cdot P \right) + 2 \cdot (1 - P)}$$
+
+Where:
+
+- $M_{i}$: The multiplicity of the allele of interest (e.g., the major
+  allele or a single copy for heterozygosity).
+- $P$: The tumor purity (a value between 0 and 1).
+- $N_{\text{tot}}$: The total number of copies in the karyotype (e.g.,
+  sum of the major and minor alleles).
+- $2$: Accounts for the two copies in normal diploid cells.
+
+#### Explanation
+
+- The **numerator**, $M_{i} \cdot P$, represents the contribution of the
+  tumor cell’s allele multiplicity adjusted for tumor purity.
+- The **denominator**,
+  $\left( N_{\text{tot}} \cdot P \right) + 2 \cdot (1 - P)$, normalizes
+  the peak to account for contributions from both tumor and normal
+  diploid cells in the sample.
+
+#### Example Calculation
+
+For a karyotype $k = \text{2:1}$ (major allele = 2, minor allele = 1)
+and tumor purity $P = 0.4$:
+
+1.  $N_{\text{tot}} = 2 + 1 = 3$.
+
+2.  Compute peaks for $M_{i} = 1$ (single allele) and $M_{i} = 2$ (major
+    allele)
+
+    $$\text{Peak}_{1} = \frac{1 \cdot 0.4}{(3 \cdot 0.4) + 2 \cdot (1 - 0.4)} = \frac{0.4}{1.2 + 1.2} = 0.1667$$$$\text{Peak}_{2} = \frac{2 \cdot 0.4}{(3 \cdot 0.4) + 2 \cdot (1 - 0.4)} = \frac{0.8}{1.2 + 1.2} = 0.3333$$
+
+### Step 2: Filtering Mutations
+
+Once the peaks are obtained, mutations within a genomic segment are
+filtered based on whether their VAF values fall within a confidence
+interval around these peaks.
+
+The confidence intervals are computed using either:
+
+- **Binomial distribution**: for standard VAF estimation
+- **Beta-binomial distribution**: to account for overdispersion
+
+#### Filtering logic
+
+For each mutation, the number of variant reads (NV) is compared to the
+confidence interval calculated for the depth (DP) at each peak:
+
+``` r
+# Example pseudo-code for filtering
+probs <- c(alpha / 2, 1 - alpha / 2)
+for (p in peaks) {
+  quantiles <- qbinom(probs, DP, p) # or qbb for beta-binomial
+  if (NV >= quantiles[1] && NV <= quantiles[2]) {
+    # Mutation is accepted
+  }
+}
+```
+
+Only mutations passing this test are used for model fitting.
+
+### Step 3: Bayesian Inference with Stan
+
+The final step is to fit a Stan model to the filtered mutations. The
+model estimates the posterior distribution of `tau`, which represents
+the timing of clonal expansions.
+
+The stan code used for the model is divided in the following pieces.
+
+#### Data block
+
+``` r
+data {
+  int N;
+  array[N] int NV;
+  array[N] int DP;
+
+  array[2] real peaks;
+}
+```
+
+Here, the data block defines inputs that the model uses:
+
+- **N**: Total number of mutations to analyze.
+- **NV**: Number of variant reads observed for each mutation.
+- **DP**: Total sequencing depth for each mutation.
+- **peaks**: An array of two real values representing the theoretical
+  clonal peaks (e.g., 2:1 and 2:2 ratios or other hypothesized clonal
+  frequencies).
+
+#### Parameters block
+
+``` r
+parameters {
+  simplex[2] omega;
+}
+```
+
+The parameters block contains:
+
+- **omega**: A vector representing the probability contributions of each
+  theoretical peak. It follows a Dirichlet distribution (a standard
+  approach for modeling probabilities that sum to 1).
+
+#### Model block
+
+``` r
+model {
+  vector[2] contributions;
+
+  omega ~ dirichlet(rep_vector(2.0, 2));
+  
+  for (i in 1:N) {
+    for (k in 1:2) {
+      contributions[k] = log(omega[k]) + binomial_lpmf(NV[i] | DP[i], peaks[k]);
+    }
+    target += log_sum_exp(contributions);
+  }
+}
+```
+
+The `model` block contains three components:
+
+- **Prior**: The line `omega ~ dirichlet(rep_vector(2.0, 2));` applies a
+  uniform Dirichlet prior to the karyotype mixture probabilities
+  (omega). This means that we do not a priori favor one clonal peak over
+  the other unless there is data evidence.
+- **Likelihood**: The likelihood is computed using the
+  `binomial_lpmf(NV[i] | DP[i], peaks[k])` (or the Negative binomial).
+  This term computes the probability of observing `NV[i]` variant reads
+  given sequencing depth `DP[i]` and a given theoretical clonal peak
+  value `peaks[k]`.
+- **Marginalization**: The line `log_sum_exp(contributions)` computes
+  the log marginal likelihood by summing over possible contributions
+  (karyotypes) using the softmax approach, allowing the model to
+  integrate over possible karyotype contributions (`omega`).
+
+### Final Step: Conversion from `omega` to `tau`
+
+After fitting the Bayesian model, the posterior probabilities (`omega`)
+represent the contribution of theoretical clonal peaks. We convert these
+probabilities into clonal timing estimates (`tau`) using the following
+equations.
+
+For `2:1` karyotypes:
+
+$$\tau = \frac{3\omega_{2}}{2\omega_{2} + \omega_{1}}$$
+
+For `2:2` and `2:0` karyotypes:
+
+$$\tau = \frac{2\omega_{2}}{2\omega_{2} + \omega_{1}}$$

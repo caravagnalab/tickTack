@@ -382,12 +382,12 @@ with the <code>model_selection_tibble</code> and the
 <span><span class="co">## <span style="color: #00BBBB;">ℹ</span> Please use `linewidth` instead.</span></span>
 <span><span class="co">## <span style="color: #00BBBB;">ℹ</span> The deprecated feature was likely used in the <span style="color: #0000BB;">CNAqc</span> package.</span></span>
 <span><span class="co">##   Please report the issue at <span style="color: #0000BB; font-style: italic;">&lt;https://github.com/caravagnalab/CNAqc/issues&gt;</span>.</span></span>
-<span><span class="co">## <span style="color: #555555;">This warning is displayed once every 8 hours.</span></span></span>
+<span><span class="co">## <span style="color: #555555;">This warning is displayed once per session.</span></span></span>
 <span><span class="co">## <span style="color: #555555;">Call `lifecycle::last_lifecycle_warnings()` to see where this warning was</span></span></span>
 <span><span class="co">## <span style="color: #555555;">generated.</span></span></span></code></pre>
 <pre><code><span><span class="co">## Warning: Removed 17 rows containing missing values or values outside the scale range</span></span>
 <span><span class="co">## (`geom_segment()`).</span></span></code></pre>
-<p><img src="a4_Multiple_segment_timing_files/figure-html/unnamed-chunk-6-1.png" width="576" style="display: block; margin: auto;"></p>
+<p><img src="a4_Multiple_segment_timing_files/figure-html/unnamed-chunk-6-1.png" class="r-plt" alt="" width="576" style="display: block; margin: auto;"></p>
 </div>
 <div class="section level2">
 <h2 id="visualize-distributions-of-draws-from-the-approximate-posterior">Visualize distributions of draws from the approximate posterior<a class="anchor" aria-label="anchor" href="#visualize-distributions-of-draws-from-the-approximate-posterior"></a>
@@ -402,7 +402,7 @@ internally use functions from Bayesplot.</p>
 <span><span class="co">## Adding another scale for <span style="color: #00BB00;">x</span>, which will replace the existing scale.</span></span></code></pre>
 <div class="sourceCode" id="cb40"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="va">posterior_weights</span> <span class="op">&lt;-</span> <span class="fu">tickTack</span><span class="fu">::</span><span class="fu"><a href="../reference/plot_posterior_weights_h.html">plot_posterior_weights_h</a></span><span class="op">(</span><span class="va">results</span>, <span class="fl">2</span><span class="op">)</span></span></code></pre></div>
-<p><img src="a4_Multiple_segment_timing_files/figure-html/unnamed-chunk-7-1.png" width="576" style="display: block; margin: auto;"></p>
+<p><img src="a4_Multiple_segment_timing_files/figure-html/unnamed-chunk-7-1.png" class="r-plt" alt="" width="576" style="display: block; margin: auto;"></p>
 </div>
 <div class="section level2">
 <h2 id="visualize-the-behavior-of-the-elbo-during-the-inference">Visualize the behavior of the ELBO during the inference<a class="anchor" aria-label="anchor" href="#visualize-the-behavior-of-the-elbo-during-the-inference"></a>
@@ -415,7 +415,7 @@ internally use functions from Bayesplot.</p>
 <span>  <span class="va">p_elbo</span><span class="op">[[</span><span class="va">i</span><span class="op">]</span><span class="op">]</span> <span class="op">&lt;-</span> <span class="fu">tickTack</span><span class="fu">::</span><span class="fu"><a href="../reference/plot_elbo_h.html">plot_elbo_h</a></span><span class="op">(</span><span class="va">results</span><span class="op">$</span><span class="va">elbo_iterations</span><span class="op">[[</span><span class="va">i</span><span class="op">]</span><span class="op">]</span><span class="op">)</span> <span class="op">+</span> <span class="fu">ggplot2</span><span class="fu">::</span><span class="fu"><a href="https://ggplot2.tidyverse.org/reference/labs.html" class="external-link">ggtitle</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/paste.html" class="external-link">paste0</a></span><span class="op">(</span><span class="st">"K = "</span>, <span class="va">i</span><span class="op">)</span><span class="op">)</span></span>
 <span><span class="op">}</span></span>
 <span><span class="va">p_elbo</span> <span class="op">&lt;-</span> <span class="fu">gridExtra</span><span class="fu">::</span><span class="fu"><a href="https://rdrr.io/pkg/gridExtra/man/arrangeGrob.html" class="external-link">grid.arrange</a></span><span class="op">(</span>grobs <span class="op">=</span> <span class="va">p_elbo</span>, ncol <span class="op">=</span> <span class="fl">2</span><span class="op">)</span>  <span class="co">#add global title</span></span></code></pre></div>
-<p><img src="a4_Multiple_segment_timing_files/figure-html/unnamed-chunk-8-1.png" width="576" style="display: block; margin: auto;"></p>
+<p><img src="a4_Multiple_segment_timing_files/figure-html/unnamed-chunk-8-1.png" class="r-plt" alt="" width="576" style="display: block; margin: auto;"></p>
 <div class="sourceCode" id="cb42"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="va">p_elbo</span></span></code></pre></div>
 <pre><code><span><span class="co">## TableGrob (3 x 2) "arrange": 5 grobs</span></span>
@@ -443,7 +443,7 @@ internally use functions from Bayesplot.</p>
 <span>  <span class="va">plot_model_selection_inference</span><span class="op">[[</span><span class="va">i</span><span class="op">]</span><span class="op">]</span> <span class="op">&lt;-</span> <span class="fu">tickTack</span><span class="fu">::</span><span class="fu"><a href="../reference/plot_timing_h.html">plot_timing_h</a></span><span class="op">(</span><span class="va">results</span>, <span class="va">i</span><span class="op">)</span> <span class="op">+</span> <span class="fu">ggplot2</span><span class="fu">::</span><span class="fu"><a href="https://ggplot2.tidyverse.org/reference/labs.html" class="external-link">ggtitle</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/paste.html" class="external-link">paste0</a></span><span class="op">(</span><span class="st">"K = "</span>, <span class="va">i</span><span class="op">)</span><span class="op">)</span></span>
 <span><span class="op">}</span></span>
 <span><span class="va">plot_model_selection_inference</span> <span class="op">&lt;-</span> <span class="fu">gridExtra</span><span class="fu">::</span><span class="fu"><a href="https://rdrr.io/pkg/gridExtra/man/arrangeGrob.html" class="external-link">grid.arrange</a></span><span class="op">(</span>grobs <span class="op">=</span> <span class="va">plot_model_selection_inference</span>, ncol <span class="op">=</span> <span class="fl">2</span><span class="op">)</span> <span class="co">#add global title</span></span></code></pre></div>
-<p><img src="a4_Multiple_segment_timing_files/figure-html/unnamed-chunk-9-1.png" width="576" style="display: block; margin: auto;"></p>
+<p><img src="a4_Multiple_segment_timing_files/figure-html/unnamed-chunk-9-1.png" class="r-plt" alt="" width="576" style="display: block; margin: auto;"></p>
 <div class="sourceCode" id="cb45"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="va">plot_model_selection_inference</span></span></code></pre></div>
 <pre><code><span><span class="co">## TableGrob (3 x 2) "arrange": 5 grobs</span></span>
@@ -465,7 +465,7 @@ internally use functions from Bayesplot.</p>
 </div>
 
 <div class="pkgdown-footer-right">
-  <p>Site built with <a href="https://pkgdown.r-lib.org/" class="external-link">pkgdown</a> 2.1.3.</p>
+  <p>Site built with <a href="https://pkgdown.r-lib.org/" class="external-link">pkgdown</a> 2.2.0.</p>
 </div>
 
     </footer>
