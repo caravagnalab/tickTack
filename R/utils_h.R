@@ -138,7 +138,7 @@ predict_best_number_of_clusters <- function(fit, purity, coverage){
                                                   clock_ci_width = mean(.data$clock_high - .data$clock_low))
   df_single_sample <- df %>% dplyr::mutate(BIC_w = .data$BIC * 
                                              1, ICL_w = .data$ICL * 50) %>% dplyr::mutate(coverage = coverage, 
-                                                                                          purity = purity, n_cna = fit$results$data$accepted_cna %>% 
+                                                                                          purity = purity, n_cna = fit$results_timing$data$accepted_cna %>% 
                                                                                             nrow())
   data_pred <- as.matrix(df_single_sample[, features])
   df_single_sample$prob_correct <- stats::predict(model, data_pred)
