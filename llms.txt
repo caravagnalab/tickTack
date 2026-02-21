@@ -104,6 +104,8 @@ Science (CDS) Laboratory, University of Trieste, Italy.
   : pcawg_example_2
 - [`plot_cnaqc()`](https://caravagnalab.github.io/tickTack/reference/plot_cnaqc.md)
   : Plot
+- [`plot_cnaqc_choose_K()`](https://caravagnalab.github.io/tickTack/reference/plot_cnaqc_choose_K.md)
+  : Plot cnaqc choosing K
 - [`plot_elbo_h()`](https://caravagnalab.github.io/tickTack/reference/plot_elbo_h.md)
   : Plot elbo Function
 - [`plot_model_selection_h()`](https://caravagnalab.github.io/tickTack/reference/plot_model_selection_h.md)
