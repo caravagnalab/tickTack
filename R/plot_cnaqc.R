@@ -301,6 +301,129 @@ plot_cnaqc <- function(x, chromosomes = paste0('chr', c(1:22)), add_mobster=FALS
 
 
 
+#' Plot cnaqc choosing K 
+#'
+#' @param x A CNAqc object containing mutation data.
+#' @param K number of components choosen from the fit
+#' @param chromosomes A character vector of chromosome names to filter for (default: 'chr1' to 'chr22', 'X', 'Y').
+#' @param add_mobster TRUE or FALSE
+#' @param max_Y_height heiht plot
+#' @param cn type of cn 
+#' @param highlight which karyotype to highlight
+#' @param highlight_QC FALSE
+#' @return Plot.
+#' @export
+plot_cnaqc_choose_K <- function(x, K, chromosomes = paste0('chr', c(1:22)), add_mobster=FALSE, max_Y_height = 6, cn = 'absolute', highlight = x$most_prevalent_karyotype, highlight_QC = FALSE) {
+  
+  cnaqc_x = CNAqc::init(mutations = x$mutations, cna = x$cna, purity = x$metadata$purity, ref = x$reference_genome)
+  
+  plot_CNA = plot_segments_tick_tack_CN(cnaqc_x, K = K) +
+    ggplot2::theme(legend.position='right', panel.spacing = ggplot2::unit(0, "lines")) +
+    ggplot2::labs(caption = NULL) +
+    ggplot2::theme(axis.title.x = ggplot2::element_blank())
+  
+  x$reference_genome = "hg38"
+  data_plot <- plot_segments_tick_tack_data(x, K = K) +
+    ggplot2::theme(legend.position='right',panel.spacing = ggplot2::unit(0, "lines")) +
+    ggplot2::theme(axis.title.x = ggplot2::element_blank())
+  
+  timing_plot <- plot_segments_tick_tack(x, colour_by = "clock_mean", K = K) +
+    ggplot2::theme(legend.position='right',panel.spacing = ggplot2::unit(0, "lines"))
+  
+  if(add_mobster){
+    vaf_plot <- plot_vaf(x, K) +
+      ggplot2::theme(plot.background = ggplot2::element_rect(fill = "white", color = "white", size = 20))
+    
+    # segment_plot <- plot_segments_h(x, chromosomes, max_Y_height, cn, highlight, highlight_QC) +
+    #   ggplot2::theme(axis.title.x = element_blank())  # Keep chromosome labels only on this plot
+    
+    pA = timing_plot + CNAqc:::my_ggplot_theme() +
+      ggplot2::theme(
+        axis.ticks = ggplot2::element_blank(),
+        axis.title.x = ggplot2::element_blank(),
+        axis.text.x = ggplot2::element_blank(),
+        legend.position = "left"
+      )
+    pB = plot_CNA + CNAqc:::my_ggplot_theme() +
+      ggplot2::theme(
+        axis.ticks = ggplot2::element_blank(),
+        axis.title.x = ggplot2::element_blank(),
+        axis.text.x = ggplot2::element_blank(),
+        legend.position = "left"
+      )
+    pC = data_plot + CNAqc:::my_ggplot_theme() +
+      ggplot2::theme(legend.position = "left") +
+      ggplot2::labs(y = "VAF")
+    pD = vaf_plot + CNAqc:::my_ggplot_theme()
+    
+    des_left = "
+  AAAA#
+  AAAAE
+  AAAAE
+  AAAAE
+  AAAAE
+  BBBBE
+  BBBBE
+  BBBBE
+  CCCCE
+  CCCCE
+  DDDDD"
+    
+    pp = pA + pB + pC + patchwork::guide_area() + pD +
+      patchwork::plot_layout(design = des_left, guides = "collect") &
+      ggplot2::theme(legend.position = "bottom", legend.direction = "horizontal")
+    pp
+  } else {
+    
+    # segment_plot <- plot_segments_h(x, chromosomes, max_Y_height, cn, highlight, highlight_QC) +
+    #   ggplot2::theme(axis.title.x = element_blank())  # Keep chromosome labels only on this plot
+    
+    pA = timing_plot + CNAqc:::my_ggplot_theme() +
+      ggplot2::theme(
+        axis.ticks = ggplot2::element_blank(),
+        axis.title.x = ggplot2::element_blank(),
+        axis.text.x = ggplot2::element_blank(),
+        legend.position = "left"
+      )
+    pB = plot_CNA + CNAqc:::my_ggplot_theme() +
+      ggplot2::theme(
+        axis.ticks = ggplot2::element_blank(),
+        axis.title.x = ggplot2::element_blank(),
+        axis.text.x = ggplot2::element_blank(),
+        legend.position = "left"
+      )
+    pC = data_plot + CNAqc:::my_ggplot_theme() +
+      ggplot2::theme(legend.position = "left") +
+      ggplot2::labs(y = "VAF")
+    pD = ggplot2::ggplot() + ggplot2::theme_void() + CNAqc:::my_ggplot_theme()
+    
+    des_left = "
+  AAAA#
+  AAAAE
+  AAAAE
+  AAAAE
+  AAAAE
+  BBBBE
+  BBBBE
+  BBBBE
+  CCCCE
+  CCCCE
+  DDDDD"
+    
+    pp = pA + pB + pC + patchwork::guide_area() + pD +
+      patchwork::plot_layout(design = des_left, guides = "collect") &
+      ggplot2::theme(legend.position = "bottom", legend.direction = "horizontal")
+    pp
+  }
+  
+}
+
+
+
+
+
+
+
 
 
 #' Plot segmentation results from tickTack analysis
