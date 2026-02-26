@@ -113,7 +113,7 @@ CNA = function(x, type = c("clonal", "subclonal"))
 
 predict_best_number_of_clusters <- function(fit, purity, coverage){
   
-  model_path <- system.file("xgboost", "model.bin", 
+  model_path <- system.file("xgboost", "model_xgboost.bin", 
                             package = "tickTack", mustWork = TRUE)
   model <- xgboost::xgb.load(model_path)
   features <- c("BIC_w", "ICL_w", "rank_AIC", "rank_ICL", "rank_LOO", 
