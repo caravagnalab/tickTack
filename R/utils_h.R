@@ -116,11 +116,14 @@ predict_best_number_of_clusters <- function(fit, purity, coverage){
   model_path <- system.file("xgboost", "model_xgboost.bin", 
                             package = "tickTack", mustWork = TRUE)
   model <- xgboost::xgb.load(model_path)
-  features <- c("BIC_w", "ICL_w", "rank_AIC", "rank_ICL", "rank_LOO", 
-                "rank_BIC", "ICL", "LOO", "AIC", "BIC", "mean_cluster_separation", 
-                "mean_cluster_overlap", "min_cluster_separation", "max_cluster_overlap", 
-                "mean_density_mut", "mutations_density", "coverage", 
-                "purity", "n_cna", "clock_sd", "clock_range", "clock_ci_width")
+  features <- c("BIC_w", "ICL_w", "rank_AIC","rank_ICL","rank_LOO", "rank_BIC", 
+                "mean_cluster_separation","mean_cluster_overlap",
+                "min_cluster_separation","max_cluster_overlap",
+                "mean_density_mut",
+                "coverage","purity","n_cna", "clock_sd", 
+                "clock_range", "clock_ci_width"
+  )
+  
   tbl_info <- process_file_prediction(fit)
   df <- tbl_info %>% dplyr::mutate(mutations_density = .data$mean_density_mut) %>% 
     dplyr::mutate(min_AIC = min(.data$AIC), min_BIC = min(.data$BIC), 
