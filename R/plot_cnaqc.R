@@ -176,6 +176,7 @@ add_drivers_to_segment_plot = function(x, drivers_list, base_plot)
 }
 
 
+# the x given in input must contain the x$reference_genome info
 
 #' Plot 
 #'
@@ -202,7 +203,6 @@ plot_cnaqc <- function(x, chromosomes = paste0('chr', c(1:22)), add_mobster=FALS
     ggplot2::labs(caption = NULL) +
     ggplot2::theme(axis.title.x = ggplot2::element_blank())
   
-  x$reference_genome = "hg38"
   data_plot <- plot_segments_tick_tack_data(x, K = K) +
     ggplot2::theme(legend.position='right',panel.spacing = ggplot2::unit(0, "lines")) +
     ggplot2::theme(axis.title.x = ggplot2::element_blank())
@@ -299,7 +299,7 @@ plot_cnaqc <- function(x, chromosomes = paste0('chr', c(1:22)), add_mobster=FALS
 }
 
 
-
+# the x given in input must contain the x$reference_genome info
 
 #' Plot cnaqc choosing K 
 #'
@@ -322,7 +322,6 @@ plot_cnaqc_choose_K <- function(x, K, chromosomes = paste0('chr', c(1:22)), add_
     ggplot2::labs(caption = NULL) +
     ggplot2::theme(axis.title.x = ggplot2::element_blank())
   
-  x$reference_genome = "hg38"
   data_plot <- plot_segments_tick_tack_data(x, K = K) +
     ggplot2::theme(legend.position='right',panel.spacing = ggplot2::unit(0, "lines")) +
     ggplot2::theme(axis.title.x = ggplot2::element_blank())
@@ -482,7 +481,7 @@ plot_segments_tick_tack <- function(x, colour_by = "clock_mean", K = 1) {
   
   my_palette <- c(  "#66a61e",  "#7570b3", "#e7298a", "#1b9e77", "#d95f02")
   
-  p <- CNAqc:::blank_genome('hg19',chromosomes = paste0("chr", c(1:22)))+
+  p <- CNAqc:::blank_genome(reference_genome,chromosomes = paste0("chr", c(1:22)))+
     ggplot2::geom_segment(
       data = summarized_results,
       ggplot2::aes(
