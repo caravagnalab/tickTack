@@ -45,6 +45,8 @@ docs/
 # translation temp files
 po/*~
 
+CLAUDE.md
+
 # RStudio Connect folder
 rsconnect/
 .Rproj.user

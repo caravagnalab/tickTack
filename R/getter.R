@@ -5,7 +5,8 @@ get_model <- function(model_name) {
     "timing_binomial" = "mixture_CNA_timing_binomial.stan",
     "timing" = "mixture_CNA_timing.stan",
     "clustering" = "clustering.stan",
-    "hierarchical" = "timing_mixed_simple.stan"
+    "hierarchical" = "timing_mixed_simple.stan",
+    "tickTack" = "tickTackmixture.stan"
   )
 
   if (!(model_name) %in% names(all_paths)) stop("model_name not recognized")
