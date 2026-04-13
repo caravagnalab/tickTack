@@ -24,6 +24,8 @@
   : Get the fit to obtain the clocks posteriors
 - [`fit_h_single_k()`](https://caravagnalab.github.io/tickTack/reference/fit_h_single_k.md)
   : Get the fit to obtain the clocks posteriors
+- [`fit_tickTack()`](https://caravagnalab.github.io/tickTack/reference/fit_tickTack.md)
+  : Fit the tickTack Model for Timing CNA Events
 - [`fit_variational_h()`](https://caravagnalab.github.io/tickTack/reference/fit_variational_h.md)
   : fit_variational Function
 - [`get_clonal_peaks()`](https://caravagnalab.github.io/tickTack/reference/get_clonal_peaks.md)

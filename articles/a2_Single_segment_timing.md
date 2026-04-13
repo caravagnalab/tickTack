@@ -70,41 +70,38 @@ metadata <- tickTack::pcawg_example$metadata
 head(mutations)
 ```
 
-    ##    chr    from      to ref alt  DP NV       VAF
-    ## 1 chr1 1015594 1015594   C   C  99 16 0.1616162
-    ## 2 chr1 1866371 1866371   C   C 250 67 0.2680000
-    ## 3 chr1 1921712 1921712   C   C  62 20 0.3225806
-    ## 4 chr1 2049858 2049858   G   G 118 15 0.1271186
-    ## 5 chr1 2357842 2357842   C   C  84 12 0.1428571
-    ## 6 chr1 2771915 2771915   G   G  90 27 0.3000000
-    ##                                 sample
-    ## 1 00db1b95-8ca3-4cc4-bb46-6b8c8019a7c7
-    ## 2 00db1b95-8ca3-4cc4-bb46-6b8c8019a7c7
-    ## 3 00db1b95-8ca3-4cc4-bb46-6b8c8019a7c7
-    ## 4 00db1b95-8ca3-4cc4-bb46-6b8c8019a7c7
-    ## 5 00db1b95-8ca3-4cc4-bb46-6b8c8019a7c7
-    ## 6 00db1b95-8ca3-4cc4-bb46-6b8c8019a7c7
+    ## # A tibble: 6 × 9
+    ##   chr      from      to ref   alt      DP    NV   VAF sample                    
+    ##   <chr>   <dbl>   <dbl> <chr> <chr> <dbl> <dbl> <dbl> <chr>                     
+    ## 1 chr1  1015594 1015594 C     C        99    16 0.162 00db1b95-8ca3-4cc4-bb46-6…
+    ## 2 chr1  1866371 1866371 C     C       250    67 0.268 00db1b95-8ca3-4cc4-bb46-6…
+    ## 3 chr1  1921712 1921712 C     C        62    20 0.323 00db1b95-8ca3-4cc4-bb46-6…
+    ## 4 chr1  2049858 2049858 G     G       118    15 0.127 00db1b95-8ca3-4cc4-bb46-6…
+    ## 5 chr1  2357842 2357842 C     C        84    12 0.143 00db1b95-8ca3-4cc4-bb46-6…
+    ## 6 chr1  2771915 2771915 G     G        90    27 0.3   00db1b95-8ca3-4cc4-bb46-6…
 
 ``` r
 head(cna)
 ```
 
-    ##    chr     from        to Major minor       CCF total_cn
-    ## 1 chr1    10001    790008     2     2 1.0000000        4
-    ## 2 chr1   790009  13212499     2     2 1.0000000        4
-    ## 3 chr1 13212500  33458785     2     2 1.0000000        4
-    ## 4 chr1 33458786  33564126     2     2 0.1943769        4
-    ## 5 chr1 33564127  56834601     2     2 1.0000000        4
-    ## 6 chr1 56834602 121499999     2     2 1.0000000        4
+    ## # A tibble: 6 × 7
+    ##   chr       from        to Major minor   CCF total_cn
+    ##   <chr>    <dbl>     <dbl> <dbl> <dbl> <dbl>    <dbl>
+    ## 1 chr1     10001    790008     2     2 1            4
+    ## 2 chr1    790009  13212499     2     2 1            4
+    ## 3 chr1  13212500  33458785     2     2 1            4
+    ## 4 chr1  33458786  33564126     2     2 0.194        4
+    ## 5 chr1  33564127  56834601     2     2 1            4
+    ## 6 chr1  56834602 121499999     2     2 1            4
 
 ``` r
 metadata
 ```
 
-    ##                                 sample purity ploidy purity_conf_mad wgd_status
-    ## 1 00db1b95-8ca3-4cc4-bb46-6b8c8019a7c7  0.406  4.082           0.009        wgd
-    ##   wgd_uncertain
-    ## 1         FALSE
+    ## # A tibble: 1 × 6
+    ##   sample                  purity ploidy purity_conf_mad wgd_status wgd_uncertain
+    ##   <chr>                    <dbl>  <dbl>           <dbl> <chr>      <lgl>        
+    ## 1 00db1b95-8ca3-4cc4-bb4…  0.406   4.08           0.009 wgd        FALSE
 
 ### Running the `fit` function
 
