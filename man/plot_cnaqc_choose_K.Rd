@@ -8,7 +8,8 @@ plot_cnaqc_choose_K(
   x,
   K,
   chromosomes = paste0("chr", c(1:22)),
-  add_mobster = FALSE,
+  add_VAF_hist = FALSE,
+  add_VAF_ecdf = FALSE,
   max_Y_height = 6,
   cn = "absolute",
   highlight = x$most_prevalent_karyotype,
@@ -22,7 +23,9 @@ plot_cnaqc_choose_K(
 
 \item{chromosomes}{A character vector of chromosome names to filter for (default: 'chr1' to 'chr22', 'X', 'Y').}
 
-\item{add_mobster}{TRUE or FALSE}
+\item{add_VAF_hist}{TRUE or FALSE}
+
+\item{add_VAF_ecdf}{TRUE or FALSE}
 
 \item{max_Y_height}{heiht plot}
 

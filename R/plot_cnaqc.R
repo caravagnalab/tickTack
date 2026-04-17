@@ -306,14 +306,17 @@ plot_cnaqc <- function(x, chromosomes = paste0('chr', c(1:22)), add_mobster=FALS
 #' @param x A CNAqc object containing mutation data.
 #' @param K number of components choosen from the fit
 #' @param chromosomes A character vector of chromosome names to filter for (default: 'chr1' to 'chr22', 'X', 'Y').
-#' @param add_mobster TRUE or FALSE
+#' @param add_VAF_hist TRUE or FALSE
+#' @param add_VAF_ecdf TRUE or FALSE
 #' @param max_Y_height heiht plot
 #' @param cn type of cn
 #' @param highlight which karyotype to highlight
 #' @param highlight_QC FALSE
 #' @return Plot.
 #' @export
-plot_cnaqc_choose_K <- function(x, K, chromosomes = paste0('chr', c(1:22)), add_mobster=FALSE, max_Y_height = 6, cn = 'absolute', highlight = x$most_prevalent_karyotype, highlight_QC = FALSE) {
+plot_cnaqc_choose_K <- function(x, K, chromosomes = paste0('chr', c(1:22)), add_VAF_hist = FALSE, add_VAF_ecdf = FALSE,max_Y_height = 6, cn = 'absolute', highlight = x$most_prevalent_karyotype, highlight_QC = FALSE) {
+
+  if (add_VAF_ecdf & add_VAF_hist) stop("Only one between 'add_VAF_ecdf' and 'add_VAF_hist' can be TRUE")
 
   cnaqc_x = CNAqc::init(mutations = x$mutations, cna = x$cna, purity = x$metadata$purity, ref = x$reference_genome)
 
@@ -331,9 +334,11 @@ plot_cnaqc_choose_K <- function(x, K, chromosomes = paste0('chr', c(1:22)), add_
 
   my_palette <- c(  "#66a61e",  "#7570b3", "#e7298a", "#1b9e77", "#d95f02")
 
-  if(add_mobster){
-    vaf_plot = plot_vaf_mobsterlike(x, K) +
-      ggplot2::scale_fill_manual(values = my_palette)
+  if (add_VAF_ecdf | add_VAF_hist) {
+    if (add_VAF_ecdf) vaf_plot = plot_vaf_ecdf(x, K)
+    if (add_VAF_hist) vaf_plot = plot_vaf_mobsterlike(x, K)
+
+    vaf_plot = vaf_plot + ggplot2::scale_fill_manual(values = my_palette) + ggplot2::scale_color_manual(values = my_palette)
 
     # segment_plot <- plot_segments_h(x, chromosomes, max_Y_height, cn, highlight, highlight_QC) +
     #   ggplot2::theme(axis.title.x = element_blank())  # Keep chromosome labels only on this plot
