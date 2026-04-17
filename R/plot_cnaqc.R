@@ -329,9 +329,11 @@ plot_cnaqc_choose_K <- function(x, K, chromosomes = paste0('chr', c(1:22)), add_
   timing_plot <- plot_segments_tick_tack(x, colour_by = "clock_mean", K = K) +
     ggplot2::theme(legend.position='right',panel.spacing = ggplot2::unit(0, "lines"))
 
+  my_palette <- c(  "#66a61e",  "#7570b3", "#e7298a", "#1b9e77", "#d95f02")
+
   if(add_mobster){
-    vaf_plot <- plot_vaf(x, K) +
-      ggplot2::theme(plot.background = ggplot2::element_rect(fill = "white", color = "white", size = 20))
+    vaf_plot = plot_vaf_mobsterlike(x, K) +
+      ggplot2::scale_fill_manual(values = my_palette)
 
     # segment_plot <- plot_segments_h(x, chromosomes, max_Y_height, cn, highlight, highlight_QC) +
     #   ggplot2::theme(axis.title.x = element_blank())  # Keep chromosome labels only on this plot
