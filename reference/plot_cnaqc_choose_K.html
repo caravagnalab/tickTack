@@ -50,7 +50,8 @@
 <span>  <span class="va">x</span>,</span>
 <span>  <span class="va">K</span>,</span>
 <span>  chromosomes <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/paste.html" class="external-link">paste0</a></span><span class="op">(</span><span class="st">"chr"</span>, <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="fl">1</span><span class="op">:</span><span class="fl">22</span><span class="op">)</span><span class="op">)</span>,</span>
-<span>  add_mobster <span class="op">=</span> <span class="cn">FALSE</span>,</span>
+<span>  add_VAF_hist <span class="op">=</span> <span class="cn">FALSE</span>,</span>
+<span>  add_VAF_ecdf <span class="op">=</span> <span class="cn">FALSE</span>,</span>
 <span>  max_Y_height <span class="op">=</span> <span class="fl">6</span>,</span>
 <span>  cn <span class="op">=</span> <span class="st">"absolute"</span>,</span>
 <span>  highlight <span class="op">=</span> <span class="va">x</span><span class="op">$</span><span class="va">most_prevalent_karyotype</span>,</span>
@@ -74,7 +75,11 @@
 <dd><p>A character vector of chromosome names to filter for (default: 'chr1' to 'chr22', 'X', 'Y').</p></dd>
 
 
-<dt id="arg-add-mobster">add_mobster<a class="anchor" aria-label="anchor" href="#arg-add-mobster"></a></dt>
+<dt id="arg-add-vaf-hist">add_VAF_hist<a class="anchor" aria-label="anchor" href="#arg-add-vaf-hist"></a></dt>
+<dd><p>TRUE or FALSE</p></dd>
+
+
+<dt id="arg-add-vaf-ecdf">add_VAF_ecdf<a class="anchor" aria-label="anchor" href="#arg-add-vaf-ecdf"></a></dt>
 <dd><p>TRUE or FALSE</p></dd>
 
 
