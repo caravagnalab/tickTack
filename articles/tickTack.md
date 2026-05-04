@@ -20,7 +20,7 @@ supported in CNAqc.
 
 - time the genomic segments affected by a Copy Number event, obtaining
   one clock per segment
-- time multiple CNAs in a hierarchical fashion, identifying $K$ clocks
+- time multiple CNAs in a hierarchical fashion, identifying $`K`$ clocks
   that cluster some segemnts together.
 
 The following concepts are used to infer copy number timing.
@@ -43,50 +43,60 @@ quantities need to be considered:
 problem](img/Mutations_single_double_copy_draw_process.png)  
 
 In the case of a trisomy without LOH, we can consider the fact that,
-before $\tau$, 1 chromosome will accumulate mutations that will
+before $`\tau`$, 1 chromosome will accumulate mutations that will
 duplicate, while the other will accumulate mutations that will remain in
-single copy. On the other hand, after $\tau$, both chromosomes will
+single copy. On the other hand, after $`\tau`$, both chromosomes will
 accumulate mutations which will remain in single copy. Therefore one can
 write the system:
 
-$$\begin{array}{r}
-\left\{ \begin{array}{l}
-{N_{2} = \rho\tau N_{1} = \rho\tau + 3\rho(1 - \tau)}
-\end{array} \right.
-\end{array}$$
+``` math
+\begin{align}
+    \begin{cases}
+        N_2 = \rho \tau  
+        N_1 = \rho \tau + 3\rho(1 - \tau) \nonumber 
+    \end{cases}
+\end{align}
+```
 
-Using the first one to obtain $\rho$ and inserting into the second one,
-the solution for $\tau$ becomes:
+Using the first one to obtain $`\rho`$ and inserting into the second
+one, the solution for $`\tau`$ becomes:
 
 \$\$ N_1 = N_2 + \frac{3N_2}{\tau}(1-\tau) \hspace{2mm} \rightarrow
 \hspace{2mm} N_1 + 2N_2 = \frac{3N_2}{\tau} \hspace{2mm} \rightarrow
 \hspace{2mm} \tau = \frac{3N_2}{N_1 + 2N_2} \$\$
 
 The case of the CNLOH and of the segment doubling can be treated
-together. In fact, in the first case, before $\tau$ the mutations that
-will duplicate accumulate on a single chromosome and after $\tau$ the
+together. In fact, in the first case, before $`\tau`$ the mutations that
+will duplicate accumulate on a single chromosome and after $`\tau`$ the
 mutations that will remain in a single copy accumulate on two
 chromosomes. The system therefore becomes:
 
-$$\begin{array}{r}
-\left\{ \begin{array}{l}
-{N_{2} = \rho\tau N_{1} = 2\rho(1 - \tau)}
-\end{array} \right.
-\end{array}$$
+``` math
+\begin{align}
+    \begin{cases}
+        N_2 = \rho \tau  
+        N_1 = 2\rho(1 - \tau) \nonumber 
+    \end{cases}
+\end{align}
+```
 
 A very similar things happens in the case of the 2:2, with the only
 difference that the number of chromosomes accumulating a certain type of
-mutation will be double, both after and before $\tau$. Hence, the system
-becomes:
+mutation will be double, both after and before $`\tau`$. Hence, the
+system becomes:
 
-$$\begin{array}{r}
-\left\{ \begin{array}{l}
-{N_{2} = 2\rho\tau N_{1} = 4\rho(1 - \tau)}
-\end{array} \right.
-\end{array}$$
+``` math
+\begin{align}
+    \begin{cases}
+        N_2 = 2\rho \tau  
+        N_1 = 4\rho(1 - \tau) \nonumber 
+    \end{cases}
+\end{align}
+```
 
 Therefore, the two system can be solved similarly (you can simply drop a
-factor of 2 in the second case). The solution for $\tau$ easily becomes:
+factor of 2 in the second case). The solution for $`\tau`$ easily
+becomes:
 
 \$\$ N_1 = \frac{2N_2(1-\tau)}{\tau} \hspace{2mm} \rightarrow
 \hspace{2mm} \tau(N_1 + 2N_2) = 2N_2 \hspace{2mm} \rightarrow
@@ -96,13 +106,16 @@ factor of 2 in the second case). The solution for $\tau$ easily becomes:
 
 Consider:
 
-- mutations sitting on a segment $nA:nB$;
-- tumour purity $\pi$;
+- mutations sitting on a segment $`nA:nB`$;
+- tumour purity $`\pi`$;
 - a healthy diploid normal;
 
-Since the proportion of all reads from the tumour is
-$\pi\left( n_{A} + n_{B} \right)$, and from the normal is $2(1 - \pi)$.
-Then, muations present in $m$ copies of the tumour genome should peak at
-VAF value
+Since the proportion of all reads from the tumour is $`\pi(n_A+n_B)`$,
+and from the normal is $`2(1-\pi)`$. Then, muations present in $`m`$
+copies of the tumour genome should peak at VAF value
 
-$$v_{m}(c) = \frac{m\pi c}{2(1 - \pi) + \pi\left( n_{A} + n_{B} \right)}$$
+``` math
+v_m(c) = \dfrac{m \pi c}{
+2 (1 - \pi) + \pi (n_A+n_B)
+}
+```

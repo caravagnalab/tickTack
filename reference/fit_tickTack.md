@@ -17,7 +17,8 @@ fit_tickTack(
   min_mutations_number = 10,
   max_distance_smooth = 5e+06,
   min_segment_length = 1e+06,
-  n_components = NULL
+  n_components = NULL,
+  local_executable = FALSE
 )
 ```
 

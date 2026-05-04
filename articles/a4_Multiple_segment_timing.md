@@ -72,6 +72,7 @@ dataset contains three components:
 Preview the data:
 
 ``` r
+
 library(tickTack)
 library(patchwork)
 library(ggplot2)
@@ -103,6 +104,7 @@ head(mutations)
     ## #   i_NORMALPANEL <lgl>, i_NumCallers <dbl>, i_OXOGFAIL <lgl>, …
 
 ``` r
+
 head(cna)
 ```
 
@@ -124,6 +126,7 @@ head(cna)
     ## #   battenberg_frac2_A <dbl>, battenberg_SDfrac_A <dbl>, …
 
 ``` r
+
 metadata
 ```
 
@@ -151,6 +154,7 @@ named by the number of components `K` used for the inference so we can
 access them as below.
 
 ``` r
+
 # View results
 fit$results_timing$data$accepted_cna
 ```
@@ -170,6 +174,7 @@ fit$results_timing$data$accepted_cna
     ## 10                    58 chr7_61700000_158817500         10 2:1       chr7
 
 ``` r
+
 results <- fit$results_timing
 ```
 
@@ -185,6 +190,7 @@ each segment with a copy number event that has been included in the
 hierarchical inference
 
 ``` r
+
 # View summary for a specific K, here K = 1
 inference_with_1_component <- results$draws_and_summary[["1"]]
 inference_with_5_component <- results$draws_and_summary[["5"]]
@@ -210,6 +216,7 @@ inference_with_1_component$summarized_results
     ## #   beta <dbl>
 
 ``` r
+
 inference_with_5_component$summarized_results
 ```
 
@@ -240,6 +247,7 @@ together with the `model_selection_tibble` and the `entropy_list` used
 to evaluate the ICL score.
 
 ``` r
+
 results_model_selection <- tickTack::model_selection_h(results, n_components = 0)
 ```
 
@@ -249,6 +257,7 @@ results_model_selection <- tickTack::model_selection_h(results, n_components = 0
     ## Warning: Some Pareto k diagnostic values are too high. See help('pareto-k-diagnostic') for details.
 
 ``` r
+
 best_K <- results_model_selection$best_K
 model_selection_tibble <- results_model_selection$model_selection_tibble
 ```
@@ -260,6 +269,7 @@ The results can be viewed is genome-wise perspective using the
 function.
 
 ``` r
+
 # fit$metadata = tibble(purity=fit$purity)
 # fit$cna <- fit$cna%>%mutate(Major_2=Major,minor_2=minor)
 library(dplyr)
@@ -277,6 +287,7 @@ library(dplyr)
     ##     intersect, setdiff, setequal, union
 
 ``` r
+
 fit$reference_genome <- "GRCh37"
 fit$cna <- fit$cna%>%mutate(Major_2=Major,minor_2=minor)
 plot_cnaqc(fit,add_mobster=F)
@@ -335,6 +346,7 @@ and
 functions, that internally use functions from Bayesplot.
 
 ``` r
+
 posterior_clocks <- tickTack::plot_posterior_clocks_h(results, 2)
 ```
 
@@ -342,6 +354,7 @@ posterior_clocks <- tickTack::plot_posterior_clocks_h(results, 2)
     ## Adding another scale for x, which will replace the existing scale.
 
 ``` r
+
 posterior_weights <- tickTack::plot_posterior_weights_h(results, 2)
 ```
 
@@ -350,6 +363,7 @@ posterior_weights <- tickTack::plot_posterior_weights_h(results, 2)
 ## Visualize the behavior of the ELBO during the inference
 
 ``` r
+
 K = nrow(results_model_selection$model_selection_tibble)
 
 p_elbo <- list()
@@ -362,6 +376,7 @@ p_elbo <- gridExtra::grid.arrange(grobs = p_elbo, ncol = 2)  #add global title
 ![](a4_Multiple_segment_timing_files/figure-html/unnamed-chunk-8-1.png)
 
 ``` r
+
 p_elbo
 ```
 
@@ -376,6 +391,7 @@ p_elbo
 ## Visualize all the inference results for each K
 
 ``` r
+
 plot_model_selection_inference <- list()
 for (i in 1:K){
   plot_model_selection_inference[[i]] <- tickTack::plot_timing_h(results, i) + ggplot2::ggtitle(paste0("K = ", i))
@@ -386,6 +402,7 @@ plot_model_selection_inference <- gridExtra::grid.arrange(grobs = plot_model_sel
 ![](a4_Multiple_segment_timing_files/figure-html/unnamed-chunk-9-1.png)
 
 ``` r
+
 plot_model_selection_inference
 ```
 

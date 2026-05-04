@@ -23,37 +23,43 @@ The clonal peaks are calculated using the `get_clonal_peaks` function.
 The function computes the theoretical VAF peaks based on the karyotype
 and tumor purity. They are computed using the following equation:
 
-$$\text{Peak}_{i} = \frac{M_{i} \cdot P}{\left( N_{\text{tot}} \cdot P \right) + 2 \cdot (1 - P)}$$
+``` math
+\text{Peak}_i = \frac{M_i \cdot P}{(N_{\text{tot}} \cdot P) + 2 \cdot (1 - P)}
+```
 
 Where:
 
-- $M_{i}$: The multiplicity of the allele of interest (e.g., the major
+- $`M_i`$: The multiplicity of the allele of interest (e.g., the major
   allele or a single copy for heterozygosity).
-- $P$: The tumor purity (a value between 0 and 1).
-- $N_{\text{tot}}$: The total number of copies in the karyotype (e.g.,
+- $`P`$: The tumor purity (a value between 0 and 1).
+- $`N_{\text{tot}}`$: The total number of copies in the karyotype (e.g.,
   sum of the major and minor alleles).
-- $2$: Accounts for the two copies in normal diploid cells.
+- $`2`$: Accounts for the two copies in normal diploid cells.
 
 #### Explanation
 
-- The **numerator**, $M_{i} \cdot P$, represents the contribution of the
+- The **numerator**, $`M_i \cdot P`$, represents the contribution of the
   tumor cell’s allele multiplicity adjusted for tumor purity.
-- The **denominator**,
-  $\left( N_{\text{tot}} \cdot P \right) + 2 \cdot (1 - P)$, normalizes
-  the peak to account for contributions from both tumor and normal
-  diploid cells in the sample.
+- The **denominator**, $`(N_{\text{tot}} \cdot P) + 2 \cdot (1 - P)`$,
+  normalizes the peak to account for contributions from both tumor and
+  normal diploid cells in the sample.
 
 #### Example Calculation
 
-For a karyotype $k = \text{2:1}$ (major allele = 2, minor allele = 1)
-and tumor purity $P = 0.4$:
+For a karyotype $`k = \text{2:1}`$ (major allele = 2, minor allele = 1)
+and tumor purity $`P = 0.4`$:
 
-1.  $N_{\text{tot}} = 2 + 1 = 3$.
+1.  $`N_{\text{tot}} = 2 + 1 = 3`$.
 
-2.  Compute peaks for $M_{i} = 1$ (single allele) and $M_{i} = 2$ (major
+2.  Compute peaks for $`M_i = 1`$ (single allele) and $`M_i = 2`$ (major
     allele)
 
-    $$\text{Peak}_{1} = \frac{1 \cdot 0.4}{(3 \cdot 0.4) + 2 \cdot (1 - 0.4)} = \frac{0.4}{1.2 + 1.2} = 0.1667$$$$\text{Peak}_{2} = \frac{2 \cdot 0.4}{(3 \cdot 0.4) + 2 \cdot (1 - 0.4)} = \frac{0.8}{1.2 + 1.2} = 0.3333$$
+    ``` math
+    \text{Peak}_1 = \frac{1 \cdot 0.4}{(3 \cdot 0.4) + 2 \cdot (1 - 0.4)} = \frac{0.4}{1.2 + 1.2} = 0.1667
+    ```
+    ``` math
+    \text{Peak}_2 = \frac{2 \cdot 0.4}{(3 \cdot 0.4) + 2 \cdot (1 - 0.4)} = \frac{0.8}{1.2 + 1.2} = 0.3333
+    ```
 
 ### Step 2: Filtering Mutations
 
@@ -72,6 +78,7 @@ For each mutation, the number of variant reads (NV) is compared to the
 confidence interval calculated for the depth (DP) at each peak:
 
 ``` r
+
 # Example pseudo-code for filtering
 probs <- c(alpha / 2, 1 - alpha / 2)
 for (p in peaks) {
@@ -169,8 +176,12 @@ equations.
 
 For `2:1` karyotypes:
 
-$$\tau = \frac{3\omega_{2}}{2\omega_{2} + \omega_{1}}$$
+``` math
+\tau = \frac{3\omega_2}{2\omega_2 + \omega_1}
+```
 
 For `2:2` and `2:0` karyotypes:
 
-$$\tau = \frac{2\omega_{2}}{2\omega_{2} + \omega_{1}}$$
+``` math
+\tau = \frac{2\omega_2}{2\omega_2 + \omega_1}
+```

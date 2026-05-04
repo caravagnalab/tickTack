@@ -1,6 +1,7 @@
 # 1. Introduction
 
 ``` r
+
 library(tickTack)
 require(dplyr)
 #> Loading required package: dplyr
@@ -43,6 +44,7 @@ columns:
 For example, the first few rows of `mutations` look like this:
 
 ``` r
+
 tickTack::pcawg_example$mutations %>% head()
 #> # A tibble: 6 × 9
 #>   chr      from      to ref   alt      DP    NV   VAF sample                    
@@ -71,6 +73,7 @@ with the following columns:
 Here is the preview of the `cna` data:
 
 ``` r
+
 tickTack::pcawg_example$cna %>% head()
 #> # A tibble: 6 × 7
 #>   chr       from        to Major minor   CCF total_cn
@@ -101,6 +104,7 @@ information, with the following columns:
 An example of the `metadata is shown below`:
 
 ``` r
+
 tickTack::pcawg_example$metadata
 #> # A tibble: 1 × 6
 #>   sample                  purity ploidy purity_conf_mad wgd_status wgd_uncertain
@@ -146,10 +150,10 @@ Only **clonal CNAs** with specific configurations can be timed:
 tickTack uses a genome coordinates reference system to convert relative
 relative to absolute coordinates, a step required to plot segments
 across the whole genome. For instance, if a mutation maps to position
-$100$ of chromosome `chr2`, its absolute coordinate is $100 + L$ where
-$L$ is the length of `chr1`. The reference system adopted by tickTack
-needs therefore to report the length of each chromosome, plus the
-information regarding the boundary of each centromere.
+$`100`$ of chromosome `chr2`, its absolute coordinate is $`100 + L`$
+where $`L`$ is the length of `chr1`. The reference system adopted by
+tickTack needs therefore to report the length of each chromosome, plus
+the information regarding the boundary of each centromere.
 
 > Note: mapping of mutations onto segments is independent of the
 > reference genome, and it will work as far as both mutation and CNA
@@ -163,6 +167,7 @@ tickTack supports two coordinates reference genomes:
 for which two dataframes are stored inside the package.
 
 ``` r
+
 tickTack::chr_coordinates_hg19
 #> # A tibble: 24 × 6
 #>    chr      length       from         to centromerStart centromerEnd

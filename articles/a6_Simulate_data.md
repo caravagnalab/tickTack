@@ -1,6 +1,7 @@
 # 6. Simulate data
 
 ``` r
+
 library(dplyr)
 n_clocks=3
 n_events=8
@@ -54,10 +55,12 @@ results_model_selection <- tickTack::model_selection_h(results_simulated)
     ## Warning: Some Pareto k diagnostic values are too high. See help('pareto-k-diagnostic') for details.
 
 ``` r
+
 best_K <- results_model_selection$best_K
 ```
 
 ``` r
+
 data_simulation$taus
 ```
 
@@ -71,6 +74,7 @@ object contains four components: `data`, `draws_and_summary`,
 `log_lik_matrix_list` and `elbo_iterations`.
 
 ``` r
+
 # View summary for a specific K, here K = 2
 results <- x$results
 ```
@@ -87,6 +91,7 @@ each segment with a copy number event that has been included in the
 hierarchical inference
 
 ``` r
+
 # View summary for a specific K, here K = 2
 results$draws_and_summary[[2]]$summary
 ```
@@ -107,6 +112,7 @@ results$draws_and_summary[[2]]$summary
     ## # ℹ 40 more rows
 
 ``` r
+
 # View detailed summarized results for a specific K, here K = 2
 results$draws_and_summary[[2]]$summarized_results
 ```
@@ -136,6 +142,7 @@ together with the `model_selection_tibble` and the `entropy_list` used
 to evaluate the ICL score.
 
 ``` r
+
 results_model_selection <- tickTack::model_selection_h(results, n_components = 0)
 ```
 
@@ -143,6 +150,7 @@ results_model_selection <- tickTack::model_selection_h(results, n_components = 0
     ## Warning: Some Pareto k diagnostic values are too high. See help('pareto-k-diagnostic') for details.
 
 ``` r
+
 best_K <- results_model_selection$best_K
 model_selection_tibble <- results_model_selection$model_selection_tibble
 entropy <- results_model_selection$entropy_list
@@ -156,6 +164,7 @@ The results can be viewed is genome-wise perspective using the
 function.
 
 ``` r
+
 tickTack::plot_timing_h(results, best_K)
 ```
 
@@ -170,6 +179,7 @@ and
 functions, that internally use functions from Bayesplot.
 
 ``` r
+
 posterior_clocks <- tickTack::plot_posterior_clocks_h(results, best_K)
 ```
 
@@ -177,6 +187,7 @@ posterior_clocks <- tickTack::plot_posterior_clocks_h(results, best_K)
     ## Adding another scale for x, which will replace the existing scale.
 
 ``` r
+
 posterior_weights <- tickTack::plot_posterior_weights_h(results, best_K)
 ```
 
@@ -185,6 +196,7 @@ posterior_weights <- tickTack::plot_posterior_weights_h(results, best_K)
 ## Visualize the behavior of the ELBO during the inference
 
 ``` r
+
 K = nrow(results_model_selection$model_selection_tibble)
 
 p_elbo <- list()
@@ -202,12 +214,14 @@ for (i in 1:K){
     ## generated.
 
 ``` r
+
 p_elbo <- gridExtra::grid.arrange(grobs = p_elbo, ncol = 2)  #add global title
 ```
 
 ![](a6_Simulate_data_files/figure-html/unnamed-chunk-8-1.png)
 
 ``` r
+
 p_elbo
 ```
 
@@ -221,6 +235,7 @@ p_elbo
 ## Visualize all the inference results for each K
 
 ``` r
+
 plot_model_selection_inference <- list()
 for (i in 1:K){
   plot_model_selection_inference[[i]] <- tickTack::plot_timing_h(results, i) + ggplot2::ggtitle(paste0("K = ", i))
@@ -231,6 +246,7 @@ plot_model_selection_inference <- gridExtra::grid.arrange(grobs = plot_model_sel
 ![](a6_Simulate_data_files/figure-html/unnamed-chunk-9-1.png)
 
 ``` r
+
 plot_model_selection_inference
 ```
 

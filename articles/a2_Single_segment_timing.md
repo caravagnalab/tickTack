@@ -60,6 +60,7 @@ dataset contains three components:
 Preview the data:
 
 ``` r
+
 library(tickTack)
 
 # View example dataset components
@@ -81,6 +82,7 @@ head(mutations)
     ## 6 chr1  2771915 2771915 G     G        90    27 0.3   00db1b95-8ca3-4cc4-bb46-6…
 
 ``` r
+
 head(cna)
 ```
 
@@ -95,6 +97,7 @@ head(cna)
     ## 6 chr1  56834602 121499999     2     2 1            4
 
 ``` r
+
 metadata
 ```
 
@@ -110,6 +113,7 @@ We can run the `fit` function on the
 data to infer the timing of clonal peaks
 
 ``` r
+
 # Extract input data
 segments <- tickTack::pcawg_example$cna
 mutations <- tickTack::pcawg_example$mutations
@@ -132,6 +136,7 @@ The `results` object contains two components: `inference_results` and
 clonal peaks:
 
 ``` r
+
 # View summarized results
 results$summarized_results
 ```
@@ -152,6 +157,7 @@ results$summarized_results
     ## # ℹ 62 more rows
 
 ``` r
+
 # View detailed inference results
 results$inference_results
 ```
@@ -185,6 +191,7 @@ The results can be viewed is genome-wise perspective using the
 function
 
 ``` r
+
 tickTack::plot_timing(results, segments, colour_by = "karyotype")
 ```
 
