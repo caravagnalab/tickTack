@@ -106,7 +106,8 @@ fit_tickTack = function(x,
                     min_mutations_number = 10,
                     max_distance_smooth = 5e6, #1e7 in GEL
                     min_segment_length = 1e6,#,
-                    n_components = NULL
+                    n_components = NULL,
+                    local_executable = FALSE
 ) {
   # stopifnot(inherits(x, 'cnaqc'))
   if ("snvs" %in% names(x) & !"mutations" %in% names(x)) {x$mutations = x$snvs; x$snvs = NULL}
@@ -157,10 +158,38 @@ fit_tickTack = function(x,
 
   # before inference add K to the list obtained as input_data
 
-  fit_single_k = function(input_data, K, tolerance) {
-    m = get_model("tickTack")
+  fit_single_k = function(input_data, K, tolerance, local_executable = FALSE) {
+   
+    if(local_executable==FALSE){
+      model <- get_model("tickTack") 
+    }else{
+      get_model <- function(model_name) {
+        all_paths <- list(
+          "timing_betabinomial" = "mixture_CNA_timing_betabinomial.stan",
+          "timing_binomial" = "mixture_CNA_timing_binomial.stan",
+          "timing" = "mixture_CNA_timing.stan",
+          "clustering" = "clustering.stan",
+          "hierarchical" = "timing_mixed_simple.stan",
+          "tickTack" = "tickTackmixture.stan"
+        )
+        
+        if (!(model_name %in% names(all_paths))) stop("model_name not recognized")
+        cache_dir <- file.path(normalizePath(getwd()), "tickTack_models")
+        if (!dir.exists(cache_dir)) dir.create(cache_dir, recursive = TRUE)
+        model_path <- system.file("cmdstan", all_paths[[model_name]], package = "tickTack", mustWork = TRUE)
+        cached_stan <- file.path(cache_dir, basename(model_path))
+        if (!file.exists(cached_stan)) {
+          file.copy(model_path, cached_stan, overwrite = TRUE)
+        }
+        
+        model <- cmdstanr::cmdstan_model(cached_stan, force_recompile = FALSE)
+        model
+      }
+      model <- get_model("tickTack") 
+    }
+    
     input_data$K = K
-    fit = m$variational(input_data, tol_rel_obj = tolerance, save_latent_dynamics = TRUE)
+    fit = model$variational(input_data, tol_rel_obj = tolerance, save_latent_dynamics = TRUE)
     fit
   }
 
@@ -206,7 +235,7 @@ fit_tickTack = function(x,
     res <- tryCatch({
 
       input_data$K = K
-      fit = fit_single_k(input_data, K, tolerance)
+      fit = fit_single_k(input_data, K, tolerance, local_executable = local_executable)
       clock_assignment = assign_tau_to_segments(fit, input_data$S, input_data$K)
 
       summarized_results <- accepted_cna %>% dplyr::left_join(clock_assignment)
